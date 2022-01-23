@@ -10,7 +10,8 @@ public class GeneticConfiguration : IConfiguration
     public int ParentsPerOffspring { get; } = 2;
     public int MaxIterations { get; } = 1000;
     public double MutationProbability { get; } = 0.05d;
-    
+
+    public string CostMatrixPath { get; } = "/Users/rtry/be52.tsp";
     
     public T GetPropertyValue<T>(string name)
     {
