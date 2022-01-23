@@ -1,5 +1,6 @@
 using GeneticOptimization.Configuration;
 using GeneticOptimization.Data;
+using GeneticOptimization.Operators.ConflictResolvers;
 using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Operators.Crossovers;
@@ -8,10 +9,12 @@ public abstract class Crossover : IOperatorWithInput<Parents<IPopulationModel>>,
 {
     public Parents<IPopulationModel> Data { get; set; }
     protected IConfiguration _configuration;
+    protected IConflictResolver _conflictResolver;
 
-    protected Crossover(IConfiguration configuration)
+    protected Crossover(IConfiguration configuration, IConflictResolver conflictResolver)
     {
         _configuration = configuration;
+        _conflictResolver = conflictResolver;
     }
 
     public void AttachData(Parents<IPopulationModel> data)

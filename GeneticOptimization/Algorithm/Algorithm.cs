@@ -9,6 +9,7 @@ public class Algorithm
 {
     private IList<IOperator> _operators;
     private IConfiguration _configuration;
+    private ICostMatrix _costMatrix;
 
     public Algorithm(IConfiguration configuration)
     {
@@ -35,6 +36,11 @@ public class Algorithm
         _operators.Add(geneticOperator);
     }
 
+    public void AddCostMatrix(ICostMatrix costMatrix)
+    {
+        _costMatrix = costMatrix;
+    }
+
     public void Run()
     {
         var random = Random.Shared;
@@ -42,16 +48,24 @@ public class Algorithm
         var populationSize = _configuration.GetPropertyValue<int>("PopulationSize");
         var population = new Population<IPopulationModel>(populationSize, () =>
         {
-            var body = new int[10];
-            for (int i = 0; i < body.Length; i++)
+            var body = new int[_costMatrix.Matrix.Length + 1];
+
+            var internals = Enumerable.Range(1, body.Length - 2).OrderBy(x => random.Next()).ToArray();
+            body[0] = 0;
+            body[^1] = 0;
+            for (int i = 1; i < body.Length - 1; i++)
             {
-                body[i] = random.Next(0, 50);
+                body[i] = internals[i - 1];
             }
 
-            return new SeparatedPopulationModel(body);
+            return new TspPopulationModel(body);
         }, model =>
         {
-            var cost = model.Body.Sum();
+            var cost = 0d;
+            for (int i = 0; i < model.Body.Length - 1; i++)
+            {
+                cost += _costMatrix.Matrix[model.Body[i]][model.Body[i + 1]];
+            }
             return cost;
         });
         IData lastData = population;

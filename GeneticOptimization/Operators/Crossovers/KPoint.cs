@@ -1,5 +1,6 @@
 using GeneticOptimization.Configuration;
 using GeneticOptimization.Data;
+using GeneticOptimization.Operators.ConflictResolvers;
 using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Operators.Crossovers;
@@ -12,6 +13,8 @@ public class KPoint : Crossover
         var offspringCount = _configuration.GetPropertyValue<int>("OffspringCount");
         var offsprings = new Offsprings<IPopulationModel>(offspringCount);
 
+        var bodyLength = Data.ParentsArray[0].Body.Length;
+        
         for (int i = 0; i < offspringCount; i++)
         {
             var parentCount = _configuration.GetPropertyValue<int>("ParentsPerOffspring");
@@ -21,7 +24,7 @@ public class KPoint : Crossover
                 parents.ParentsArray[j] = Data.ParentsArray[random.Next(Data.Length)];
             }
 
-            var body = new int[parents.ParentsArray[0].Body.Length];
+            var body = new int[bodyLength];
             for (int j = 0; j < body.Length; j++)
             {
                 body[j] = parents.ParentsArray[j % parentCount].Body[j];
@@ -35,5 +38,5 @@ public class KPoint : Crossover
 
     }
 
-    public KPoint(IConfiguration configuration) : base(configuration) {}
+    public KPoint(IConfiguration configuration, IConflictResolver conflictResolver) : base(configuration, conflictResolver) {}
 }
