@@ -1,12 +1,14 @@
 using GeneticOptimization.Configuration;
 using GeneticOptimization.Data;
+using GeneticOptimization.Log;
 using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Operators.Mutations;
 
-public abstract class Mutation : IPopulationOperator, IOperatorWithResult<Population<IPopulationModel>>
+public abstract class Mutation : ILoggable, IPopulationOperator, IOperatorWithResult<Population<IPopulationModel>>
 {
     protected IConfiguration _configuration;
+    protected ILogger _logger;
 
     protected Mutation(IConfiguration configuration)
     {
@@ -28,5 +30,15 @@ public abstract class Mutation : IPopulationOperator, IOperatorWithResult<Popula
     public void AttachPopulation(Population<IPopulationModel> population)
     {
         Population = population;
+    }
+
+    public void AttachLogger(ILogger logger)
+    {
+        _logger = logger;
+    }
+
+    public ILogger GetLogger()
+    {
+        return _logger;
     }
 }

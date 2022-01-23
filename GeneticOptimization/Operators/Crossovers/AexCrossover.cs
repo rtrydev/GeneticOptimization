@@ -1,5 +1,6 @@
 using GeneticOptimization.Configuration;
 using GeneticOptimization.Data;
+using GeneticOptimization.Log;
 using GeneticOptimization.Operators.ConflictResolvers;
 using GeneticOptimization.PopulationModels;
 
@@ -14,6 +15,7 @@ public class AexCrossover : Crossover
         var random = Random.Shared;
         var offspringCount = _configuration.GetPropertyValue<int>("OffspringCount");
         var parentCount = _configuration.GetPropertyValue<int>("ParentsPerOffspring");
+        
         
         var bodyLength = Data.ParentsArray[0].Body.Length;
 
@@ -36,12 +38,14 @@ public class AexCrossover : Crossover
                 if (nextIndex == body.Length - 1)
                 {
                     _conflictResolver.ResolveConflict(body, j, availablePoints);
+                    _logger.LogFormat.ConflictResolves++;
                     continue;
                 }
                 var nextPoint = parents.ParentsArray[j % parentCount].Body[nextIndex];
                 if (body.Contains(nextPoint))
                 {
                     _conflictResolver.ResolveConflict(body, j, availablePoints);
+                    _logger.LogFormat.ConflictResolves++;
                 }
                 else
                 {

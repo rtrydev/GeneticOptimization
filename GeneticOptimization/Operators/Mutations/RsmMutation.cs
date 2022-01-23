@@ -18,6 +18,7 @@ public class RsmMutation : Mutation
         {
             if (random.NextDouble() <= probability)
             {
+                _logger.LogFormat.MutationCount++;
                 var j = random.Next(1, individual.Body.Length);
                 var i = random.Next(1, j);
                 Array.Reverse(individual.Body, i, j - i);
