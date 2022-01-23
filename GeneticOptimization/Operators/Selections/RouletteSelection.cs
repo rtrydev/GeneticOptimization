@@ -4,11 +4,11 @@ using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Operators.Selections;
 
-public class WheelOfFortune : Selection
+public class RouletteSelection : Selection
 {
     private readonly Random _random = Random.Shared;
 
-    public WheelOfFortune(IConfiguration configuration) : base(configuration){} 
+    public RouletteSelection(IConfiguration configuration) : base(configuration){} 
     public override Parents<IPopulationModel> Run()
     {
         var dataLength = Data.Length;

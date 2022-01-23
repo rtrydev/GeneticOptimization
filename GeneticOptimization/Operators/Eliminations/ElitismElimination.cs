@@ -4,12 +4,11 @@ using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Operators.Eliminations;
 
-public class Elitism : Elimination
+public class ElitismElimination : Elimination
 {
     public override Population<IPopulationModel> Run()
     {
         var populationSize = Population.Length;
-        var fitness = new double[populationSize];
 
         var population = Population.PopulationArray.OrderBy(x => Population.CostFunction(x)).ToArray();
 
@@ -25,5 +24,5 @@ public class Elitism : Elimination
 
     }
 
-    public Elitism(IConfiguration configuration) : base(configuration) {}
+    public ElitismElimination(IConfiguration configuration) : base(configuration) {}
 }

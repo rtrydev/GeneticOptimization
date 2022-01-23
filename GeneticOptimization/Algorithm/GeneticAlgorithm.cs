@@ -5,29 +5,29 @@ using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Algorithm;
 
-public class Algorithm
+public class GeneticAlgorithm
 {
     private IList<IOperator> _operators;
     private IConfiguration _configuration;
     private ICostMatrix _costMatrix;
 
-    public Algorithm(IConfiguration configuration)
+    public GeneticAlgorithm(IConfiguration configuration)
     {
         _configuration = configuration;
         _operators = new List<IOperator>();
     }
 
-    private IOperator? GetLastPlugin()
+    private IOperator? GetLastOperator()
     {
         if (_operators.Count == 0) return null;
         return _operators.Last();
     }
     
-    public void AddPluggable(IOperator geneticOperator)
+    public void AddOperator(IOperator geneticOperator)
     {
-        var lastPlugin = GetLastPlugin();
+        var lastOperator = GetLastOperator();
 
-        if (lastPlugin is null)
+        if (lastOperator is null)
         {
             _operators.Add(geneticOperator);
             return;
@@ -70,8 +70,8 @@ public class Algorithm
         });
         IData lastData = population;
 
-        var fitness = population.PopulationArray.Select(x => population.CostFunction(x)).ToArray();
-        Console.WriteLine(fitness.Min());
+        var costArray = population.PopulationArray.Select(x => population.CostFunction(x)).ToArray();
+        Console.WriteLine(costArray.Min());
 
         var maxIterations = _configuration.GetPropertyValue<int>("MaxIterations");
 
@@ -91,8 +91,8 @@ public class Algorithm
             }
         }
         
-        fitness = population.PopulationArray.Select(x => population.CostFunction(x)).ToArray();
-        Console.WriteLine(fitness.Min());
+        costArray = population.PopulationArray.Select(x => population.CostFunction(x)).ToArray();
+        Console.WriteLine(costArray.Min());
         
         
     }

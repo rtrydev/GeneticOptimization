@@ -5,9 +5,9 @@ using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Operators.Crossovers;
 
-public class Aex : Crossover
+public class AexCrossover : Crossover
 {
-    public Aex(IConfiguration configuration, IConflictResolver conflictResolver) : base(configuration, conflictResolver) {}
+    public AexCrossover(IConfiguration configuration, IConflictResolver conflictResolver) : base(configuration, conflictResolver) {}
 
     public override Offsprings<IPopulationModel> Run()
     {

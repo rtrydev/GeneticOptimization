@@ -14,17 +14,17 @@ var costMatrix = new TspCostMatrix(fileReader.ReadDistancesMatrix("/Users/rtry/b
 
 var conflictResolver = new NearestNeighborResolver(costMatrix);
 
-var selection = new WheelOfFortune(config);
-var crossover = new Aex(config, conflictResolver);
-var elimination = new Elitism(config);
+var selection = new RouletteSelection(config);
+var crossover = new AexCrossover(config, conflictResolver);
+var elimination = new ElitismElimination(config);
 var mutation = new RsmMutation(config);
 
-var algorithm = new Algorithm(config);
+var algorithm = new GeneticAlgorithm(config);
 
-algorithm.AddPluggable(selection);
-algorithm.AddPluggable(crossover);
-algorithm.AddPluggable(elimination);
-algorithm.AddPluggable(mutation);
+algorithm.AddOperator(selection);
+algorithm.AddOperator(crossover);
+algorithm.AddOperator(elimination);
+algorithm.AddOperator(mutation);
 algorithm.AddCostMatrix(costMatrix);
 algorithm.Run();
 
