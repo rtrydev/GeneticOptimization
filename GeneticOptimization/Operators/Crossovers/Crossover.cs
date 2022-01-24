@@ -18,12 +18,14 @@ public abstract class Crossover : ILoggable, IOperatorWithInput<Parents<IPopulat
     protected IConflictResolver _conflictResolver;
     protected ILogger _logger;
     protected IConflictResolver _randomizedResolver;
+    protected ICostMatrix _costMatrix;
 
-    protected Crossover(IConfiguration configuration, IConflictResolver conflictResolver, IConflictResolver randomizedResolver)
+    protected Crossover(IConfiguration configuration, IConflictResolver conflictResolver, IConflictResolver randomizedResolver, ICostMatrix costMatrix)
     {
         _configuration = configuration;
         _conflictResolver = conflictResolver;
         _randomizedResolver = randomizedResolver;
+        _costMatrix = costMatrix;
     }
 
     public void AttachData(Parents<IPopulationModel> data)

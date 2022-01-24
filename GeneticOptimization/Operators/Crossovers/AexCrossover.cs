@@ -8,8 +8,8 @@ namespace GeneticOptimization.Operators.Crossovers;
 
 public class AexCrossover : Crossover
 {
-    public AexCrossover(IConfiguration configuration, IConflictResolver conflictResolver, IConflictResolver randomizedResolver) 
-        : base(configuration, conflictResolver, randomizedResolver) {}
+    public AexCrossover(IConfiguration configuration, IConflictResolver conflictResolver, IConflictResolver randomizedResolver, ICostMatrix costMatrix) 
+        : base(configuration, conflictResolver, randomizedResolver, costMatrix) {}
 
     public override Offsprings<IPopulationModel> Run()
     {
@@ -33,6 +33,7 @@ public class AexCrossover : Crossover
             var body = new int[bodyLength];
             body[0] = parents.ParentsArray[0].Body[0];
             var lastPoint = body[0];
+            body[^1] = body[0];
             for (int j = 1; j < body.Length - 1; j++)
             {
                 var nextIndex = Array.IndexOf(parents.ParentsArray[j % parentCount].Body, lastPoint) + 1;

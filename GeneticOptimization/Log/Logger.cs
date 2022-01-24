@@ -60,6 +60,6 @@ public class Logger : ILogger
         {
             logString.Add(l);
         }
-        File.WriteAllLines("/Users/rtry/log.csv", logString);
+        File.WriteAllLines(config.LogPath, logString);
     }
 }

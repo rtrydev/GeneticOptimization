@@ -8,15 +8,15 @@ namespace GeneticOptimization.Configuration;
 
 public class GeneticConfiguration : IConfiguration
 {
-    public int PopulationSize { get; } = 100;
-    public int ParentsCount { get; } = 30;
-    public int OffspringCount { get; } = 30;
+    public int PopulationSize { get; } = 120;
+    public int ParentsCount { get; } = 60;
+    public int OffspringCount { get; } = 60;
     public int ParentsPerOffspring { get; } = 2;
-    public int MaxIterations { get; } = 100;
-    public double MutationProbability { get; } = 0.15d;
+    public int MaxIterations { get; } = 500;
+    public double MutationProbability { get; } = 0.1d;
 
     public string CostMatrixPath { get; } = "/Users/rtry/be52.tsp";
-    public string LogPath { get; } = "";
+    public string LogPath { get; } = "/Users/rtry/log.csv";
 
     public SelectionMethod SelectionMethod { get; } = SelectionMethod.Roulette;
     public CrossoverMethod CrossoverMethod { get; } = CrossoverMethod.Aex;
@@ -25,7 +25,7 @@ public class GeneticConfiguration : IConfiguration
 
     public ConflictResolveMethod ConflictResolveMethod { get; } = ConflictResolveMethod.NearestNeighbor;
     public ConflictResolveMethod RandomisedResolveMethod { get; } = ConflictResolveMethod.NearestNeighbor;
-    public double RandomisedResolveProbability { get; } = 0.4d;
+    public double RandomisedResolveProbability { get; } = 0.2d;
     
     public T GetPropertyValue<T>(string name)
     {
