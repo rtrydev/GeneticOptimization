@@ -11,8 +11,8 @@ public class GeneticConfiguration : IConfiguration
     public int PopulationSize { get; } = 120;
     public int ParentsCount { get; } = 60;
     public int OffspringCount { get; } = 30;
-    public int ParentsPerOffspring { get; } = 2;
-    public int MaxIterations { get; } = 200;
+    public int ParentsPerOffspring { get; } = 8;
+    public int MaxIterations { get; } = 1000;
     public double MutationProbability { get; } = 0.1d;
 
     public string CostMatrixPath { get; } = "/Users/rtry/be52.tsp";

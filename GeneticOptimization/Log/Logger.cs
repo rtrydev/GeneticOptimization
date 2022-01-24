@@ -58,11 +58,15 @@ public class Logger : ILogger
         logString.Add(
             $"{config.SelectionMethod};{config.CrossoverMethod};{config.MutationMethod};{config.EliminationMethod};{config.ConflictResolveMethod};{config.RandomisedResolveMethod};{config.RandomisedResolveProbability};{config.MaxIterations};{config.MutationProbability:0.##};{_startTime};{_endTime};{_endTime - _startTime}");
         var bestModelString = "";
-        for (int i = 0; i < BestModel.Body.Length; i++)
+        for (int i = 0; i < BestModel.Body.Length - 1; i++)
         {
             bestModelString += $"{BestModel.Body[i]},";
         }
+        bestModelString += $"{BestModel.Body[^1]}";
+        
         logString.Add("Best model: " + bestModelString);
+        logString.Add($"Cost: {BestModel.Cost}");
+        
         
         logString.Add("Epoch;WorstCost;AvgCost;MedianCost;BestCost;MutationCount;ConflictResolves;RandomizedResolves");
         foreach (var l in log)
