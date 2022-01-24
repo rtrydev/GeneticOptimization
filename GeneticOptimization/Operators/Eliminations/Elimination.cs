@@ -3,11 +3,6 @@ using GeneticOptimization.Data;
 using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Operators.Eliminations;
-
-public enum EliminationMethod
-{
-    Elitism
-}
 public abstract class Elimination : IPopulationOperator, IOperatorWithInput<Offsprings<IPopulationModel>>, IOperatorWithResult<Population<IPopulationModel>>
 {
     public Population<IPopulationModel> Population { get; set; }

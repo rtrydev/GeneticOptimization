@@ -6,12 +6,6 @@ using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Operators.Crossovers;
 
-public enum CrossoverMethod
-{
-    Aex,
-    HProX
-}
-
 public abstract class Crossover : ILoggable, IOperatorWithInput<Parents<IPopulationModel>>, IOperatorWithResult<Offsprings<IPopulationModel>>
 {
     public Parents<IPopulationModel> Data { get; set; }

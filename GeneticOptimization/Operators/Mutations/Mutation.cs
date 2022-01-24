@@ -5,11 +5,6 @@ using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Operators.Mutations;
 
-public enum MutationMethod
-{
-    Rsm
-}
-
 public abstract class Mutation : ILoggable, IPopulationOperator, IOperatorWithResult<Population<IPopulationModel>>
 {
     protected IConfiguration _configuration;

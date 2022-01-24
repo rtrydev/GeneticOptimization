@@ -4,12 +4,6 @@ using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Operators.Selections;
 
-public enum SelectionMethod
-{
-    Roulette,
-    Elitism
-}
-
 public abstract class Selection : IOperatorWithInput<Population<IPopulationModel>>, IOperatorWithResult<Parents<IPopulationModel>>
 {
     public Population<IPopulationModel> Data { get; set; }
