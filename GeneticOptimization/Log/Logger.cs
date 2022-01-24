@@ -54,9 +54,8 @@ public class Logger : ILogger
         var logString = new List<string>();
         
         logString.Add("Selection;Crossover;Mutation;Elimination;ConflictResolver;RandomisedResolver;RandomisedResolveProb;EpochCount;MutationProb;StartTime;EndTime;Duration");
-        var config = _configuration as GeneticConfiguration;
         logString.Add(
-            $"{config.SelectionMethod};{config.CrossoverMethod};{config.MutationMethod};{config.EliminationMethod};{config.ConflictResolveMethod};{config.RandomisedResolveMethod};{config.RandomisedResolveProbability};{config.MaxIterations};{config.MutationProbability:0.##};{_startTime};{_endTime};{_endTime - _startTime}");
+            $"{_configuration.OperatorInformation[0].OperatorName};{_configuration.OperatorInformation[1].OperatorName};{_configuration.OperatorInformation[2].OperatorName};{_configuration.OperatorInformation[3].OperatorName};{_configuration.ConflictResolveMethod};{_configuration.RandomisedResolveMethod};{_configuration.RandomisedResolveProbability};{_configuration.MaxIterations};{_configuration.MutationProbability:0.##};{_startTime};{_endTime};{_endTime - _startTime}");
         var bestModelString = "";
         for (int i = 0; i < BestModel.Body.Length - 1; i++)
         {
@@ -73,6 +72,6 @@ public class Logger : ILogger
         {
             logString.Add(l);
         }
-        File.WriteAllLines(config.LogPath, logString);
+        File.WriteAllLines(_configuration.LogPath, logString);
     }
 }

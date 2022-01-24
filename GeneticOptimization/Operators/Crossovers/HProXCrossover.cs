@@ -13,9 +13,9 @@ public class HProXCrossover : Crossover
     public override Offsprings<IPopulationModel> Run()
     {
         var random = Random.Shared;
-        var offspringCount = _configuration.GetPropertyValue<int>("OffspringCount");
-        var parentCount = _configuration.GetPropertyValue<int>("ParentsPerOffspring");
-        var randomisedResolveProb = _configuration.GetPropertyValue<double>("RandomisedResolveProbability");
+        var offspringCount = _configuration.OffspringCount;
+        var parentCount = _configuration.ParentsPerOffspring;
+        var randomisedResolveProb = _configuration.RandomisedResolveProbability;
         
         var bodyLength = Data.ParentsArray[0].Body.Length;
 

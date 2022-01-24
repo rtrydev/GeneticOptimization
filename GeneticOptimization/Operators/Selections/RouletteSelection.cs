@@ -8,17 +8,17 @@ public class RouletteSelection : Selection
 {
     private readonly Random _random = Random.Shared;
 
-    public RouletteSelection(IConfiguration configuration) : base(configuration){} 
+    public RouletteSelection(IConfiguration configuration, ICostMatrix costMatrix) : base(configuration, costMatrix){} 
     public override Parents<IPopulationModel> Run()
     {
         var dataLength = Data.Length;
         var cost = new double[dataLength];
-        var parentCount = _configuration.GetPropertyValue<int>("ParentsCount");
+        var parentCount = _configuration.ParentsCount;
         var parents = new Parents<IPopulationModel>(parentCount);
 
         for (int i = 0; i < dataLength; i++)
         {
-            cost[i] = Data.CostFunction(Data.PopulationArray[i]);
+            cost[i] = Data.CostFunction(Data.PopulationArray[i], _costMatrix);
         }
 
         var costMax = cost.Max();

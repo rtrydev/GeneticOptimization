@@ -6,7 +6,8 @@ namespace GeneticOptimization.Operators.Selections;
 
 public enum SelectionMethod
 {
-    Roulette
+    Roulette,
+    Elitism
 }
 
 public abstract class Selection : IOperatorWithInput<Population<IPopulationModel>>, IOperatorWithResult<Parents<IPopulationModel>>
@@ -14,10 +15,12 @@ public abstract class Selection : IOperatorWithInput<Population<IPopulationModel
     public Population<IPopulationModel> Data { get; set; }
 
     protected IConfiguration _configuration;
+    protected ICostMatrix _costMatrix;
 
-    public Selection(IConfiguration configuration)
+    public Selection(IConfiguration configuration, ICostMatrix costMatrix)
     {
         _configuration = configuration;
+        _costMatrix = costMatrix;
     }
     public void AttachData(Population<IPopulationModel> data)
     {

@@ -8,7 +8,8 @@ namespace GeneticOptimization.Operators.Crossovers;
 
 public enum CrossoverMethod
 {
-    Aex
+    Aex,
+    HProX
 }
 
 public abstract class Crossover : ILoggable, IOperatorWithInput<Parents<IPopulationModel>>, IOperatorWithResult<Offsprings<IPopulationModel>>

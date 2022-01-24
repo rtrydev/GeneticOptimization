@@ -14,9 +14,11 @@ public abstract class Mutation : ILoggable, IPopulationOperator, IOperatorWithRe
 {
     protected IConfiguration _configuration;
     protected ILogger _logger;
+    protected ICostMatrix _costMatrix;
 
-    protected Mutation(IConfiguration configuration)
+    protected Mutation(IConfiguration configuration, ICostMatrix costMatrix)
     {
+        _costMatrix = costMatrix;
         _configuration = configuration;
     }
     public void AttachData(IData data)

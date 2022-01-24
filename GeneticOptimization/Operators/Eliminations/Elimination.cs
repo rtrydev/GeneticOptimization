@@ -12,10 +12,12 @@ public abstract class Elimination : IPopulationOperator, IOperatorWithInput<Offs
 {
     public Population<IPopulationModel> Population { get; set; }
     protected IConfiguration _configuration;
+    protected ICostMatrix _costMatrix;
 
-    protected Elimination(IConfiguration configuration)
+    protected Elimination(IConfiguration configuration, ICostMatrix costMatrix)
     {
         _configuration = configuration;
+        _costMatrix = costMatrix;
     }
     
     public void AttachPopulation(Population<IPopulationModel> population)

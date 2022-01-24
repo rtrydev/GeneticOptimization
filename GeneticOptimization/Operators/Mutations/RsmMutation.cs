@@ -6,12 +6,12 @@ namespace GeneticOptimization.Operators.Mutations;
 
 public class RsmMutation : Mutation
 {
-    public RsmMutation(IConfiguration configuration) : base(configuration) {}
+    public RsmMutation(IConfiguration configuration, ICostMatrix costMatrix) : base(configuration, costMatrix) {}
 
     public override Population<IPopulationModel> Run()
     {
         var random = Random.Shared;
-        var probability = _configuration.GetPropertyValue<double>("MutationProbability");
+        var probability = _configuration.MutationProbability;
         var population = Population.PopulationArray;
 
         for (int k = 1; k < population.Length; k++)
@@ -22,7 +22,7 @@ public class RsmMutation : Mutation
                 var j = random.Next(1, population[k].Body.Length - 1);
                 var i = random.Next(1, j);
                 Array.Reverse(population[k].Body, i, j - i);
-                population[k].Cost = Population.CostFunction(population[k]);
+                population[k].Cost = Population.CostFunction(population[k], _costMatrix);
                 
             }
         }

@@ -1,7 +1,9 @@
 using GeneticOptimization.Configuration;
+using GeneticOptimization.CostFunctions;
 using GeneticOptimization.Data;
 using GeneticOptimization.Log;
 using GeneticOptimization.Operators;
+using GeneticOptimization.PopulationInitializers;
 using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Algorithm;
@@ -46,41 +48,27 @@ public class GeneticAlgorithm : ILoggable
     public void Run()
     {
         _logger.StartTimer();
-        var random = Random.Shared;
         var operatorsCount = _operators.Count;
-        var populationSize = _configuration.GetPropertyValue<int>("PopulationSize");
-        var population = new Population<IPopulationModel>(populationSize, () =>
-        {
-            var body = new int[_costMatrix.Matrix.Length + 1];
-
-            var internals = Enumerable.Range(1, body.Length - 2).OrderBy(x => random.Next()).ToArray();
-            body[0] = 0;
-            body[^1] = 0;
-            for (int i = 1; i < body.Length - 1; i++)
-            {
-                body[i] = internals[i - 1];
-            }
-
-            return new TspPopulationModel(body, double.MaxValue);
-        }, model =>
-        {
-            var cost = 0d;
-            for (int i = 0; i < model.Body.Length - 1; i++)
-            {
-                cost += _costMatrix.Matrix[model.Body[i]][model.Body[i + 1]];
-            }
-            return cost;
-        });
+        var populationSize = _configuration.PopulationSize;
+        var population = new Population<IPopulationModel>(populationSize, TspPopulationGenerator.GenerateOneModel, TspCostFunction.CalculateCost, _costMatrix);
         foreach (var individual in population.PopulationArray)
         {
-            individual.Cost = population.CostFunction(individual);
+            individual.Cost = population.CostFunction(individual, _costMatrix);
+        }
+
+        foreach (var o in _operators)
+        {
+            if (o is ILoggable loggable)
+            {
+                loggable.AttachLogger(_logger);
+            }
         }
 
         population.PopulationArray = population.PopulationArray.OrderBy(x => x.Cost).ToArray();
         IData lastData = population;
 
 
-        var maxIterations = _configuration.GetPropertyValue<int>("MaxIterations");
+        var maxIterations = _configuration.MaxIterations;
 
         for (int j = 0; j < maxIterations; j++)
         {
@@ -98,7 +86,7 @@ public class GeneticAlgorithm : ILoggable
 
                 lastData = geneticOperator.Run();
             }
-            var costArray = population.PopulationArray.Select(x => population.CostFunction(x)).OrderBy(x => x).ToArray();
+            var costArray = population.PopulationArray.Select(x => population.CostFunction(x, _costMatrix)).OrderBy(x => x).ToArray();
             _logger.LogFormat.Epoch = j + 1;
             _logger.LogFormat.BestCost = costArray.Min();
             _logger.LogFormat.AvgCost = costArray.Average();

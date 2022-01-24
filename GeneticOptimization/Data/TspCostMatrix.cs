@@ -10,7 +10,7 @@ public class TspCostMatrix : ICostMatrix
     public TspCostMatrix(IConfiguration configuration)
     {
         var fileReader = new FileReader();
-        var filePath = configuration.GetPropertyValue<string>("CostMatrixPath");
+        var filePath = configuration.CostMatrixPath;
         Matrix = fileReader.ReadDistancesMatrix(filePath);
         
     }
