@@ -61,7 +61,7 @@ public class GeneticAlgorithm : ILoggable
                 body[i] = internals[i - 1];
             }
 
-            return new TspPopulationModel(body);
+            return new TspPopulationModel(body, double.MaxValue);
         }, model =>
         {
             var cost = 0d;
@@ -71,6 +71,12 @@ public class GeneticAlgorithm : ILoggable
             }
             return cost;
         });
+        foreach (var individual in population.PopulationArray)
+        {
+            individual.Cost = population.CostFunction(individual);
+        }
+
+        population.PopulationArray = population.PopulationArray.OrderBy(x => x.Cost).ToArray();
         IData lastData = population;
 
 
@@ -86,12 +92,14 @@ public class GeneticAlgorithm : ILoggable
                 if (geneticOperator is IPopulationOperator @operator)
                 {
                     @operator.AttachPopulation(population);
+                    geneticOperator.Run();
+                    continue;
                 }
 
                 lastData = geneticOperator.Run();
             }
             var costArray = population.PopulationArray.Select(x => population.CostFunction(x)).OrderBy(x => x).ToArray();
-            _logger.LogFormat.Epoch = j;
+            _logger.LogFormat.Epoch = j + 1;
             _logger.LogFormat.BestCost = costArray.Min();
             _logger.LogFormat.AvgCost = costArray.Average();
             _logger.LogFormat.MedianCost = costArray[costArray.Length / 2];

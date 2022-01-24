@@ -12,10 +12,11 @@ var config = new GeneticConfiguration();
 var costMatrix = new TspCostMatrix(config);
 
 var conflictResolver = new NearestNeighborResolver(costMatrix);
+var randomisedResolver = new NearestNeighborResolver(costMatrix);
 var logger = new Logger(config);
 
 var selection = new RouletteSelection(config);
-var crossover = new AexCrossover(config, conflictResolver);
+var crossover = new AexCrossover(config, conflictResolver, randomisedResolver);
 crossover.AttachLogger(logger);
 var elimination = new ElitismElimination(config);
 var mutation = new RsmMutation(config);

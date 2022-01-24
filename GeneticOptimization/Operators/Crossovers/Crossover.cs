@@ -6,17 +6,24 @@ using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Operators.Crossovers;
 
+public enum CrossoverMethod
+{
+    Aex
+}
+
 public abstract class Crossover : ILoggable, IOperatorWithInput<Parents<IPopulationModel>>, IOperatorWithResult<Offsprings<IPopulationModel>>
 {
     public Parents<IPopulationModel> Data { get; set; }
     protected IConfiguration _configuration;
     protected IConflictResolver _conflictResolver;
     protected ILogger _logger;
+    protected IConflictResolver _randomizedResolver;
 
-    protected Crossover(IConfiguration configuration, IConflictResolver conflictResolver)
+    protected Crossover(IConfiguration configuration, IConflictResolver conflictResolver, IConflictResolver randomizedResolver)
     {
         _configuration = configuration;
         _conflictResolver = conflictResolver;
+        _randomizedResolver = randomizedResolver;
     }
 
     public void AttachData(Parents<IPopulationModel> data)

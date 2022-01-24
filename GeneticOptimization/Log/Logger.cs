@@ -51,10 +51,10 @@ public class Logger : ILogger
         var log = GetLog();
         var logString = new List<string>();
         
-        logString.Add("Selection;Crossover;Mutation;Elimination;EpochCount;MutationProb;StartTime;EndTime;Duration");
+        logString.Add("Selection;Crossover;Mutation;Elimination;ConflictResolver;RandomisedResolver;RandomisedResolveProb;EpochCount;MutationProb;StartTime;EndTime;Duration");
         var config = _configuration as GeneticConfiguration;
         logString.Add(
-            $"Roulette;Aex;RSM;Elitism;{config.MaxIterations};{config.MutationProbability:0.##};{_startTime};{_endTime};{_endTime - _startTime}");
+            $"{config.SelectionMethod};{config.CrossoverMethod};{config.MutationMethod};{config.EliminationMethod};{config.ConflictResolveMethod};{config.RandomisedResolveMethod};{config.RandomisedResolveProbability};{config.MaxIterations};{config.MutationProbability:0.##};{_startTime};{_endTime};{_endTime - _startTime}");
         logString.Add("Epoch;WorstCost;AvgCost;MedianCost;BestCost;MutationCount;ConflictResolves;RandomizedResolves");
         foreach (var l in log)
         {
