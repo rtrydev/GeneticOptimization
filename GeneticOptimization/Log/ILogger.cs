@@ -1,3 +1,5 @@
+using GeneticOptimization.PopulationModels;
+
 namespace GeneticOptimization.Log;
 
 public interface ILogger
@@ -8,4 +10,5 @@ public interface ILogger
     public void StartTimer();
     public void StopTimer();
     public void WriteLogToFile();
+    public IPopulationModel BestModel { get; set; }
 }

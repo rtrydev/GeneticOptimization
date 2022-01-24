@@ -1,4 +1,5 @@
 using GeneticOptimization.Configuration;
+using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Log;
 
@@ -8,6 +9,7 @@ public class Logger : ILogger
     private DateTime _startTime;
     private DateTime _endTime;
     private IConfiguration _configuration;
+    public IPopulationModel BestModel { get; set; }
 
     public Logger(IConfiguration configuration)
     {
@@ -55,6 +57,13 @@ public class Logger : ILogger
         var config = _configuration as GeneticConfiguration;
         logString.Add(
             $"{config.SelectionMethod};{config.CrossoverMethod};{config.MutationMethod};{config.EliminationMethod};{config.ConflictResolveMethod};{config.RandomisedResolveMethod};{config.RandomisedResolveProbability};{config.MaxIterations};{config.MutationProbability:0.##};{_startTime};{_endTime};{_endTime - _startTime}");
+        var bestModelString = "";
+        for (int i = 0; i < BestModel.Body.Length; i++)
+        {
+            bestModelString += $"{BestModel.Body[i]},";
+        }
+        logString.Add("Best model: " + bestModelString);
+        
         logString.Add("Epoch;WorstCost;AvgCost;MedianCost;BestCost;MutationCount;ConflictResolves;RandomizedResolves");
         foreach (var l in log)
         {

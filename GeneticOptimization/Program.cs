@@ -15,7 +15,7 @@ var conflictResolver = new NearestNeighborResolver(costMatrix);
 var randomisedResolver = new NearestNeighborResolver(costMatrix);
 var logger = new Logger(config);
 
-var selection = new ElitismSelection(config);
+var selection = new RouletteSelection(config);
 var crossover = new HProXCrossover(config, conflictResolver, randomisedResolver, costMatrix);
 crossover.AttachLogger(logger);
 var elimination = new ElitismElimination(config);

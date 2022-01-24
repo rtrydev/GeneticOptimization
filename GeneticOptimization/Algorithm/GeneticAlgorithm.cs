@@ -106,6 +106,8 @@ public class GeneticAlgorithm : ILoggable
             _logger.LogFormat.WorstCost = costArray.Max();
             _logger.NextEpoch();  
         }
+
+        _logger.BestModel = population.PopulationArray[0];
         _logger.StopTimer();
               
         

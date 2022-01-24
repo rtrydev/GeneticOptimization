@@ -37,6 +37,7 @@ public class AexCrossover : Crossover
             for (int j = 1; j < body.Length - 1; j++)
             {
                 var nextIndex = Array.IndexOf(parents.ParentsArray[j % parentCount].Body, lastPoint) + 1;
+                lastPoint = body[j - 1];
 
                 if (random.NextDouble() <= randomisedResolveProb)
                 {

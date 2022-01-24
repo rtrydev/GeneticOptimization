@@ -33,6 +33,7 @@ public class HProXCrossover : Crossover
             for (int j = 1; j < bodyLength - 1; j++)
             {
                 var feasibleParents = new List<IPopulationModel>(Data.ParentsArray);
+                lastPoint = body[j - 1];
 
                 for (int k = 0; k < feasibleParents.Count; k++)
                 {
