@@ -5,17 +5,17 @@ namespace GeneticOptimization.Configuration;
 
 public class TspConfiguration : IConfiguration
 {
-    public int PopulationSize { get; } = 120;
-    public int ParentsCount { get; } = 90;
-    public int OffspringCount { get; } = 60;
-    public int ParentsPerOffspring { get; } = 8;
-    public int MaxIterations { get; } = 300;
-    public double MutationProbability { get; } = 0.1d;
+    public int PopulationSize { get; set; } = 120;
+    public int ParentsCount { get; set; } = 90;
+    public int OffspringCount { get; set; } = 60;
+    public int ParentsPerOffspring { get; set; } = 8;
+    public int MaxIterations { get; set; } = 300;
+    public double MutationProbability { get; set; } = 0.1d;
 
-    public string CostMatrixPath { get; } = "/Users/rtry/Data/be52.tsp";
-    public string LogPath { get; } = $"Logs/log{DateTime.Now:s}.csv";
+    public string CostMatrixPath { get; set; } = "/Users/rtry/Data/be52.tsp";
+    public string LogPath { get; set; } = $"Logs/log{DateTime.Now:s}.csv";
 
-    public OperatorInformation[] OperatorInformation { get; } = new[]
+    public OperatorInformation[] OperatorInformation { get; set; } = new[]
     {
         new OperatorInformation(OperatorTypes.Selection, "Random"),
         new OperatorInformation(OperatorTypes.Crossover, "HProX"),
@@ -23,9 +23,9 @@ public class TspConfiguration : IConfiguration
         new OperatorInformation(OperatorTypes.Mutation, "Rsm")
     };
 
-    public ConflictResolveMethod ConflictResolveMethod { get; } = ConflictResolveMethod.NearestNeighbor;
-    public ConflictResolveMethod RandomisedResolveMethod { get; } = ConflictResolveMethod.NearestNeighbor;
-    public double RandomisedResolveProbability { get; } = 0.0d;
+    public ConflictResolveMethod ConflictResolveMethod { get; set; } = ConflictResolveMethod.NearestNeighbor;
+    public ConflictResolveMethod RandomisedResolveMethod { get; set; } = ConflictResolveMethod.NearestNeighbor;
+    public double RandomisedResolveProbability { get; set; } = 0.0d;
 
     public T GetPropertyValue<T>(string name)
     {
@@ -39,4 +39,20 @@ public class TspConfiguration : IConfiguration
 
         throw new ArgumentException();
     }
+
+    public void SetPropertyValue(string name, object? value)
+    {
+        var property = GetType().GetProperty(name);
+        if (property is null) throw new ArgumentException();
+        property.SetValue(this, value);
+    }
+
+    public PropertyWrapper[] GetProperties()
+    {
+        var properties = GetType().GetProperties();
+        return properties.Where(x => x.CanWrite).Select(x => new PropertyWrapper(this, x.Name, x.PropertyType)).ToArray();
+    }
+
+    public PropertyWrapper[] Properties => GetProperties();
 }
+

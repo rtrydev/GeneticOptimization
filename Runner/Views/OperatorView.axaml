@@ -19,7 +19,7 @@
                 <Border Background="#333333" CornerRadius="4" Padding="3" Margin="10">
                     <StackPanel Background="#333333" Width="200" Height="150"  HorizontalAlignment="Center" >
                         <TextBlock HorizontalAlignment="Center" Margin=" 0 6 0 0" Text="{Binding OperatorType}"></TextBlock>
-                        <ComboBox HorizontalAlignment="Center" Margin="4" SelectedItem="{Binding OperatorName}"></ComboBox>
+                        <ComboBox HorizontalAlignment="Center" Margin="4" Items="{Binding Available }" SelectedItem="{Binding OperatorName}"></ComboBox>
                     </StackPanel>
                 </Border>
             </DataTemplate>

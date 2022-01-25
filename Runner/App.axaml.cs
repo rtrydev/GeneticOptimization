@@ -28,7 +28,7 @@ namespace Runner
                 var logVM = new LogViewModel(logModel);
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(parametersVM, controlVM, logVM, operatorVM, historyVM),
+                    DataContext = new MainWindowViewModel(config, parametersVM, controlVM, logVM, operatorVM, historyVM),
                 };
             }
 

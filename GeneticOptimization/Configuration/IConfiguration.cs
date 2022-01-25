@@ -5,17 +5,20 @@ namespace GeneticOptimization.Configuration;
 
 public interface IConfiguration
 { 
-    public int PopulationSize { get; }
-    public int ParentsCount { get; }
-    public int OffspringCount { get; }
-    public int ParentsPerOffspring { get; }
-    public int MaxIterations { get; }
-    public double MutationProbability { get; }
-    public OperatorInformation[] OperatorInformation { get; }
-    public string CostMatrixPath { get; }
-    public string LogPath { get; }
-    public ConflictResolveMethod ConflictResolveMethod { get; }
-    public ConflictResolveMethod RandomisedResolveMethod { get; }
-    public double RandomisedResolveProbability { get; }
+    public int PopulationSize { get; set; }
+    public int ParentsCount { get; set; }
+    public int OffspringCount { get; set; }
+    public int ParentsPerOffspring { get; set; }
+    public int MaxIterations { get; set; }
+    public double MutationProbability { get; set; }
+    public OperatorInformation[] OperatorInformation { get; set; }
+    public string CostMatrixPath { get; set; }
+    public string LogPath { get; set; }
+    public ConflictResolveMethod ConflictResolveMethod { get; set; }
+    public ConflictResolveMethod RandomisedResolveMethod { get; set; }
+    public double RandomisedResolveProbability { get; set; }
     public T GetPropertyValue<T>(string name);
+    public void SetPropertyValue(string name, object? value);
+    public PropertyWrapper[] GetProperties();
+    public PropertyWrapper[] Properties { get; }
 }

@@ -20,14 +20,19 @@
         
             <TextBlock Text="{Binding SelectedFilesString}" ></TextBlock>
             
-            <Label>Population size: </Label>
-            <TextBox Width="50" HorizontalAlignment="Left" Text="{Binding Configuration.PopulationSize}"></TextBox>
+            <ItemsControl Items="{Binding Configuration.Properties}" >
+                <ItemsControl.ItemTemplate >
+                    <DataTemplate>
+                        <StackPanel>
+                            <Label Content="{Binding Name}"></Label>
+                            <TextBox Width="50" HorizontalAlignment="Left" Text="{Binding Value}" IsVisible="{Binding !IsEnum}"></TextBox>
+                            <ComboBox Items="{Binding EnumValues}" IsVisible="{Binding IsEnum}" SelectedItem="{Binding Value}"></ComboBox>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
             
-            <Label>Children per epoch: </Label>
-            <TextBox Width="50" HorizontalAlignment="Left" Text="{Binding Configuration.OffspringCount}"></TextBox>
             
-            <Label>Epoch count: </Label>
-            <TextBox Width="50" HorizontalAlignment="Left" Text="{Binding Configuration.MaxIterations}"></TextBox>
         </StackPanel>
     </ScrollViewer>
     
