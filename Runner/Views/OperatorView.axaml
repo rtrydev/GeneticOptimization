@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Runner.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Runner.Views.OperatorView">
+    <Design.DataContext>
+        <viewModels:OperatorViewModel/>
+    </Design.DataContext>
+    <ItemsControl Items="{Binding Configuration.OperatorInformation}" >
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal"/>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate >
+            <DataTemplate>
+                <Border Background="#333333" CornerRadius="4" Padding="3" Margin="10">
+                    <StackPanel Background="#333333" Width="200" Height="150"  HorizontalAlignment="Center" >
+                        <TextBlock HorizontalAlignment="Center" Margin=" 0 6 0 0" Text="{Binding OperatorType}"></TextBlock>
+                        <ComboBox HorizontalAlignment="Center" Margin="4" SelectedItem="{Binding OperatorName}"></ComboBox>
+                    </StackPanel>
+                </Border>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+    
+    
+</UserControl>

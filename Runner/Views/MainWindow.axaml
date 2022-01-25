@@ -1,0 +1,28 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Runner.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:Runner.Views"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Runner.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Runner"
+        Background="#2b2b2b">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    
+    <Grid ColumnDefinitions="*, 1,  6*, 1, *" RowDefinitions="2*, 18*, 1,  2*">
+        <views:ControlView DataContext="{Binding ControlViewModel}" Grid.Row="0" Grid.Column="2"/>
+        <views:ParametersView DataContext="{Binding ParametersViewModel}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4"/>
+        <GridSplitter Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Background="#3d3d3d" ResizeDirection="Columns"/>
+        <views:DataView Grid.Row="1" Grid.Column="2"/>
+        <views:LogView DataContext="{Binding LogViewModel}" Grid.Row="3" Grid.Column="2"/>
+        <GridSplitter Grid.Row="0" Grid.Column="3" Grid.RowSpan="4" Background="#3d3d3d" ResizeDirection="Columns"/>
+        <GridSplitter Grid.Row="2" Grid.Column="2" Background="#3d3d3d" ResizeDirection="Rows"/>
+        <views:HistoryView Grid.Row="0" Grid.Column="4" Grid.RowSpan="4"/>
+    </Grid>
+
+</Window>

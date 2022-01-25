@@ -6,14 +6,14 @@ namespace GeneticOptimization.Configuration;
 public class TspConfiguration : IConfiguration
 {
     public int PopulationSize { get; } = 120;
-    public int ParentsCount { get; } = 60;
-    public int OffspringCount { get; } = 30;
+    public int ParentsCount { get; } = 90;
+    public int OffspringCount { get; } = 60;
     public int ParentsPerOffspring { get; } = 8;
     public int MaxIterations { get; } = 300;
     public double MutationProbability { get; } = 0.1d;
 
     public string CostMatrixPath { get; } = "/Users/rtry/Data/be52.tsp";
-    public string LogPath { get; } = $"/Users/rtry/Logs/log{DateTime.Now:s}.csv";
+    public string LogPath { get; } = $"Logs/log{DateTime.Now:s}.csv";
 
     public OperatorInformation[] OperatorInformation { get; } = new[]
     {
@@ -23,7 +23,7 @@ public class TspConfiguration : IConfiguration
         new OperatorInformation(OperatorTypes.Mutation, "Rsm")
     };
 
-    public ConflictResolveMethod ConflictResolveMethod { get; } = ConflictResolveMethod.Random;
+    public ConflictResolveMethod ConflictResolveMethod { get; } = ConflictResolveMethod.NearestNeighbor;
     public ConflictResolveMethod RandomisedResolveMethod { get; } = ConflictResolveMethod.NearestNeighbor;
     public double RandomisedResolveProbability { get; } = 0.0d;
 

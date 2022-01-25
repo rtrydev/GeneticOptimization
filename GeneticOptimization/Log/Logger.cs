@@ -77,6 +77,8 @@ public class Logger : ILogger
         {
             logString.Add(l);
         }
+
+        var res = Directory.CreateDirectory("Logs");
         File.WriteAllLines(_configuration.LogPath, logString);
     }
 }

@@ -17,7 +17,7 @@ public class GeneticOptimizer
         _costMatrix = new TspCostMatrix(configuration);
     }
 
-    public void Run()
+    public double Run()
     {
         var operators = new List<IOperator>();
         var logger = new Logger(_configuration);
@@ -38,7 +38,7 @@ public class GeneticOptimizer
         
         geneticAlgorithm.Run();
         logger.WriteLogToFile();
-        
+        return logger.BestModel.Cost;
 
     }
     
