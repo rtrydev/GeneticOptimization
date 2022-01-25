@@ -34,7 +34,7 @@ public class Logger : ILogger
     public string[] GetLog()
     {
         var stringLog = logs.Select(x =>
-            $"{x.Epoch};{x.WorstCost:0.##};{x.AvgCost:0.##};{x.MedianCost:0.##};{x.BestCost:0.##};{x.MutationCount};{x.ConflictResolves};{x.RandomizedResolves}");
+            $"{x.Epoch};{x.WorstCost:0.##};{x.AvgCost:0.##};{x.MedianCost:0.##};{x.BestCost:0.##};{x.MutationCount};{x.CrossWithoutConflicts - x.RandomizedResolves};{x.ConflictResolves};{x.RandomizedResolves}");
         return stringLog.ToArray();
     }
 
@@ -53,9 +53,14 @@ public class Logger : ILogger
         var log = GetLog();
         var logString = new List<string>();
         
-        logString.Add("Selection;Crossover;Mutation;Elimination;ConflictResolver;RandomisedResolver;RandomisedResolveProb;EpochCount;MutationProb;StartTime;EndTime;Duration");
+        logString.Add("Selection;Crossover;Mutation;Elimination;ConflictResolver;RandomisedResolver;RandomisedResolveProb;EpochCount;MutationProb;ParentsPerOffspring;StartTime;EndTime;Duration");
         logString.Add(
-            $"{_configuration.OperatorInformation[0].OperatorName};{_configuration.OperatorInformation[1].OperatorName};{_configuration.OperatorInformation[2].OperatorName};{_configuration.OperatorInformation[3].OperatorName};{_configuration.ConflictResolveMethod};{_configuration.RandomisedResolveMethod};{_configuration.RandomisedResolveProbability};{_configuration.MaxIterations};{_configuration.MutationProbability:0.##};{_startTime};{_endTime};{_endTime - _startTime}");
+            $"{_configuration.OperatorInformation[0].OperatorName};{_configuration.OperatorInformation[1].OperatorName};" +
+            $"{_configuration.OperatorInformation[2].OperatorName};{_configuration.OperatorInformation[3].OperatorName};" +
+            $"{_configuration.ConflictResolveMethod};{_configuration.RandomisedResolveMethod};" +
+            $"{_configuration.RandomisedResolveProbability};{_configuration.MaxIterations};" +
+            $"{_configuration.MutationProbability:0.##};{_configuration.ParentsPerOffspring};" +
+            $"{_startTime};{_endTime};{_endTime - _startTime}");
         var bestModelString = "";
         for (int i = 0; i < BestModel.Body.Length - 1; i++)
         {
@@ -67,7 +72,7 @@ public class Logger : ILogger
         logString.Add($"Cost: {BestModel.Cost}");
         
         
-        logString.Add("Epoch;WorstCost;AvgCost;MedianCost;BestCost;MutationCount;ConflictResolves;RandomizedResolves");
+        logString.Add("Epoch;WorstCost;AvgCost;MedianCost;BestCost;MutationCount;CrossWithoutConflict;ConflictResolves;RandomizedResolves");
         foreach (var l in log)
         {
             logString.Add(l);

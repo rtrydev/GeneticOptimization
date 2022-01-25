@@ -19,7 +19,7 @@ public class RsmMutation : Mutation
             if (random.NextDouble() <= probability)
             {
                 _logger.LogFormat.MutationCount++;
-                var j = random.Next(1, population[k].Body.Length - 1);
+                var j = random.Next(1, population[k].Body.Length);
                 var i = random.Next(1, j);
                 Array.Reverse(population[k].Body, i, j - i);
                 population[k].Cost = Population.CostFunction(population[k], _costMatrix);

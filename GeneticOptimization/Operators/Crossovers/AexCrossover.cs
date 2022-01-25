@@ -36,8 +36,8 @@ public class AexCrossover : Crossover
             body[^1] = body[0];
             for (int j = 1; j < body.Length - 1; j++)
             {
-                var nextIndex = Array.IndexOf(parents.ParentsArray[j % parentCount].Body, lastPoint) + 1;
                 lastPoint = body[j - 1];
+                var nextIndex = Array.IndexOf(parents.ParentsArray[j % parentCount].Body, lastPoint) + 1;
 
                 if (random.NextDouble() <= randomisedResolveProb)
                 {
@@ -60,6 +60,7 @@ public class AexCrossover : Crossover
                 }
                 else
                 {
+                    _logger.LogFormat.CrossWithoutConflicts++;
                     body[j] = nextPoint;
                     availablePoints.Remove(nextPoint);
                 }

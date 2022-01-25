@@ -22,6 +22,8 @@ public class OperatorFactory
                     return new AexCrossover(configuration, conflictResolver, randomisedResolver, costMatrix);
                 case "HProX":
                     return new HProXCrossover(configuration, conflictResolver, randomisedResolver, costMatrix);
+                case "HGreX":
+                    return new HGreXCrossover(configuration, conflictResolver, randomisedResolver, costMatrix);
             }
         }
         
@@ -29,6 +31,8 @@ public class OperatorFactory
         {
             switch (operatorInformation.OperatorName)
             {
+                case "Random":
+                    return new RandomSelection(configuration, costMatrix);
                 case "Roulette":
                     return new RouletteSelection(configuration, costMatrix);
                 case "Elitism":

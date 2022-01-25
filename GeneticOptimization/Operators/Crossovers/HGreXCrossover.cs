@@ -5,9 +5,9 @@ using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Operators.Crossovers;
 
-public class HProXCrossover : Crossover
+public class HGreXCrossover : Crossover
 {
-    public HProXCrossover(IConfiguration configuration, IConflictResolver conflictResolver, IConflictResolver randomizedResolver, ICostMatrix costMatrix) 
+    public HGreXCrossover(IConfiguration configuration, IConflictResolver conflictResolver, IConflictResolver randomizedResolver, ICostMatrix costMatrix) 
         : base(configuration, conflictResolver, randomizedResolver, costMatrix) {}
 
     public override Offsprings<IPopulationModel> Run()
@@ -36,7 +36,8 @@ public class HProXCrossover : Crossover
 
                 for (int k = 0; k < parentCount; k++)
                 {
-                    feasibleParents.Add(Data.ParentsArray[random.Next(0, Data.Length)]);
+                    var selectedIndex = random.Next(0, Data.Length);
+                    feasibleParents.Add(Data.ParentsArray[selectedIndex]);
                 }
                 
                 lastPoint = body[j - 1];
@@ -61,24 +62,18 @@ public class HProXCrossover : Crossover
                 }
                 
                 
-                var costMax = costs.Max();
-                var fitness = costs.Select(x => costMax / x).ToArray();
-
-                var fitnessSum = fitness.Sum();
-
                 var nextIndex = Array.IndexOf(feasibleParents[0].Body, lastPoint) + 1;
                 var nextPoint = feasibleParents[0].Body[nextIndex];
-                
-                var currentSpin = random.NextDouble() * fitnessSum;
-                var sum = 0d;
-                for (int l = 0; l < fitness.Length; l++)
+
+                var bestCost = costs[0];
+                for (int l = 1; l < costs.Length; l++)
                 {
-                    sum += fitness[l];
-                    if (sum >= currentSpin)
+                    var currentCost = costs[l];
+                    if (currentCost < bestCost)
                     {
+                        bestCost = currentCost;
                         nextIndex = Array.IndexOf(feasibleParents[l].Body, lastPoint) + 1;
                         nextPoint = feasibleParents[l].Body[nextIndex];
-                        break;
                     }
                 }
 

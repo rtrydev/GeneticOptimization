@@ -12,20 +12,20 @@ public class TspConfiguration : IConfiguration
     public int MaxIterations { get; } = 300;
     public double MutationProbability { get; } = 0.1d;
 
-    public string CostMatrixPath { get; } = "/Users/rtry/be52.tsp";
-    public string LogPath { get; } = "/Users/rtry/log.csv";
+    public string CostMatrixPath { get; } = "/Users/rtry/Data/be52.tsp";
+    public string LogPath { get; } = $"/Users/rtry/Logs/log{DateTime.Now:s}.csv";
 
     public OperatorInformation[] OperatorInformation { get; } = new[]
     {
-        new OperatorInformation(OperatorTypes.Selection, "Roulette"),
+        new OperatorInformation(OperatorTypes.Selection, "Random"),
         new OperatorInformation(OperatorTypes.Crossover, "HProX"),
         new OperatorInformation(OperatorTypes.Elimination, "Elitism"),
         new OperatorInformation(OperatorTypes.Mutation, "Rsm")
     };
 
-    public ConflictResolveMethod ConflictResolveMethod { get; } = ConflictResolveMethod.NearestNeighbor;
+    public ConflictResolveMethod ConflictResolveMethod { get; } = ConflictResolveMethod.Random;
     public ConflictResolveMethod RandomisedResolveMethod { get; } = ConflictResolveMethod.NearestNeighbor;
-    public double RandomisedResolveProbability { get; } = 0.2d;
+    public double RandomisedResolveProbability { get; } = 0.0d;
 
     public T GetPropertyValue<T>(string name)
     {

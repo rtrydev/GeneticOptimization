@@ -10,5 +10,6 @@ public class LogFormat
     public double AvgCost { get; set; }
     public double BestCost { get; set; }
     public int MutationCount { get; set; }
+    public int CrossWithoutConflicts { get; set; }
     
 }

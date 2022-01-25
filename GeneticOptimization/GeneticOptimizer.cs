@@ -37,6 +37,7 @@ public class GeneticOptimizer
         }
         
         geneticAlgorithm.Run();
+        logger.WriteLogToFile();
         
 
     }
