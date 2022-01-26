@@ -1,3 +1,4 @@
+using System.Globalization;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -12,6 +13,7 @@ namespace Runner
     {
         public override void Initialize()
         {
+            CultureInfo.CurrentCulture = new CultureInfo("en-US");
             AvaloniaXamlLoader.Load(this);
         }
 

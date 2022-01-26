@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:Runner.ViewModels"
         xmlns:converters="clr-namespace:Runner.Converters"
+        xmlns:avalonia="http://oxyplot.org/avalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Runner.Views.ResultView"
         Title="ResultView"
@@ -43,7 +44,17 @@
             
         </StackPanel>
         <StackPanel Grid.Column="1">
-            
+            <avalonia:Plot Height="150" 
+                           PlotMargins="50 0 0 0"
+                           PlotAreaBorderColor="#999999">
+                <avalonia:Plot.Series>
+                    <avalonia:AreaSeries 
+                        DataFieldX="Index"
+                        DataFieldY="Value"
+                        Items="{Binding Path=Values}"
+                        Color="#fd6d00" />
+                </avalonia:Plot.Series>
+            </avalonia:Plot>
         </StackPanel>
     </Grid>
     
