@@ -26,12 +26,14 @@ public class SelectData : ICommand
     public async void Execute(object? parameter)
     {
         var vm = parameter as ParametersViewModel;
+        var config = vm.Configuration;
         var fileDialog = new OpenFileDialog();
         fileDialog.AllowMultiple = true;
         var app = Application.Current.ApplicationLifetime as ClassicDesktopStyleApplicationLifetime;
         var result = await fileDialog.ShowAsync(app?.MainWindow);
         if (result is not null && result.Length > 0)
         {
+            vm.SelectedData = result;
             vm.SelectedFilesString = GetFilesString(result);
         }
     }

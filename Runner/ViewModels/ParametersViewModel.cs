@@ -11,6 +11,7 @@ public class ParametersViewModel : ViewModelBase
     public ICommand SelectData { get; set; }
     public IConfiguration Configuration { get; set; }
     [Reactive] public string SelectedFilesString { get; set; }
+    [Reactive] public string[] SelectedData { get; set; }
     
     public ParametersViewModel(IConfiguration model)
     {

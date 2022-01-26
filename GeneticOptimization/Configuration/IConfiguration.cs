@@ -12,8 +12,8 @@ public interface IConfiguration
     public int MaxIterations { get; set; }
     public double MutationProbability { get; set; }
     public OperatorInformation[] OperatorInformation { get; set; }
-    public string CostMatrixPath { get; set; }
-    public string LogPath { get; set; }
+    public string DataPath { get; set; }
+    public string LogPath { get; }
     public ConflictResolveMethod ConflictResolveMethod { get; set; }
     public ConflictResolveMethod RandomisedResolveMethod { get; set; }
     public double RandomisedResolveProbability { get; set; }

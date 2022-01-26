@@ -5,16 +5,16 @@ namespace GeneticOptimization.Configuration;
 
 public class TspConfiguration : IConfiguration
 {
+    [Ignored]
+    public string DataPath { get; set; } = "/Users/rtry/Data/be52.tsp";
+    public string LogPath => GetLogPath();
+
     public int PopulationSize { get; set; } = 120;
     public int ParentsCount { get; set; } = 90;
     public int OffspringCount { get; set; } = 60;
     public int ParentsPerOffspring { get; set; } = 8;
     public int MaxIterations { get; set; } = 300;
     public double MutationProbability { get; set; } = 0.1d;
-
-    public string CostMatrixPath { get; set; } = "/Users/rtry/Data/be52.tsp";
-    public string LogPath { get; set; } = $"Logs/log{DateTime.Now:s}.csv";
-
     public OperatorInformation[] OperatorInformation { get; set; } = new[]
     {
         new OperatorInformation(OperatorTypes.Selection, "Random"),
@@ -50,7 +50,12 @@ public class TspConfiguration : IConfiguration
     public PropertyWrapper[] GetProperties()
     {
         var properties = GetType().GetProperties();
-        return properties.Where(x => x.CanWrite).Select(x => new PropertyWrapper(this, x.Name, x.PropertyType)).ToArray();
+        return properties.Where(x => x.CanWrite && x.GetCustomAttributes(typeof(Ignored), false).Length == 0).Select(x => new PropertyWrapper(this, x.Name, x.PropertyType)).ToArray();
+    }
+
+    public string GetLogPath()
+    {
+        return $"Logs/log{DateTime.Now:s}.csv";
     }
 
     public PropertyWrapper[] Properties => GetProperties();

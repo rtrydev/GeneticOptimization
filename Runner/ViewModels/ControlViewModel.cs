@@ -11,14 +11,17 @@ namespace Runner.ViewModels;
 public class ControlViewModel : ViewModelBase
 {
     public IConfiguration ParametersModel { get; set; }
+
+    public ParametersViewModel ParametersViewModel { get; } 
     public ConsoleLogModel LogModel { get; set; }
     public ICommand RunDistances { get; set; }
 
-    public ControlViewModel(IConfiguration parametersModel, ConsoleLogModel logModel)
+    public ControlViewModel(IConfiguration parametersModel, ConsoleLogModel logModel, ParametersViewModel parametersViewModel)
     {
         ParametersModel = parametersModel;
         LogModel = logModel;
+        ParametersViewModel = parametersViewModel;
 
-        RunDistances = new RunDistances(parametersModel, logModel);
+        RunDistances = new RunOptimization(parametersModel, logModel);
     }
 }

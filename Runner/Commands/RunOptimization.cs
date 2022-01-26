@@ -10,12 +10,12 @@ using Runner.ViewModels;
 
 namespace Runner.Commands;
 
-public class RunDistances : ICommand
+public class RunOptimization : ICommand
 {
     private IConfiguration _parametersModel;
     private ConsoleLogModel _logModel;
 
-    public RunDistances(IConfiguration parametersModel, ConsoleLogModel logModel)
+    public RunOptimization(IConfiguration parametersModel, ConsoleLogModel logModel)
     {
         _parametersModel = parametersModel;
         _logModel = logModel;
@@ -28,17 +28,25 @@ public class RunDistances : ICommand
 
     public async void Execute(object? parameter)
     {
-        _logModel.AppendLog($"Started TSP on dataset");
+        var data = parameter as string[];
         
         //if(_parametersModel.SelectedFiles is null) return;
         //if(_parametersModel.SelectedFiles.Length < 1) return;
 
-        var config = new TspConfiguration();
-        var optimizer = new GeneticOptimizer(_parametersModel);
+        for (int i = 0; i < data.Length; i++)
+        {
+            _logModel.AppendLog($"Started TSP on dataset {data[i]}");
 
-        var result = 0d;
-        await Task.Run(() => result = optimizer.Run());
-        _logModel.AppendLog("Result: " + result.ToString("0.##"));
+            var config = _parametersModel;
+            config.DataPath = data[i];
+            var optimizer = new GeneticOptimizer(config);
+
+            var result = 0d;
+            await Task.Run(() => result = optimizer.Run());
+            _logModel.AppendLog("Result: " + result.ToString("0.##"));
+        }
+
+        
 
         // foreach (var dataset in _parametersModel.SelectedFiles)
         // {

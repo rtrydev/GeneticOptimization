@@ -22,7 +22,7 @@ namespace Runner
                 var logModel = new ConsoleLogModel();
                 var config = new TspConfiguration();
                 var parametersVM = new ParametersViewModel(config);
-                var controlVM = new ControlViewModel(config, logModel);
+                var controlVM = new ControlViewModel(config, logModel, parametersVM);
                 var operatorVM = new OperatorViewModel(config);
                 var historyVM = new HistoryViewModel();
                 var logVM = new LogViewModel(logModel);
