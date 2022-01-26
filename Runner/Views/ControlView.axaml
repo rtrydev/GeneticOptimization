@@ -11,7 +11,8 @@
     </Design.DataContext>
     
     <WrapPanel HorizontalAlignment="Center" Margin="4">
-        <Button Margin="12 0 0 0" Height="28" Background="Transparent" Command="{Binding RunDistances}" CommandParameter="{Binding ParametersViewModel.SelectedData}">
+        <Button Margin="12 0 0 0" Height="28" Background="Transparent" Command="{Binding RunDistances}" 
+                CommandParameter="{Binding ParametersViewModel.SelectedData}">
             <Image Source="/Assets/run.png"></Image>
         </Button>
         <Button Height="28" Background="Transparent">

@@ -13,15 +13,17 @@ public class ControlViewModel : ViewModelBase
     public IConfiguration ParametersModel { get; set; }
 
     public ParametersViewModel ParametersViewModel { get; } 
+    public HistoryViewModel HistoryViewModel { get; }
     public ConsoleLogModel LogModel { get; set; }
     public ICommand RunDistances { get; set; }
 
-    public ControlViewModel(IConfiguration parametersModel, ConsoleLogModel logModel, ParametersViewModel parametersViewModel)
+    public ControlViewModel(IConfiguration parametersModel, ConsoleLogModel logModel, ParametersViewModel parametersViewModel, HistoryViewModel historyViewModel)
     {
         ParametersModel = parametersModel;
         LogModel = logModel;
         ParametersViewModel = parametersViewModel;
+        HistoryViewModel = historyViewModel;
 
-        RunDistances = new RunOptimization(parametersModel, logModel);
+        RunDistances = new RunOptimization(parametersModel, logModel, historyViewModel);
     }
 }

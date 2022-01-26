@@ -13,7 +13,12 @@ public class HistoryViewModel : ViewModelBase
 
     public HistoryViewModel()
     {
-        Files = Directory.GetFiles("Logs");
+        RefreshFiles();
         
+    }
+
+    public void RefreshFiles()
+    {
+        Files = Directory.GetFiles("Logs");
     }
 }

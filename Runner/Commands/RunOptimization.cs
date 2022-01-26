@@ -14,11 +14,13 @@ public class RunOptimization : ICommand
 {
     private IConfiguration _parametersModel;
     private ConsoleLogModel _logModel;
+    private HistoryViewModel _historyViewModel;
 
-    public RunOptimization(IConfiguration parametersModel, ConsoleLogModel logModel)
+    public RunOptimization(IConfiguration parametersModel, ConsoleLogModel logModel, HistoryViewModel historyViewModel)
     {
         _parametersModel = parametersModel;
         _logModel = logModel;
+        _historyViewModel = historyViewModel;
     }
     
     public bool CanExecute(object? parameter)
@@ -44,6 +46,7 @@ public class RunOptimization : ICommand
             var result = 0d;
             await Task.Run(() => result = optimizer.Run());
             _logModel.AppendLog("Result: " + result.ToString("0.##"));
+            _historyViewModel.RefreshFiles();
         }
 
         

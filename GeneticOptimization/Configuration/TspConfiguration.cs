@@ -15,6 +15,7 @@ public class TspConfiguration : IConfiguration
     public int ParentsPerOffspring { get; set; } = 8;
     public int MaxIterations { get; set; } = 300;
     public double MutationProbability { get; set; } = 0.1d;
+    [Ignored]
     public OperatorInformation[] OperatorInformation { get; set; } = new[]
     {
         new OperatorInformation(OperatorTypes.Selection, "Random"),
