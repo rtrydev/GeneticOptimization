@@ -5,6 +5,7 @@ using GeneticOptimization.Configuration;
 using GeneticOptimization.Data;
 using GeneticOptimization.Log;
 using GeneticOptimization.Operators;
+using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization;
 
@@ -19,7 +20,7 @@ public class GeneticOptimizer
         _costMatrix = new TspCostMatrix(configuration);
     }
 
-    public GeneticAlgorithmResult Run()
+    public GeneticAlgorithmResult<TspPopulationModel, TspConfiguration> Run()
     {
         var operators = new List<IOperator>();
         var logger = new Logger(_configuration);
@@ -40,16 +41,16 @@ public class GeneticOptimizer
         
         geneticAlgorithm.Run();
         logger.WriteLogToFile();
-        var result = new GeneticAlgorithmResult()
+        var result = new GeneticAlgorithmResult<TspPopulationModel, TspConfiguration>()
         {
             BestCostHistory = logger.BestCostHistory,
             AvgCostHistory = logger.AvgCostHistory,
             MedianCostHistory = logger.MedianCostHistory,
             WorstCostHistory = logger.WorstCostHistory,
-            BestIndividual = logger.BestModel,
-            Configuration = _configuration
+            BestIndividual = logger.BestModel as TspPopulationModel,
+            Configuration = _configuration as TspConfiguration
         };
-        string jsonString = JsonSerializer.Serialize<GeneticAlgorithmResult>(result);
+        string jsonString = JsonSerializer.Serialize(result);
         var dataset = "";
         if (OperatingSystem.IsWindows())
             dataset = result.Configuration.DataPath.Split("\\")[^1];

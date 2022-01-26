@@ -17,7 +17,6 @@ public class TspConfiguration : IConfiguration
     public int MaxIterations { get; set; } = 300;
     public double MutationProbability { get; set; } = 0.1d;
     [Ignored]
-    [JsonIgnore]
     public OperatorInformation[] OperatorInformation { get; set; } = new[]
     {
         new OperatorInformation(OperatorTypes.Selection, "Random"),
@@ -58,6 +57,11 @@ public class TspConfiguration : IConfiguration
         var properties = GetType().GetProperties();
         return properties.Where(x => x.CanWrite && x.GetCustomAttributes(typeof(Ignored), false).Length == 0).Select(x => new PropertyWrapper(this, x.Name, x.PropertyType)).ToArray();
     }
+    public PropertyWrapper[] GetPropertiesReadOnly()
+    {
+        var properties = GetType().GetProperties();
+        return properties.Where(x => x.CanWrite).Select(x => new PropertyWrapper(this, x.Name, x.PropertyType)).ToArray();
+    }
 
     public string GetLogPath()
     {
@@ -65,5 +69,8 @@ public class TspConfiguration : IConfiguration
     }
     [JsonIgnore]
     public PropertyWrapper[] Properties => GetProperties();
+
+    [JsonIgnore] 
+    public PropertyWrapper[] PropertiesRead => GetPropertiesReadOnly();
 }
 

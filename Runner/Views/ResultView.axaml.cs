@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Runner.ViewModels;
 
 namespace Runner.Views;
 
@@ -12,7 +13,7 @@ public class ResultView : Window
 #if DEBUG
         this.AttachDevTools();
 #endif
-        this.DataContext = data;
+        this.DataContext = new ResultViewModel(data);
     }
 
     public ResultView()

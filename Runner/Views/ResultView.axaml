@@ -2,9 +2,49 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:Runner.ViewModels"
+        xmlns:converters="clr-namespace:Runner.Converters"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Runner.Views.ResultView"
         Title="ResultView"
         Background="#2b2b2b">
-    <TextBlock Text="{Binding }"></TextBlock>
+    
+    <Design.DataContext>
+        <viewModels:ResultViewModel/>
+    </Design.DataContext>
+    
+    <Window.Resources>
+        <converters:OperatorsToStringArrayConverter x:Key="OperatorsToStringArrayConverter" />
+    </Window.Resources>
+    
+    <Grid ColumnDefinitions="*, *" Margin="10">
+        <StackPanel Grid.Column="0">
+            <Label Margin="0 0 0  10" FontWeight="Bold">Operators</Label>
+            <ItemsControl Margin="4 0 0 0" Items="{Binding Operators, Converter={StaticResource OperatorsToStringArrayConverter}}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding }"></Label>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Label Margin="0 10 0  10" FontWeight="Bold">Configuration</Label>
+            <ItemsControl Margin="4 0 0 0" Items="{Binding Result.Configuration.Properties}" >
+                <ItemsControl.ItemTemplate >
+                    <DataTemplate>
+                        <WrapPanel>
+                            <Label Content="{Binding Name}" FontStyle="Italic" IsVisible="{Binding !IsArray}"></Label>
+                            <Label  HorizontalAlignment="Left" Content="{Binding Value} "  FontWeight="Bold"></Label>
+                            
+                        </WrapPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            
+            
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            
+        </StackPanel>
+    </Grid>
+    
 </Window>

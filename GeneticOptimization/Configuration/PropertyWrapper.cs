@@ -8,6 +8,7 @@ public class PropertyWrapper
     public string Name { get; }
     public Type Type { get; }
     public bool IsEnum { get; }
+    public bool IsArray { get; }
     public Array? EnumValues { get; }
 
     public object Value
@@ -35,6 +36,7 @@ public class PropertyWrapper
         Name = name;
         _configuration = configuration;
         Type = type;
+        if (typeof(Array).IsAssignableFrom(type)) IsArray = true;
         if(typeof(Enum).IsAssignableFrom(type)) IsEnum = true;
         if (IsEnum)
         {

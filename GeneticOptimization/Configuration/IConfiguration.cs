@@ -22,6 +22,9 @@ public interface IConfiguration
     public T GetPropertyValue<T>(string name);
     public void SetPropertyValue(string name, object? value);
     public PropertyWrapper[] GetProperties();
+    public PropertyWrapper[] GetPropertiesReadOnly();
     [JsonIgnore]
     public PropertyWrapper[] Properties { get; }
+    [JsonIgnore]
+    public PropertyWrapper[] PropertiesRead { get; }
 }
