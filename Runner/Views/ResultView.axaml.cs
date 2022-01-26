@@ -4,9 +4,18 @@ using Avalonia.Markup.Xaml;
 
 namespace Runner.Views;
 
-public class DataView : UserControl
+public class ResultView : Window
 {
-    public DataView()
+    public ResultView(string data)
+    {
+        InitializeComponent();
+#if DEBUG
+        this.AttachDevTools();
+#endif
+        this.DataContext = data;
+    }
+
+    public ResultView()
     {
         InitializeComponent();
     }

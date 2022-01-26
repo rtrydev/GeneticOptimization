@@ -18,7 +18,7 @@
         <views:ControlView DataContext="{Binding ControlViewModel}" Grid.Row="0" Grid.Column="2"/>
         <views:ParametersView DataContext="{Binding ParametersViewModel}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4"/>
         <GridSplitter Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Background="#3d3d3d" ResizeDirection="Columns"/>
-        <views:DataView Grid.Row="1" Grid.Column="2"/>
+        <views:AlgorithmView Grid.Row="1" Grid.Column="2"/>
         <views:LogView DataContext="{Binding LogViewModel}" Grid.Row="3" Grid.Column="2"/>
         <GridSplitter Grid.Row="0" Grid.Column="3" Grid.RowSpan="4" Background="#3d3d3d" ResizeDirection="Columns"/>
         <GridSplitter Grid.Row="2" Grid.Column="2" Background="#3d3d3d" ResizeDirection="Rows"/>

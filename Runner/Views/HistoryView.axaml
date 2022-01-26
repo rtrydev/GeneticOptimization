@@ -10,7 +10,8 @@
     </Design.DataContext>
     <StackPanel>
         <Label HorizontalAlignment="Center">Run history</Label>
-        <ListBox Items="{Binding HistoryViewModel.Files}" Margin="4" >
+        <ListBox Items="{Binding HistoryViewModel.Files}" Margin="4" SelectedItem ="{Binding HistoryViewModel.Selection}" >
+            
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>

@@ -45,7 +45,10 @@ public class TspConfiguration : IConfiguration
     {
         var property = GetType().GetProperty(name);
         if (property is null) throw new ArgumentException();
-        property.SetValue(this, value);
+        try
+        {
+            property.SetValue(this, value);
+        } catch (Exception e){}
     }
 
     public PropertyWrapper[] GetProperties()
