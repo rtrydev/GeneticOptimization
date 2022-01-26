@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Input;
 using Avalonia.Controls.Selection;
@@ -32,12 +33,15 @@ public class HistoryViewModel : ViewModelBase
     
     public HistoryViewModel()
     {
+        Directory.CreateDirectory("Results");
         RefreshFiles();
         OpenRunInfo = new OpenRunInfo();
     }
 
     public void RefreshFiles()
     {
-        Files = Directory.GetFiles("Logs");
+        DirectoryInfo info = new DirectoryInfo("Results");
+        FileInfo[] files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
+        Files = files.Select(x => x.Name).ToArray();
     }
 }

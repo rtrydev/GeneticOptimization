@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using GeneticOptimization.Operators;
 using GeneticOptimization.Operators.ConflictResolvers;
 
@@ -16,6 +17,7 @@ public class TspConfiguration : IConfiguration
     public int MaxIterations { get; set; } = 300;
     public double MutationProbability { get; set; } = 0.1d;
     [Ignored]
+    [JsonIgnore]
     public OperatorInformation[] OperatorInformation { get; set; } = new[]
     {
         new OperatorInformation(OperatorTypes.Selection, "Random"),
@@ -61,7 +63,7 @@ public class TspConfiguration : IConfiguration
     {
         return $"Logs/log{DateTime.Now:s}.csv";
     }
-
+    [JsonIgnore]
     public PropertyWrapper[] Properties => GetProperties();
 }
 

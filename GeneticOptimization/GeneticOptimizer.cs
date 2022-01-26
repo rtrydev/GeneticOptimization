@@ -1,3 +1,5 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using GeneticOptimization.Algorithm;
 using GeneticOptimization.Configuration;
 using GeneticOptimization.Data;
@@ -17,7 +19,7 @@ public class GeneticOptimizer
         _costMatrix = new TspCostMatrix(configuration);
     }
 
-    public double Run()
+    public GeneticAlgorithmResult Run()
     {
         var operators = new List<IOperator>();
         var logger = new Logger(_configuration);
@@ -38,7 +40,25 @@ public class GeneticOptimizer
         
         geneticAlgorithm.Run();
         logger.WriteLogToFile();
-        return logger.BestModel.Cost;
+        var result = new GeneticAlgorithmResult()
+        {
+            BestCostHistory = logger.BestCostHistory,
+            AvgCostHistory = logger.AvgCostHistory,
+            MedianCostHistory = logger.MedianCostHistory,
+            WorstCostHistory = logger.WorstCostHistory,
+            BestIndividual = logger.BestModel,
+            Configuration = _configuration
+        };
+        string jsonString = JsonSerializer.Serialize<GeneticAlgorithmResult>(result);
+        var dataset = "";
+        if (OperatingSystem.IsWindows())
+            dataset = result.Configuration.DataPath.Split("\\")[^1];
+        else dataset = result.Configuration.DataPath.Split("/")[^1];
+        dataset = string.Join("",dataset.Split(".").SkipLast(1).ToArray());
+        var filename = $"{dataset}-{DateTime.Now:dd_MM-HH_mm_ss}.json";
+        File.WriteAllText($"Results/{filename}", jsonString);
+
+        return result;
 
     }
     

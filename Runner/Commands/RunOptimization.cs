@@ -32,9 +32,6 @@ public class RunOptimization : ICommand
     {
         var data = parameter as string[];
         
-        //if(_parametersModel.SelectedFiles is null) return;
-        //if(_parametersModel.SelectedFiles.Length < 1) return;
-
         for (int i = 0; i < data.Length; i++)
         {
             _logModel.AppendLog($"Started TSP on dataset {data[i]}");
@@ -43,30 +40,11 @@ public class RunOptimization : ICommand
             config.DataPath = data[i];
             var optimizer = new GeneticOptimizer(config);
 
-            var result = 0d;
-            await Task.Run(() => result = optimizer.Run());
-            _logModel.AppendLog("Result: " + result.ToString("0.##"));
+            var result = await Task.Run(() =>  optimizer.Run());
+            _logModel.AppendLog("Result: " + result.BestIndividual.Cost.ToString("0.##"));
             _historyViewModel.RefreshFiles();
         }
-
         
-
-        // foreach (var dataset in _parametersModel.SelectedFiles)
-        // {
-        //     _parametersModel.DataPath = dataset;
-        //     var datasetName = OperatingSystem.IsWindows()
-        //         ? _parametersModel.DataPath.Split("\\")[^1]
-        //         : _parametersModel.DataPath.Split("/")[^1];
-        //     
-        //     _logModel.AppendLog($"Started TSP on {datasetName} dataset");
-        //     TSPResult result = null;
-        //     _ = await Task.Run(async () => result = OptimizationWork.TSP(_parametersModel, CancellationToken.None));
-        //     if (result is not null)
-        //     {
-        //         _logModel.AppendLog("Result: " + result.FinalFitness.ToString("0.##"));
-        //
-        //     }
-        // }
     }
 
 

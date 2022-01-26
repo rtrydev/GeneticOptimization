@@ -14,7 +14,7 @@ public class OpenRunInfo : ICommand
 
     public void Execute(object? parameter)
     {
-        var window = new ResultView((string) parameter);
+        var window = new ResultView("Results/" + (string) parameter);
         window.Show();
         
     }

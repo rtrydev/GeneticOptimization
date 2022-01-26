@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using GeneticOptimization.Operators;
 using GeneticOptimization.Operators.ConflictResolvers;
 
@@ -11,6 +12,7 @@ public interface IConfiguration
     public int ParentsPerOffspring { get; set; }
     public int MaxIterations { get; set; }
     public double MutationProbability { get; set; }
+    [JsonIgnore]
     public OperatorInformation[] OperatorInformation { get; set; }
     public string DataPath { get; set; }
     public string LogPath { get; }
@@ -20,5 +22,6 @@ public interface IConfiguration
     public T GetPropertyValue<T>(string name);
     public void SetPropertyValue(string name, object? value);
     public PropertyWrapper[] GetProperties();
+    [JsonIgnore]
     public PropertyWrapper[] Properties { get; }
 }
