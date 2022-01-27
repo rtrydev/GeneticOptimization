@@ -8,6 +8,7 @@ using GeneticOptimization.Operators;
 using GeneticOptimization.PopulationModels;
 using Microsoft.VisualBasic;
 using Newtonsoft.Json;
+using ReactiveUI.Fody.Helpers;
 
 namespace Runner.ViewModels;
 
@@ -22,9 +23,13 @@ public class ResultViewModel : ViewModelBase
     public OperatorInformation[] Operators { get; set; }
     
     public Collection<EpochValue> BestCosts { get; set; }
+    [Reactive] public bool BestVisible { get; set; } = true;
     public Collection<EpochValue> AvgCosts { get; set; }
+    [Reactive] public bool AvgVisible { get; set; } = true;
     public Collection<EpochValue> MedianCosts { get; set; }
+    [Reactive] public bool MedianVisible { get; set; } = true;
     public Collection<EpochValue> WorstCosts { get; set; }
+    [Reactive] public bool WorstVisible { get; set; } = true;
     public ResultViewModel(string data)
     {
         var jsonString = File.ReadAllText(data);

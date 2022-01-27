@@ -62,6 +62,7 @@
                         DataFieldX="Epoch"
                         DataFieldY="Value"
                         Items="{Binding Path=WorstCosts}"
+                        IsVisible="{Binding WorstVisible}"
                         LineStyle="Solid"
                         Color="#fd6d00" />
                     <avalonia:LineSeries 
@@ -69,6 +70,7 @@
                         DataFieldX="Epoch"
                         DataFieldY="Value"
                         Items="{Binding Path=BestCosts}"
+                        IsVisible="{Binding BestVisible}"
                         LineStyle="Solid"
                         Color="#00dd00" />
                     <avalonia:LineSeries 
@@ -76,6 +78,7 @@
                         DataFieldX="Epoch"
                         DataFieldY="Value"
                         Items="{Binding Path=MedianCosts}"
+                        IsVisible="{Binding MedianVisible}"
                         LineStyle="Solid"
                         Color="#6d6dfd" />
                     <avalonia:LineSeries 
@@ -83,10 +86,21 @@
                         DataFieldX="Epoch"
                         DataFieldY="Value"
                         Items="{Binding Path=AvgCosts}"
+                        IsVisible="{Binding AvgVisible}"
                         LineStyle="Solid"
                         Color="#fdfd00" />
                 </avalonia:Plot.Series>
             </avalonia:Plot>
+            <WrapPanel>
+                <Label VerticalAlignment="Center" Margin="4 0 2 0">Best</Label>
+                <ToggleSwitch IsChecked="{Binding BestVisible}" OnContent="" OffContent=""></ToggleSwitch>
+                <Label VerticalAlignment="Center" Margin="4 0 2 0">Avg</Label>
+                <ToggleSwitch IsChecked="{Binding AvgVisible}" OnContent="" OffContent=""></ToggleSwitch>
+                <Label VerticalAlignment="Center" Margin="4 0 2 0">Median</Label>
+                <ToggleSwitch IsChecked="{Binding MedianVisible}" OnContent="" OffContent=""></ToggleSwitch>
+                <Label VerticalAlignment="Center" Margin="4 0 2 0">Worst</Label>
+                <ToggleSwitch IsChecked="{Binding WorstVisible}" OnContent="" OffContent=""></ToggleSwitch>
+            </WrapPanel>
         </StackPanel>
     </Grid>
     
