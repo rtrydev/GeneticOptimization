@@ -51,14 +51,6 @@ public class GeneticOptimizer
             BestIndividual = logger.BestModel as TspPopulationModel,
             Configuration = _configuration as TspConfiguration
         };
-        string jsonString = JsonSerializer.Serialize(result);
-        var dataset = "";
-        if (OperatingSystem.IsWindows())
-            dataset = result.Configuration.DataPath.Split("\\")[^1];
-        else dataset = result.Configuration.DataPath.Split("/")[^1];
-        dataset = string.Join("",dataset.Split(".").SkipLast(1).ToArray());
-        var filename = $"{dataset}-{DateTime.Now:dd_MM-HH_mm_ss}.json";
-        File.WriteAllText($"Results/{filename}", jsonString);
 
         return result;
 
