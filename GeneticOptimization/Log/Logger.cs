@@ -91,6 +91,10 @@ public class Logger : ILogger
         }
 
         var res = Directory.CreateDirectory("Logs");
+        if (File.Exists(_configuration.LogPath))
+        {
+            return;
+        }
         File.WriteAllLines(_configuration.LogPath, logString);
     }
 }
