@@ -19,6 +19,7 @@ public class PropertyWrapper
         }
         set
         {
+            if (value == "") return;
             switch (Type.ToString())
             {
                 case "System.Double": 
