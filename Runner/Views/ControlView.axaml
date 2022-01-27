@@ -10,7 +10,7 @@
         <viewModels:ControlViewModel/>
     </Design.DataContext>
     
-    <Grid ColumnDefinitions="5*, *, 5*" >
+    <Grid ColumnDefinitions="5*, 3*, 5*" >
         <WrapPanel>
             <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6 0 0 4">Number of instances</Label>
             <NumericUpDown Margin="4" Value="{Binding InstancesCount}" Background="#222222"></NumericUpDown>
