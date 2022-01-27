@@ -24,7 +24,7 @@ public class HistoryViewModel : ViewModelBase
         get => _selection;
         set
         {
-            _selection = value;
+            //_selection = value;
             OpenRunInfo.Execute(value);
         }
     }
@@ -41,7 +41,7 @@ public class HistoryViewModel : ViewModelBase
     public void RefreshFiles()
     {
         DirectoryInfo info = new DirectoryInfo("Results");
-        FileInfo[] files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
+        FileInfo[] files = info.GetFiles().OrderByDescending(p => p.CreationTime).ToArray();
         Files = files.Select(x => x.Name).ToArray();
     }
 }

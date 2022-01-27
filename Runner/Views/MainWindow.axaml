@@ -7,7 +7,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Runner.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Runner"
+        Title="Genetic Optimizer"
         Background="#2b2b2b">
 
     <Design.DataContext>

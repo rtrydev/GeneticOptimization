@@ -10,14 +10,22 @@
         <viewModels:ControlViewModel/>
     </Design.DataContext>
     
-    <WrapPanel HorizontalAlignment="Center" Margin="4">
-        <Button Margin="12 0 0 0" Height="28" Background="Transparent" Command="{Binding RunDistances}" 
-                CommandParameter="{Binding ParametersViewModel.SelectedData}">
-            <Image Source="/Assets/run.png"></Image>
-        </Button>
-        <Button Height="28" Background="Transparent">
-            <Image Source="/Assets/stop.png"></Image>
-        </Button>
-    </WrapPanel>
+    <Grid ColumnDefinitions="5*, 3*, 5*" >
+        <WrapPanel>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6 0 0 4">Number of instances</Label>
+            <NumericUpDown Margin="4" Value="{Binding InstancesCount}" Background="#222222"></NumericUpDown>
+        </WrapPanel>
+        <WrapPanel Grid.Column="1" HorizontalAlignment="Center" Margin="2" >
+            <Button Margin="12 0 0 0" Height="28" Background="Transparent" Command="{Binding RunDistances}" 
+                    CommandParameter="{Binding ParametersViewModel.SelectedData}">
+                <Image Source="/Assets/run.png"></Image>
+            </Button>
+            <Button Height="28" Background="Transparent">
+                <Image Source="/Assets/stop.png"></Image>
+            </Button>
+        </WrapPanel>
+    </Grid>
+    
+    
     
 </UserControl>

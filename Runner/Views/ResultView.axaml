@@ -4,10 +4,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:Runner.ViewModels"
         xmlns:converters="clr-namespace:Runner.Converters"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:avalonia="http://oxyplot.org/avalonia"
+        mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="450"
         x:Class="Runner.Views.ResultView"
         Title="ResultView"
-        Background="#2b2b2b">
+        Background="#2b2b2b"
+        WindowStartupLocation="CenterScreen">
     
     <Design.DataContext>
         <viewModels:ResultViewModel/>
@@ -15,6 +17,8 @@
     
     <Window.Resources>
         <converters:OperatorsToStringArrayConverter x:Key="OperatorsToStringArrayConverter" />
+        <converters:IntArrayToStringConverter x:Key="IntArrayToStringConverter"/>
+        <converters:DoubleToStringConverter x:Key="DoubleToStringConverter"/>
     </Window.Resources>
     
     <Grid ColumnDefinitions="*, *" Margin="10">
@@ -39,11 +43,64 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+            <Label Margin="0 10 0  10" FontWeight="Bold">Best individual:</Label>
+            <TextBox Text="{Binding Result.BestIndividual.Body, Converter={StaticResource IntArrayToStringConverter}}" IsReadOnly="True" MaxWidth="400" HorizontalAlignment="Left"></TextBox>
+            <Label Margin="0 10 0  10" FontWeight="Bold">Best Cost:</Label>
+            <TextBox Text="{Binding Result.BestIndividual.Cost, Converter={StaticResource DoubleToStringConverter}}" IsReadOnly="True" MaxWidth="400" HorizontalAlignment="Left"></TextBox>
             
             
         </StackPanel>
         <StackPanel Grid.Column="1">
-            
+            <avalonia:Plot Height="450" 
+                           PlotMargins="50 0 0 0"
+                           PlotAreaBorderColor="#999999"
+                           Background="#333333"
+                           TextColor="#eeeeee">
+                <avalonia:Plot.Series>
+                    <avalonia:LineSeries 
+                        StrokeThickness="2"
+                        DataFieldX="Epoch"
+                        DataFieldY="Value"
+                        Items="{Binding Path=WorstCosts}"
+                        IsVisible="{Binding WorstVisible}"
+                        LineStyle="Solid"
+                        Color="#fd6d00" />
+                    <avalonia:LineSeries 
+                        StrokeThickness="2"
+                        DataFieldX="Epoch"
+                        DataFieldY="Value"
+                        Items="{Binding Path=BestCosts}"
+                        IsVisible="{Binding BestVisible}"
+                        LineStyle="Solid"
+                        Color="#00dd00" />
+                    <avalonia:LineSeries 
+                        StrokeThickness="2"
+                        DataFieldX="Epoch"
+                        DataFieldY="Value"
+                        Items="{Binding Path=MedianCosts}"
+                        IsVisible="{Binding MedianVisible}"
+                        LineStyle="Solid"
+                        Color="#6d6dfd" />
+                    <avalonia:LineSeries 
+                        StrokeThickness="2"
+                        DataFieldX="Epoch"
+                        DataFieldY="Value"
+                        Items="{Binding Path=AvgCosts}"
+                        IsVisible="{Binding AvgVisible}"
+                        LineStyle="Solid"
+                        Color="#fdfd00" />
+                </avalonia:Plot.Series>
+            </avalonia:Plot>
+            <WrapPanel>
+                <Label VerticalAlignment="Center" Margin="4 0 2 0">Best</Label>
+                <ToggleSwitch IsChecked="{Binding BestVisible}" OnContent="" OffContent=""></ToggleSwitch>
+                <Label VerticalAlignment="Center" Margin="4 0 2 0">Avg</Label>
+                <ToggleSwitch IsChecked="{Binding AvgVisible}" OnContent="" OffContent=""></ToggleSwitch>
+                <Label VerticalAlignment="Center" Margin="4 0 2 0">Median</Label>
+                <ToggleSwitch IsChecked="{Binding MedianVisible}" OnContent="" OffContent=""></ToggleSwitch>
+                <Label VerticalAlignment="Center" Margin="4 0 2 0">Worst</Label>
+                <ToggleSwitch IsChecked="{Binding WorstVisible}" OnContent="" OffContent=""></ToggleSwitch>
+            </WrapPanel>
         </StackPanel>
     </Grid>
     
