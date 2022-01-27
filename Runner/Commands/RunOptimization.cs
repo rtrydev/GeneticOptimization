@@ -31,6 +31,11 @@ public class RunOptimization : ICommand
     public async void Execute(object? parameter)
     {
         var data = parameter as string[];
+        if (data is null)
+        {
+            _logModel.AppendLog("You haven't selected any dataset yet!");
+            return;
+        }
         
         for (int i = 0; i < data.Length; i++)
         {

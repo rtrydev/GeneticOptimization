@@ -24,7 +24,7 @@ public class HistoryViewModel : ViewModelBase
         get => _selection;
         set
         {
-            _selection = value;
+            //_selection = value;
             OpenRunInfo.Execute(value);
         }
     }

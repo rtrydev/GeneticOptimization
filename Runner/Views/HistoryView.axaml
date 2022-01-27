@@ -8,9 +8,9 @@
     <Design.DataContext>
         <viewModels:MainWindowViewModel/>
     </Design.DataContext>
-    <StackPanel>
+    <Grid RowDefinitions="*, 20*">
         <Label HorizontalAlignment="Center">Run history</Label>
-        <ListBox Items="{Binding HistoryViewModel.Files}" Margin="4" SelectedItem ="{Binding HistoryViewModel.Selection}" >
+        <ListBox Grid.Row="1" Items="{Binding HistoryViewModel.Files}" Margin="4" SelectedItem ="{Binding HistoryViewModel.Selection}" >
             
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -21,7 +21,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-    </StackPanel>
+    </Grid>
     
     
 </UserControl>
