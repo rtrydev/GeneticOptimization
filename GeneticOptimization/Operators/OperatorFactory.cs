@@ -24,6 +24,8 @@ public class OperatorFactory
                     return new HProXCrossover(configuration, conflictResolver, randomisedResolver, costMatrix);
                 case "HGreX":
                     return new HGreXCrossover(configuration, conflictResolver, randomisedResolver, costMatrix);
+                case "HRndX":
+                    return new HRndXCrossover(configuration, conflictResolver, randomisedResolver, costMatrix);
             }
         }
         

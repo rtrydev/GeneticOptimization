@@ -3,7 +3,7 @@ namespace GeneticOptimization.Operators;
 public class OperatorInformation
 {
     public string[] Selections { get; } = {"Random", "Roulette", "Elitism"};
-    public string[] Crossovers { get; } = {"Aex", "HProX", "HGreX"};
+    public string[] Crossovers { get; } = {"Aex","HRndX", "HProX", "HGreX"};
     public string[] Eliminations { get; } = {"Elitism"};
     public string[] Mutations { get; } = {"Rsm"};
     public string[] Others { get; } = { };
