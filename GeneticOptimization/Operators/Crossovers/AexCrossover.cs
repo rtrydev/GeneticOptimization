@@ -23,7 +23,7 @@ public class AexCrossover : Crossover
         var offsprings = new Offsprings<IPopulationModel>(offspringCount);
         for (int i = 0; i < offspringCount; i++)
         {
-            var availablePoints = Enumerable.Range(1, bodyLength - 2).ToList();
+            var availablePoints = Enumerable.Range(1, bodyLength - 1).ToList();
             var parents = new Parents<IPopulationModel>(parentCount);
             for (int j = 0; j < parentCount; j++)
             {
@@ -33,8 +33,7 @@ public class AexCrossover : Crossover
             var body = new int[bodyLength];
             body[0] = parents.ParentsArray[0].Body[0];
             var lastPoint = body[0];
-            body[^1] = body[0];
-            for (int j = 1; j < body.Length - 1; j++)
+            for (int j = 1; j < body.Length; j++)
             {
                 lastPoint = body[j - 1];
                 var nextIndex = Array.IndexOf(parents.ParentsArray[j % parentCount].Body, lastPoint) + 1;
@@ -46,7 +45,7 @@ public class AexCrossover : Crossover
                     continue;
                 }
                 
-                if (nextIndex == body.Length - 1)
+                if (nextIndex == body.Length)
                 {
                     _conflictResolver.ResolveConflict(body, j, availablePoints);
                     _logger.LogFormat.ConflictResolves++;

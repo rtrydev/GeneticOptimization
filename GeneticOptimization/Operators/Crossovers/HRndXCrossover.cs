@@ -22,14 +22,13 @@ public class HRndXCrossover : Crossover
 
         for (int i = 0; i < offspringCount; i++)
         {
-            var availablePoints = Enumerable.Range(1, bodyLength - 2).ToList();
+            var availablePoints = Enumerable.Range(1, bodyLength - 1).ToList();
 
             var body = new int[bodyLength];
             body[0] = Data.ParentsArray[0].Body[0];
             var lastPoint = body[0];
-            body[^1] = body[0];
             
-            for (int j = 1; j < bodyLength - 1; j++)
+            for (int j = 1; j < bodyLength; j++)
             {
                 var feasibleParents = new List<IPopulationModel>();
 
@@ -55,6 +54,10 @@ public class HRndXCrossover : Crossover
 
                 var randomParentIndex = random.Next(0, feasibleParents.Count);
                 var nextIndex = Array.IndexOf(feasibleParents[randomParentIndex].Body, lastPoint) + 1;
+                if(nextIndex == bodyLength)
+                {
+                    nextIndex = -1;
+                }
                 var nextPoint = nextIndex == -1 ? -1 : feasibleParents[randomParentIndex].Body[nextIndex];
                 
 
@@ -65,7 +68,7 @@ public class HRndXCrossover : Crossover
                     continue;
                 }
                 
-                if (nextIndex == body.Length - 1 || nextIndex == -1)
+                if (nextIndex == -1)
                 {
                     _conflictResolver.ResolveConflict(body, j, availablePoints);
                     _logger.LogFormat.ConflictResolves++;

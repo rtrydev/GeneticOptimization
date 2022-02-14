@@ -8,12 +8,11 @@ public class TspPopulationGenerator
     public static IPopulationModel GenerateOneModel(ICostMatrix costMatrix)
     {
         var random = Random.Shared;
-        var body = new int[costMatrix.Matrix.Length + 1];
+        var body = new int[costMatrix.Matrix.Length];
 
-        var internals = Enumerable.Range(1, body.Length - 2).OrderBy(x => random.Next()).ToArray();
+        var internals = Enumerable.Range(1, body.Length - 1).OrderBy(x => random.Next()).ToArray();
         body[0] = 0;
-        body[^1] = 0;
-        for (int i = 1; i < body.Length - 1; i++)
+        for (int i = 1; i < body.Length; i++)
         {
             body[i] = internals[i - 1];
         }

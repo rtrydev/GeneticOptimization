@@ -23,14 +23,13 @@ public class HGreXCrossover : Crossover
 
         for (int i = 0; i < offspringCount; i++)
         {
-            var availablePoints = Enumerable.Range(1, bodyLength - 2).ToList();
+            var availablePoints = Enumerable.Range(1, bodyLength - 1).ToList();
 
             var body = new int[bodyLength];
             body[0] = Data.ParentsArray[0].Body[0];
             var lastPoint = body[0];
-            body[^1] = body[0];
             
-            for (int j = 1; j < bodyLength - 1; j++)
+            for (int j = 1; j < bodyLength; j++)
             {
                 var feasibleParents = new List<IPopulationModel>();
 
@@ -56,14 +55,16 @@ public class HGreXCrossover : Crossover
                 var costs = new double[feasibleParents.Count];
                 for (int k = 0; k < feasibleParents.Count; k++)
                 {
+                    var index = Array.IndexOf(feasibleParents[k].Body, lastPoint) + 1;
+                    var next = index == bodyLength ? 0 : index;
                     costs[k] = _costMatrix.Matrix[lastPoint][
-                        feasibleParents[k].Body[Array.IndexOf(feasibleParents[k].Body, lastPoint) + 1]];
+                        feasibleParents[k].Body[next]];
 
                 }
-                
-                
-                var nextIndex = Array.IndexOf(feasibleParents[0].Body, lastPoint) + 1;
-                var nextPoint = feasibleParents[0].Body[nextIndex];
+
+
+                var nextIndex = -1;
+                var nextPoint = -1;
 
                 var bestCost = costs[0];
                 for (int l = 1; l < costs.Length; l++)
@@ -73,6 +74,11 @@ public class HGreXCrossover : Crossover
                     {
                         bestCost = currentCost;
                         nextIndex = Array.IndexOf(feasibleParents[l].Body, lastPoint) + 1;
+                        if(nextIndex == bodyLength)
+                        {
+                            nextIndex = -1;
+                            break;
+                        }
                         nextPoint = feasibleParents[l].Body[nextIndex];
                     }
                 }
@@ -84,7 +90,7 @@ public class HGreXCrossover : Crossover
                     continue;
                 }
                 
-                if (nextIndex == body.Length - 1 || nextIndex == -1)
+                if (nextIndex == -1)
                 {
                     _conflictResolver.ResolveConflict(body, j, availablePoints);
                     _logger.LogFormat.ConflictResolves++;

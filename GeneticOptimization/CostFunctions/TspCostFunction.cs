@@ -12,6 +12,10 @@ public class TspCostFunction
         {
             cost += costMatrix.Matrix[populationModel.Body[i]][populationModel.Body[i + 1]];
         }
+
+        if (populationModel.Body[^1] != 0)
+            cost += costMatrix.Matrix[populationModel.Body[^1]][0];
+        
         return cost;
     }
 }
