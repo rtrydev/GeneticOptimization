@@ -21,8 +21,12 @@ public class RouletteSelection : Selection
             cost[i] = Data.CostFunction(Data.PopulationArray[i], _costMatrix);
         }
 
-        var costMax = cost.Max();
-        var fitness = cost.Select(x => costMax / x).ToArray();
+        var costSum = cost.Sum();
+        var fitness = new double[cost.Length];
+        for (int i = 0; i < fitness.Length; i++)
+        {
+            fitness[i] = costSum / cost[i];
+        }
 
         var fitnessSum = fitness.Sum();
         

@@ -61,9 +61,12 @@ public class HProXCrossover : Crossover
 
                 }
                 
-                
-                var costMax = costs.Max();
-                var fitness = costs.Select(x => costMax / x).ToArray();
+                var costSum = costs.Sum();
+                var fitness = new double[costs.Length];
+                for (int k = 0; k < fitness.Length; k++)
+                {
+                    fitness[k] = costSum / costs[k];
+                }
 
                 var fitnessSum = fitness.Sum();
 
