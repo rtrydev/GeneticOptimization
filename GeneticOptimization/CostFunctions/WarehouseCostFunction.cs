@@ -98,7 +98,9 @@ public class WarehouseCostFunction
     
     public static double CalculateCost(IPopulationModel populationModel, ICostMatrix costMatrix, IConfiguration configuration)
     {
-        Orders.LoadOrders(configuration.DataPath.Replace("mag", "orders"));
+        var ordersPath = configuration.DataPath.Replace("mag", "orders");
+        ordersPath = ordersPath.Replace(".mtrx", ".txt");
+        Orders.LoadOrders(ordersPath);
         var orders = new Orders();
         return orders.GetOrderPathLengthSum(populationModel, costMatrix);
     }
