@@ -9,6 +9,8 @@ using System.Windows.Input;
 using GeneticOptimization;
 using GeneticOptimization.Algorithm;
 using GeneticOptimization.Configuration;
+using GeneticOptimization.Data;
+using GeneticOptimization.NearestNeighbor;
 using GeneticOptimization.PopulationModels;
 using ReactiveUI.Fody.Helpers;
 using Runner.Models;
@@ -51,7 +53,7 @@ public class RunOptimization : ICommand
         {
             for (int i = 0; i < data.Length; i++)
             {
-                _logModel.AppendLog($"Started {_instancesInfo.Count} instances of TSP on dataset {data[i]}");
+                _logModel.AppendLog($"Started {_instancesInfo.Count} instances on dataset {data[i]}");
 
                 var config = _parametersModel;
                 config.DataPath = data[i];

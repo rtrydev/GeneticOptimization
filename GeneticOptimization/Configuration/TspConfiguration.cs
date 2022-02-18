@@ -7,7 +7,7 @@ namespace GeneticOptimization.Configuration;
 public class TspConfiguration : IConfiguration
 {
     [Ignored]
-    public string DataPath { get; set; } = "/Users/rtry/Data/be52.tsp";
+    public string DataPath { get; set; }
     public string LogPath => GetLogPath();
 
     public int PopulationSize { get; set; } = 120;
