@@ -7,8 +7,8 @@
              x:Class="Runner.Views.AlgorithmView">
     
     <StackPanel Margin="8">
-        <Label Margin="4">Population</Label>
-        
+        <Label Margin="4">Cost Method</Label>
+            <ComboBox Margin="10" Items="{Binding AlgorithmViewModel.CostMethods}" SelectedItem="{Binding AlgorithmViewModel.Configuration.CostFunction}"></ComboBox>
         <Label Margin="4">Operators</Label>
         <WrapPanel>
             <views:OperatorView/>

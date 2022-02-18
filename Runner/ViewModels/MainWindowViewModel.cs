@@ -20,8 +20,10 @@ namespace Runner.ViewModels
         public LogViewModel LogViewModel { get; }
         public HistoryViewModel HistoryViewModel { get; }
         
+        public AlgorithmViewModel AlgorithmViewModel { get; }
+        
         public OperatorViewModel OperatorViewModel { get; }
-        public MainWindowViewModel(IConfiguration configuration, ParametersViewModel parametersViewModel, ControlViewModel controlViewModel, LogViewModel logViewModel, OperatorViewModel operatorViewModel, HistoryViewModel historyViewModel)
+        public MainWindowViewModel(IConfiguration configuration, ParametersViewModel parametersViewModel, ControlViewModel controlViewModel, LogViewModel logViewModel, OperatorViewModel operatorViewModel, HistoryViewModel historyViewModel, AlgorithmViewModel algorithmViewModel)
         {
             Configuration = configuration;
             LogViewModel = logViewModel;
@@ -29,6 +31,7 @@ namespace Runner.ViewModels
             ControlViewModel = controlViewModel;
             OperatorViewModel = operatorViewModel;
             HistoryViewModel = historyViewModel;
+            AlgorithmViewModel = algorithmViewModel;
             ControlViewModel.ParametersModel = Configuration;
         }
 

@@ -96,7 +96,7 @@ public class WarehouseCostFunction
         }
 
     }
-    
+    [CostFunction]
     public static double CalculateCost(IPopulationModel populationModel, ICostMatrix costMatrix, IConfiguration configuration)
     {
         if(_ordersPath == "") _ordersPath = configuration.DataPath.Replace("mag", "orders").Replace(".mtrx", ".txt");

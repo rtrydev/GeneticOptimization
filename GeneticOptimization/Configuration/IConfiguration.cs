@@ -6,6 +6,7 @@ namespace GeneticOptimization.Configuration;
 
 public interface IConfiguration
 { 
+    public string CostFunction { get; set; }
     public int PopulationSize { get; set; }
     public int ParentsCount { get; set; }
     public int OffspringCount { get; set; }

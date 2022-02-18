@@ -6,6 +6,7 @@ namespace GeneticOptimization.CostFunctions;
 
 public class TspCostFunction
 {
+    [CostFunction]
     public static double CalculateCost(IPopulationModel populationModel, ICostMatrix costMatrix, IConfiguration configuration)
     {
         var cost = 0d;

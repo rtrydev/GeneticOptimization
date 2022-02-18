@@ -28,10 +28,11 @@ namespace Runner
 
                 var controlVM = new ControlViewModel(config, logModel, parametersVM, historyVM);
                 var operatorVM = new OperatorViewModel(config);
+                var algorithmVM = new AlgorithmViewModel(config);
                 var logVM = new LogViewModel(logModel);
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(config, parametersVM, controlVM, logVM, operatorVM, historyVM),
+                    DataContext = new MainWindowViewModel(config, parametersVM, controlVM, logVM, operatorVM, historyVM, algorithmVM),
                 };
             }
 

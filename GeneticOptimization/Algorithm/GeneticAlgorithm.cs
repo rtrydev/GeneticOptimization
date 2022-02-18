@@ -50,7 +50,15 @@ public class GeneticAlgorithm : ILoggable
         _logger.StartTimer();
         var operatorsCount = _operators.Count;
         var populationSize = _configuration.PopulationSize;
-        var population = new Population<IPopulationModel>(populationSize, TspPopulationGenerator.GenerateOneModel, WarehouseCostFunction.CalculateCost, _costMatrix);
+        var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == "GeneticOptimization");
+        var method = assembly.GetTypes()
+            .SelectMany(t => t.GetMethods())
+            .First(m => m.GetCustomAttributes(typeof(CostFunction), false).Length > 0 &&
+                        m.DeclaringType.ToString() == _configuration.CostFunction);
+
+        var delegateCostFunction = method.CreateDelegate<Func<IPopulationModel, ICostMatrix, IConfiguration, double>>();
+        
+        var population = new Population<IPopulationModel>(populationSize, TspPopulationGenerator.GenerateOneModel, delegateCostFunction, _costMatrix);
         foreach (var individual in population.PopulationArray)
         {
             individual.Cost = population.CostFunction(individual, _costMatrix, _configuration);
