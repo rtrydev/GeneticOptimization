@@ -13,6 +13,7 @@ public class FileWriter
             stringBuilder.AppendLine(string.Join(" ", Matrix[i]));
         stringBuilder.Append(string.Join(" ", Matrix[Matrix.Length - 1]));
 
+        if(File.Exists(fileName)) return;
         File.WriteAllText(fileName, stringBuilder.ToString());
 
     }
