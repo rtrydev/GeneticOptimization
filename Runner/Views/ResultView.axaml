@@ -52,7 +52,7 @@
         </StackPanel>
         <StackPanel Grid.Column="1">
             <avalonia:Plot Height="450" 
-                           PlotMargins="50 0 0 0"
+                           PlotMargins="50 0 0 30"
                            PlotAreaBorderColor="#999999"
                            Background="#333333"
                            TextColor="#eeeeee">

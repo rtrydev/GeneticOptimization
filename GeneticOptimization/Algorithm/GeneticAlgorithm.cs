@@ -50,7 +50,7 @@ public class GeneticAlgorithm : ILoggable
         _logger.StartTimer();
         var operatorsCount = _operators.Count;
         var populationSize = _configuration.PopulationSize;
-        var population = new Population<IPopulationModel>(populationSize, TspPopulationGenerator.GenerateOneModel, TspCostFunction.CalculateCost, _costMatrix);
+        var population = new Population<IPopulationModel>(populationSize, TspPopulationGenerator.GenerateOneModel, WarehouseCostFunction.CalculateCost, _costMatrix);
         foreach (var individual in population.PopulationArray)
         {
             individual.Cost = population.CostFunction(individual, _costMatrix);

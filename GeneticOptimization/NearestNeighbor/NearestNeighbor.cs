@@ -34,6 +34,30 @@ public class NearestNeighbor
         return cost;
 
     }
+    
+    public double GetShortestPathLength(int[] pointsToOrder)
+    {
+        var points = pointsToOrder.ToList();
+        var path = new int[points.Count + 2];
+        path[0] = 0;
+        if (points.Contains(0)) points.Remove(0);
+        path[^1] = 0;
+
+        for (int i = 1; i < path.Length - 1; i++)
+        {
+            path[i] = GetNextPoint(path[i - 1], points);
+            points.Remove(path[i]);
+        }
+
+        var cost = 0d;
+        for (int i = 0; i < path.Length - 1; i++)
+        {
+            cost += _costMatrix.Matrix[path[i]][path[i + 1]];
+        }
+
+        return cost;
+
+    }
 
     private int GetNextPoint(int currentPoint, IList<int> availablePoints)
     {
