@@ -22,7 +22,7 @@ public class RsmMutation : Mutation
                 var j = random.Next(1, population[k].Body.Length);
                 var i = random.Next(1, j);
                 Array.Reverse(population[k].Body, i, j - i);
-                population[k].Cost = Population.CostFunction(population[k], _costMatrix);
+                population[k].Cost = Population.CostFunction(population[k], _costMatrix, _configuration);
                 
             }
         }

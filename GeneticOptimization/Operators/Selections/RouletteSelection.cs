@@ -18,7 +18,7 @@ public class RouletteSelection : Selection
 
         for (int i = 0; i < dataLength; i++)
         {
-            cost[i] = Data.CostFunction(Data.PopulationArray[i], _costMatrix);
+            cost[i] = Data.CostFunction(Data.PopulationArray[i], _costMatrix, _configuration);
         }
 
         var costSum = cost.Sum();

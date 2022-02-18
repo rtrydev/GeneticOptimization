@@ -53,7 +53,7 @@ public class GeneticAlgorithm : ILoggable
         var population = new Population<IPopulationModel>(populationSize, TspPopulationGenerator.GenerateOneModel, WarehouseCostFunction.CalculateCost, _costMatrix);
         foreach (var individual in population.PopulationArray)
         {
-            individual.Cost = population.CostFunction(individual, _costMatrix);
+            individual.Cost = population.CostFunction(individual, _costMatrix, _configuration);
         }
 
         foreach (var o in _operators)
@@ -86,7 +86,7 @@ public class GeneticAlgorithm : ILoggable
 
                 lastData = geneticOperator.Run();
             }
-            var costArray = population.PopulationArray.Select(x => population.CostFunction(x, _costMatrix)).OrderBy(x => x).ToArray();
+            var costArray = population.PopulationArray.Select(x => population.CostFunction(x, _costMatrix, _configuration)).OrderBy(x => x).ToArray();
             _logger.LogFormat.Epoch = j + 1;
             _logger.LogFormat.BestCost = costArray.Min();
             _logger.LogFormat.AvgCost = costArray.Average();

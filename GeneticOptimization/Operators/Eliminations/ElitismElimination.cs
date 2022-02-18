@@ -17,7 +17,7 @@ public class ElitismElimination : Elimination
         for (int i = populationSize - 1; i > populationSize - toEliminate; i--)
         {
             population[i] = Data.OffspringsArray[offspringIterator++];
-            population[i].Cost = Population.CostFunction(population[i], _costMatrix);
+            population[i].Cost = Population.CostFunction(population[i], _costMatrix, _configuration);
         }
 
         population = population.OrderBy(x => x.Cost).ToArray();
