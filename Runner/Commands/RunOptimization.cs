@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -14,6 +13,7 @@ using GeneticOptimization.CostFunctions;
 using GeneticOptimization.Data;
 using GeneticOptimization.NearestNeighbor;
 using GeneticOptimization.PopulationModels;
+using Newtonsoft.Json;
 using ReactiveUI.Fody.Helpers;
 using Runner.Models;
 using Runner.ViewModels;
@@ -85,7 +85,7 @@ public class RunOptimization : ICommand
                 };
 
                 _logModel.AppendLog("Result: " + finalResult.BestIndividual.Cost.ToString("0.##"));
-                string jsonString = JsonSerializer.Serialize(finalResult);
+                string jsonString = JsonConvert.SerializeObject(finalResult);
                 var dataset = "";
                 if (OperatingSystem.IsWindows())
                     dataset = finalResult.Configuration.DataPath.Split("\\")[^1];

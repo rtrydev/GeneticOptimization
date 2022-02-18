@@ -1,5 +1,4 @@
 namespace GeneticOptimization.Operators;
-
 public enum OperatorTypes
 {
     Selection,

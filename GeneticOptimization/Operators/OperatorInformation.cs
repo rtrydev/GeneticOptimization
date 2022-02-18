@@ -8,7 +8,7 @@ public class OperatorInformation
     public string[] Mutations { get; } = {"Rsm"};
     public string[] Others { get; } = { };
     public string[] Available => GetAvailableOperators();
-    public OperatorTypes OperatorType { get; }
+    public OperatorTypes OperatorType { get; set; }
     public string OperatorName { get; set; }
 
     public OperatorInformation(OperatorTypes type, string name)
