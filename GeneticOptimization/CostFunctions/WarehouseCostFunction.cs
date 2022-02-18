@@ -6,6 +6,7 @@ namespace GeneticOptimization.CostFunctions;
 
 public class WarehouseCostFunction
 {
+    private static string _ordersPath = "";
     private class Orders
     {
         private static int[][]? _orderPoints;
@@ -98,9 +99,8 @@ public class WarehouseCostFunction
     
     public static double CalculateCost(IPopulationModel populationModel, ICostMatrix costMatrix, IConfiguration configuration)
     {
-        var ordersPath = configuration.DataPath.Replace("mag", "orders");
-        ordersPath = ordersPath.Replace(".mtrx", ".txt");
-        Orders.LoadOrders(ordersPath);
+        if(_ordersPath == "") _ordersPath = configuration.DataPath.Replace("mag", "orders").Replace(".mtrx", ".txt");
+        Orders.LoadOrders(_ordersPath);
         var orders = new Orders();
         return orders.GetOrderPathLengthSum(populationModel, costMatrix);
     }
