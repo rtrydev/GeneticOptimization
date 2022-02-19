@@ -12,50 +12,62 @@ public class OperatorFactory
 {
     public static IOperator CreateOperator(OperatorInformation operatorInformation, IConfiguration configuration, ICostMatrix costMatrix)
     {
+        var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == "GeneticOptimization");
         if (operatorInformation.OperatorType == OperatorTypes.Crossover)
         {
+            var crossover = assembly.GetTypes()
+                .Where(c => c.IsSubclassOf(typeof(Crossover))).First(x => x.Name.Contains(operatorInformation.OperatorName));
+            var types = new Type[4];
+            types[0] = typeof(IConfiguration);
+            types[1] = typeof(IConflictResolver);
+            types[2] = typeof(IConflictResolver);
+            types[3] = typeof(ICostMatrix);
             var conflictResolver = CreateConflictResolver(configuration, costMatrix);
             var randomisedResolver = CreateRandomisedResolver(configuration, costMatrix);
-            switch (operatorInformation.OperatorName)
-            {
-                case "Aex":
-                    return new AexCrossover(configuration, conflictResolver, randomisedResolver, costMatrix);
-                case "HProX":
-                    return new HProXCrossover(configuration, conflictResolver, randomisedResolver, costMatrix);
-                case "HGreX":
-                    return new HGreXCrossover(configuration, conflictResolver, randomisedResolver, costMatrix);
-                case "HRndX":
-                    return new HRndXCrossover(configuration, conflictResolver, randomisedResolver, costMatrix);
-            }
+            var constructor = crossover.GetConstructor(types);
+            object[] parameters = {configuration, conflictResolver, randomisedResolver, costMatrix};
+            
+            return (IOperator) constructor.Invoke(parameters);
         }
         
         if (operatorInformation.OperatorType == OperatorTypes.Selection)
         {
-            switch (operatorInformation.OperatorName)
-            {
-                case "Random":
-                    return new RandomSelection(configuration, costMatrix);
-                case "Roulette":
-                    return new RouletteSelection(configuration, costMatrix);
-                case "Elitism":
-                    return new ElitismSelection(configuration, costMatrix);
-            }
+            var selection = assembly.GetTypes()
+                .Where(c => c.IsSubclassOf(typeof(Selection))).First(x => x.Name.Contains(operatorInformation.OperatorName));
+            var types = new Type[2];
+            types[0] = typeof(IConfiguration);
+            types[1] = typeof(ICostMatrix);
+            var constructor = selection.GetConstructor(types);
+            object[] parameters = {configuration, costMatrix};
+            
+            return (IOperator) constructor.Invoke(parameters);
+            
         }
 
         if (operatorInformation.OperatorType == OperatorTypes.Mutation)
         {
-            switch (operatorInformation.OperatorName)
-            {
-                case "Rsm": return new RsmMutation(configuration, costMatrix);
-            }
+            var mutation = assembly.GetTypes()
+                .Where(c => c.IsSubclassOf(typeof(Mutation))).First(x => x.Name.Contains(operatorInformation.OperatorName));
+            var types = new Type[2];
+            types[0] = typeof(IConfiguration);
+            types[1] = typeof(ICostMatrix);
+            var constructor = mutation.GetConstructor(types);
+            object[] parameters = {configuration, costMatrix};
+            
+            return (IOperator) constructor.Invoke(parameters);
         }
 
         if (operatorInformation.OperatorType == OperatorTypes.Elimination)
         {
-            switch (operatorInformation.OperatorName)
-            {
-                case "Elitism": return new ElitismElimination(configuration, costMatrix);
-            }
+            var elimination = assembly.GetTypes()
+                .Where(c => c.IsSubclassOf(typeof(Elimination))).First(x => x.Name.Contains(operatorInformation.OperatorName));
+            var types = new Type[2];
+            types[0] = typeof(IConfiguration);
+            types[1] = typeof(ICostMatrix);
+            var constructor = elimination.GetConstructor(types);
+            object[] parameters = {configuration, costMatrix};
+            
+            return (IOperator) constructor.Invoke(parameters);
         }
 
         throw new ArgumentException();

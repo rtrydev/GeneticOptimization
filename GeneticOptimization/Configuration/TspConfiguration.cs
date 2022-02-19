@@ -19,10 +19,10 @@ public class TspConfiguration : IConfiguration
     [Ignored]
     public OperatorInformation[] OperatorInformation { get; set; } = new[]
     {
-        new OperatorInformation(OperatorTypes.Selection, "Random"),
-        new OperatorInformation(OperatorTypes.Crossover, "HProX"),
-        new OperatorInformation(OperatorTypes.Elimination, "Elitism"),
-        new OperatorInformation(OperatorTypes.Mutation, "Rsm")
+        new OperatorInformation(OperatorTypes.Selection, "RandomSelection"),
+        new OperatorInformation(OperatorTypes.Crossover, "HProXCrossover"),
+        new OperatorInformation(OperatorTypes.Elimination, "ElitismElimination"),
+        new OperatorInformation(OperatorTypes.Mutation, "RsmMutation")
     };
 
     public ConflictResolveMethod ConflictResolveMethod { get; set; } = ConflictResolveMethod.NearestNeighbor;
