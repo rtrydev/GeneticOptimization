@@ -34,7 +34,17 @@ public class Compile : ICommand
         if (selectedFiles is null) return;
         var file = selectedFiles.First();
 
-        var moduleName = file.Split("/").Last().Split(".").First();
+        var moduleName = "";
+
+        if (OperatingSystem.IsWindows())
+        {
+            moduleName = file.Split("\\").Last().Split(".").First();
+        }
+        else
+        {
+            moduleName = file.Split("/").Last().Split(".").First();
+        }
+        
         var code = File.ReadAllText(file);
         var result = compiler.CompileCSharp(code, moduleName);
         
