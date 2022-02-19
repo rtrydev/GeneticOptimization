@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.IO;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -19,6 +20,10 @@ namespace Runner
 
         public override void OnFrameworkInitializationCompleted()
         {
+            if (!File.Exists("Modules"))
+            {
+                Directory.CreateDirectory("Modules");
+            }
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 var logModel = new ConsoleLogModel();

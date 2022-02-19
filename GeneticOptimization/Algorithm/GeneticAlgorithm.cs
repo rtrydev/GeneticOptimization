@@ -1,3 +1,4 @@
+using System.Reflection;
 using AbstractionProvider.Configuration;
 using AbstractionProvider.CostFunctions;
 using AbstractionProvider.Data;
@@ -46,8 +47,27 @@ public class GeneticAlgorithm : ILoggable
         var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == "GeneticOptimization");
         var method = assembly.GetTypes()
             .SelectMany(t => t.GetMethods())
-            .First(m => m.GetCustomAttributes(typeof(CostFunction), false).Length > 0 &&
+            .FirstOrDefault(m => m.GetCustomAttributes(typeof(CostFunction), false).Length > 0 &&
                         m.DeclaringType.ToString() == _configuration.CostFunction);
+
+        var files = new DirectoryInfo("Modules").GetFiles().Select(x => x.FullName).ToArray();
+
+        foreach (var file in files)
+        {
+            if (method is null)
+            {
+                var dynamicAssembly = Assembly.LoadFile(file);
+                var dynamicallyLoadedMethods = dynamicAssembly.GetTypes()
+                    .SelectMany(t => t.GetMethods())
+                    .Where(m => m.GetCustomAttributes(typeof(CostFunction), false).Length > 0)
+                    .ToArray();
+
+                method = dynamicallyLoadedMethods.FirstOrDefault();
+            }
+            else break;
+        }
+        
+        if(method is null) return;
 
         var delegateCostFunction = method.CreateDelegate<Func<IPopulationModel, ICostMatrix, IConfiguration, double>>();
         
