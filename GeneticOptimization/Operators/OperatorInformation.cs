@@ -29,8 +29,7 @@ public class OperatorInformation
             .Where(c => c.IsSubclassOf(typeof(Elimination))).ToArray().Select(x => x.ToString().Split(".").Last()).ToArray();
         var mutations = assembly.GetTypes()
             .Where(c => c.IsSubclassOf(typeof(Mutation))).ToArray().Select(x => x.ToString().Split(".").Last()).ToArray();
-        var resolvers = assembly.GetTypes()
-            .Where(p => typeof(IConflictResolver).IsAssignableFrom(p) && p.IsClass).ToArray().Select(x => x.ToString().Split(".").Last()).ToArray();
+        
         
         
         switch (OperatorType)

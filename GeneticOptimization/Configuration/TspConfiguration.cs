@@ -24,9 +24,11 @@ public class TspConfiguration : IConfiguration
         new OperatorInformation(OperatorTypes.Elimination, "ElitismElimination"),
         new OperatorInformation(OperatorTypes.Mutation, "RsmMutation")
     };
-
-    public ConflictResolveMethod ConflictResolveMethod { get; set; } = ConflictResolveMethod.NearestNeighbor;
-    public ConflictResolveMethod RandomisedResolveMethod { get; set; } = ConflictResolveMethod.NearestNeighbor;
+    [Ignored]
+    public string ConflictResolveMethod { get; set; } = "RandomResolver";
+    [Ignored]
+    public string RandomisedResolveMethod { get; set; } = "NearestNeighborResolver";
+    [Ignored]
     public double RandomisedResolveProbability { get; set; } = 0.0d;
 
     public T GetPropertyValue<T>(string name)

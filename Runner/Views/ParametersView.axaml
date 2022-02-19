@@ -20,6 +20,13 @@
         
             <TextBlock Text="{Binding SelectedFilesString}" ></TextBlock>
             
+            <Label Content="ConflictResolveMethod"></Label>
+            <ComboBox Items="{Binding Resolvers}" SelectedItem="{Binding Configuration.ConflictResolveMethod}"></ComboBox>
+            <Label Content="RandomisedResolveMethod"></Label>
+            <ComboBox Items="{Binding Resolvers}" SelectedItem="{Binding Configuration.RandomisedResolveMethod}"></ComboBox>
+            <Label Content="RandomisedResolveProbability"></Label>
+            <TextBox Width="50" HorizontalAlignment="Left" Text="{Binding Configuration.RandomisedResolveProbability}"></TextBox>
+            
             <ItemsControl Items="{Binding Configuration.Properties}" >
                 <ItemsControl.ItemTemplate >
                     <DataTemplate>

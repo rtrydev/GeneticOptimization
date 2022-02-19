@@ -75,24 +75,25 @@ public class OperatorFactory
 
     public static IConflictResolver CreateConflictResolver(IConfiguration configuration, ICostMatrix costMatrix)
     {
-        switch (configuration.ConflictResolveMethod)
-        {
-            case ConflictResolveMethod.Random: return new RandomResolver();
-            case ConflictResolveMethod.NearestNeighbor: return new NearestNeighborResolver(costMatrix);
-        }
-
-        throw new ArgumentException();
+        return GetResolver(configuration.ConflictResolveMethod, costMatrix);
     }
     
     public static IConflictResolver CreateRandomisedResolver(IConfiguration configuration, ICostMatrix costMatrix)
     {
-        switch (configuration.RandomisedResolveMethod)
-        {
-            case ConflictResolveMethod.Random: return new RandomResolver();
-            case ConflictResolveMethod.NearestNeighbor: return new NearestNeighborResolver(costMatrix);
-        }
+        return GetResolver(configuration.RandomisedResolveMethod, costMatrix);
+    }
 
-        throw new ArgumentException();
+    private static IConflictResolver GetResolver(string resolverName, ICostMatrix costMatrix)
+    {
+        var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == "GeneticOptimization");
+        var resolver = assembly.GetTypes().
+            Where(p => typeof(IConflictResolver).IsAssignableFrom(p) && p.IsClass).First(x => x.Name.Contains(resolverName));
+        var types = new Type[1];
+        types[0] = typeof(ICostMatrix);
+        var constructor = resolver.GetConstructor(types);
+        object[] parameters = {costMatrix};
+            
+        return (IConflictResolver) constructor.Invoke(parameters);
     }
     
 }

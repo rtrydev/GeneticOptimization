@@ -14,7 +14,7 @@ public class OperatorsToStringArrayConverter : IValueConverter
         var result = new string[operators.Length];
         for (int i = 0; i < result.Length; i++)
         {
-            result[i] = $"{operators[i].OperatorType} {operators[i].OperatorName}";
+            result[i] = $"{operators[i].OperatorName}";
         }
 
         return result;

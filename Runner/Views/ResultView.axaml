@@ -31,13 +31,27 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+            <Label Margin="0 10 0  10" FontWeight="Bold">LocalSearch</Label>
+            <WrapPanel Margin="4 0 0 0">
+                <Label FontStyle="Italic" Margin="0 0 4 0">ConflictResolveMethod</Label>
+                <Label FontWeight="Bold" Content="{Binding Result.Configuration.ConflictResolveMethod}"></Label>
+            </WrapPanel>
+            <WrapPanel  Margin="4 0 0 0">
+                <Label FontStyle="Italic" Margin="0 0 4 0">RandomisedResolveMethod</Label>
+                <Label FontWeight="Bold" Content="{Binding Result.Configuration.RandomisedResolveMethod}"></Label>
+            </WrapPanel>
+            <WrapPanel Margin="4 0 0 0">
+                <Label FontStyle="Italic" Margin="0 0 4 0">RandomisedResolveProbability</Label>
+                <Label FontWeight="Bold" Content="{Binding Result.Configuration.RandomisedResolveProbability}"></Label>
+            </WrapPanel>
+            
             <Label Margin="0 10 0  10" FontWeight="Bold">Configuration</Label>
             <ItemsControl Margin="4 0 0 0" Items="{Binding Result.Configuration.Properties}" >
                 <ItemsControl.ItemTemplate >
                     <DataTemplate>
                         <WrapPanel>
-                            <Label Content="{Binding Name}" FontStyle="Italic" IsVisible="{Binding !IsArray}"></Label>
-                            <Label  HorizontalAlignment="Left" Content="{Binding Value} "  FontWeight="Bold"></Label>
+                            <Label Margin="0 0 4 0" Content="{Binding Name}" FontStyle="Italic" IsVisible="{Binding !IsArray}"></Label>
+                            <Label HorizontalAlignment="Left" Content="{Binding Value} "  FontWeight="Bold"></Label>
                             
                         </WrapPanel>
                     </DataTemplate>

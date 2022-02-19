@@ -1,7 +1,13 @@
+using GeneticOptimization.Data;
+
 namespace GeneticOptimization.Operators.ConflictResolvers;
 
 public class RandomResolver : IConflictResolver
 {
+    public RandomResolver(ICostMatrix costMatrix)
+    {
+        
+    }
     public void ResolveConflict(int[] currentBody, int index, IList<int> remainingPoints)
     {
         var random = Random.Shared;
