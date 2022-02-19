@@ -1,4 +1,4 @@
-namespace GeneticOptimization.PopulationModels;
+namespace AbstractionProvider.PopulationModels;
 
 public interface IPopulationModel
 {

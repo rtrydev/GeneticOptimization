@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Input;
-using GeneticOptimization.Configuration;
+using AbstractionProvider.Configuration;
 using Runner.Commands;
 using Runner.Models;
 

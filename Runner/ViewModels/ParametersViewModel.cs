@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
 using System.Windows.Input;
-using GeneticOptimization.Configuration;
-using GeneticOptimization.Operators.ConflictResolvers;
+using AbstractionProvider.Configuration;
+using AbstractionProvider.Operators;
 using ReactiveUI.Fody.Helpers;
 using Runner.Commands;
 

@@ -1,4 +1,4 @@
-namespace GeneticOptimization.Log;
+namespace AbstractionProvider.Log;
 
 public class LogFormat
 {

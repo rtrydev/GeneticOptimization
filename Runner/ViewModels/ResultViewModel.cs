@@ -1,12 +1,9 @@
-using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Text.Json;
+using AbstractionProvider.Operators;
 using GeneticOptimization.Algorithm;
 using GeneticOptimization.Configuration;
-using GeneticOptimization.Operators;
 using GeneticOptimization.PopulationModels;
-using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using ReactiveUI.Fody.Helpers;
 

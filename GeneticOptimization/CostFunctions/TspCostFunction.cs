@@ -1,6 +1,7 @@
-using GeneticOptimization.Configuration;
-using GeneticOptimization.Data;
-using GeneticOptimization.PopulationModels;
+using AbstractionProvider.Configuration;
+using AbstractionProvider.CostFunctions;
+using AbstractionProvider.Data;
+using AbstractionProvider.PopulationModels;
 
 namespace GeneticOptimization.CostFunctions;
 

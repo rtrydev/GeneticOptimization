@@ -1,4 +1,4 @@
-namespace GeneticOptimization.Operators;
+namespace AbstractionProvider.Operators;
 
 public interface IOperatorWithResult<out T> : IOperator
 {

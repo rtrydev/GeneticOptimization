@@ -1,8 +1,7 @@
 using System.Text.Json.Serialization;
-using GeneticOptimization.Operators;
-using GeneticOptimization.Operators.ConflictResolvers;
+using AbstractionProvider.Operators;
 
-namespace GeneticOptimization.Configuration;
+namespace AbstractionProvider.Configuration;
 
 public interface IConfiguration
 { 

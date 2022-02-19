@@ -1,4 +1,5 @@
-using GeneticOptimization.Configuration;
+using AbstractionProvider.Configuration;
+using AbstractionProvider.Data;
 using GeneticOptimization.Files;
 
 namespace GeneticOptimization.Data;

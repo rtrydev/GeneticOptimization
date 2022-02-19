@@ -1,7 +1,7 @@
-using GeneticOptimization.Data;
-using GeneticOptimization.PopulationModels;
+using AbstractionProvider.Data;
+using AbstractionProvider.PopulationModels;
 
-namespace GeneticOptimization.Operators;
+namespace AbstractionProvider.Operators;
 
 public interface IPopulationOperator : IOperator
 {

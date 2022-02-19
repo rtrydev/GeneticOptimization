@@ -1,10 +1,11 @@
-using GeneticOptimization.Configuration;
-using GeneticOptimization.CostFunctions;
-using GeneticOptimization.Data;
-using GeneticOptimization.Log;
-using GeneticOptimization.Operators;
+using AbstractionProvider.Configuration;
+using AbstractionProvider.CostFunctions;
+using AbstractionProvider.Data;
+using AbstractionProvider.Log;
+using AbstractionProvider.Operators;
+using AbstractionProvider.PopulationModels;
 using GeneticOptimization.PopulationInitializers;
-using GeneticOptimization.PopulationModels;
+
 
 namespace GeneticOptimization.Algorithm;
 

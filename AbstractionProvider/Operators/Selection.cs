@@ -1,8 +1,8 @@
-using GeneticOptimization.Configuration;
-using GeneticOptimization.Data;
-using GeneticOptimization.PopulationModels;
+using AbstractionProvider.Configuration;
+using AbstractionProvider.Data;
+using AbstractionProvider.PopulationModels;
 
-namespace GeneticOptimization.Operators.Selections;
+namespace AbstractionProvider.Operators;
 
 public abstract class Selection : IOperatorWithInput<Population<IPopulationModel>>, IOperatorWithResult<Parents<IPopulationModel>>
 {

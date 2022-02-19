@@ -1,3 +1,5 @@
+using AbstractionProvider.PopulationModels;
+
 namespace GeneticOptimization.PopulationModels;
 
 public class TspPopulationModel : IPopulationModel

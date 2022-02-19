@@ -1,6 +1,6 @@
 using System.Reflection.Emit;
 
-namespace GeneticOptimization.Configuration;
+namespace AbstractionProvider.Configuration;
 
 public class PropertyWrapper
 {

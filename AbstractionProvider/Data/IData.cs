@@ -1,4 +1,4 @@
-namespace GeneticOptimization.Data;
+namespace AbstractionProvider.Data;
 
 public interface IData
 {

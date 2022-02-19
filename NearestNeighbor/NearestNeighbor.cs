@@ -1,6 +1,6 @@
-using GeneticOptimization.Data;
+using AbstractionProvider.Data;
 
-namespace GeneticOptimization.NearestNeighbor;
+namespace NearestNeighbor;
 
 public class NearestNeighbor
 {

@@ -1,4 +1,5 @@
-using GeneticOptimization.Data;
+using AbstractionProvider.Data;
+using AbstractionProvider.Operators;
 
 namespace GeneticOptimization.Operators.ConflictResolvers;
 

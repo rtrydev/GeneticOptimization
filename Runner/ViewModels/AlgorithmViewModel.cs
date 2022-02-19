@@ -1,8 +1,7 @@
 using System;
 using System.Linq;
-using System.Reflection;
-using GeneticOptimization.Configuration;
-using GeneticOptimization.CostFunctions;
+using AbstractionProvider.Configuration;
+using AbstractionProvider.CostFunctions;
 using ReactiveUI.Fody.Helpers;
 
 namespace Runner.ViewModels;

@@ -1,6 +1,6 @@
-using GeneticOptimization.PopulationModels;
+using AbstractionProvider.PopulationModels;
 
-namespace GeneticOptimization.Log;
+namespace AbstractionProvider.Log;
 
 public interface ILogger
 {

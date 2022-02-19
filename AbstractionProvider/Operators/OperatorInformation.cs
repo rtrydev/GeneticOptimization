@@ -1,10 +1,6 @@
-using GeneticOptimization.Operators.ConflictResolvers;
-using GeneticOptimization.Operators.Crossovers;
-using GeneticOptimization.Operators.Eliminations;
-using GeneticOptimization.Operators.Mutations;
-using GeneticOptimization.Operators.Selections;
+using AbstractionProvider.Operators;
 
-namespace GeneticOptimization.Operators;
+namespace AbstractionProvider.Operators;
 
 public class OperatorInformation
 {

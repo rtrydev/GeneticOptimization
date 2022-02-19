@@ -1,6 +1,6 @@
-using GeneticOptimization.Data;
+using AbstractionProvider.Data;
 
-namespace GeneticOptimization.Operators;
+namespace AbstractionProvider.Operators;
 
 public interface IOperatorWithInput<T> where T : IData
 {

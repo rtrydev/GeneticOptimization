@@ -1,11 +1,10 @@
 using System;
 using System.Text;
 using System.Windows.Input;
+using AbstractionProvider.Configuration;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using GeneticOptimization.Configuration;
-using Runner.Models;
 using Runner.ViewModels;
 
 namespace Runner.Commands;

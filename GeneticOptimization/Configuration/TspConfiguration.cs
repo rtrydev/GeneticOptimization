@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
-using GeneticOptimization.Operators;
-using GeneticOptimization.Operators.ConflictResolvers;
+using AbstractionProvider.Configuration;
+using AbstractionProvider.Operators;
 
 namespace GeneticOptimization.Configuration;
 

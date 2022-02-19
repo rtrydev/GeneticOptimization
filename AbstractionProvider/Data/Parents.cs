@@ -1,4 +1,4 @@
-namespace GeneticOptimization.Data;
+namespace AbstractionProvider.Data;
 
 public class Parents<T> : IData
 {

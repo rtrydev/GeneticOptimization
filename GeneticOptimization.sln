@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticOptimization", "Gene
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner", "Runner\Runner.csproj", "{22788C8B-ED51-4295-871E-F8A6D92A9EB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NearestNeighbor", "NearestNeighbor\NearestNeighbor.csproj", "{8A414044-D995-4F65-B176-89F08D145ED1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbstractionProvider", "AbstractionProvider\AbstractionProvider.csproj", "{C0AAC329-A053-48FD-ABF2-DBB97DD990DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{22788C8B-ED51-4295-871E-F8A6D92A9EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22788C8B-ED51-4295-871E-F8A6D92A9EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22788C8B-ED51-4295-871E-F8A6D92A9EB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A414044-D995-4F65-B176-89F08D145ED1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A414044-D995-4F65-B176-89F08D145ED1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A414044-D995-4F65-B176-89F08D145ED1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A414044-D995-4F65-B176-89F08D145ED1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0AAC329-A053-48FD-ABF2-DBB97DD990DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0AAC329-A053-48FD-ABF2-DBB97DD990DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0AAC329-A053-48FD-ABF2-DBB97DD990DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0AAC329-A053-48FD-ABF2-DBB97DD990DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

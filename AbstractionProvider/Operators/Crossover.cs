@@ -1,10 +1,10 @@
-using GeneticOptimization.Configuration;
-using GeneticOptimization.Data;
-using GeneticOptimization.Log;
-using GeneticOptimization.Operators.ConflictResolvers;
-using GeneticOptimization.PopulationModels;
+using AbstractionProvider.Configuration;
+using AbstractionProvider.Data;
+using AbstractionProvider.Log;
+using AbstractionProvider.Operators;
+using AbstractionProvider.PopulationModels;
 
-namespace GeneticOptimization.Operators.Crossovers;
+namespace AbstractionProvider.Operators;
 
 public abstract class Crossover : ILoggable, IOperatorWithInput<Parents<IPopulationModel>>, IOperatorWithResult<Offsprings<IPopulationModel>>
 {

@@ -1,7 +1,7 @@
-using GeneticOptimization.Configuration;
-using GeneticOptimization.PopulationModels;
+using AbstractionProvider.Configuration;
+using AbstractionProvider.PopulationModels;
 
-namespace GeneticOptimization.Data;
+namespace AbstractionProvider.Data;
 
 public class Population<T> : IData where T : IPopulationModel 
 {

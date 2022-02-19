@@ -1,9 +1,9 @@
-using GeneticOptimization.Configuration;
-using GeneticOptimization.Data;
-using GeneticOptimization.Log;
-using GeneticOptimization.PopulationModels;
+using AbstractionProvider.Configuration;
+using AbstractionProvider.Data;
+using AbstractionProvider.Log;
+using AbstractionProvider.PopulationModels;
 
-namespace GeneticOptimization.Operators.Mutations;
+namespace AbstractionProvider.Operators;
 
 public abstract class Mutation : ILoggable, IPopulationOperator, IOperatorWithResult<Population<IPopulationModel>>
 {
