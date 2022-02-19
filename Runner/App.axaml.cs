@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using System.IO;
 using Avalonia;
@@ -33,7 +34,7 @@ namespace Runner
 
                 var controlVM = new ControlViewModel(config, logModel, parametersVM, historyVM);
                 var operatorVM = new OperatorViewModel(config);
-                var algorithmVM = new AlgorithmViewModel(config);
+                var algorithmVM = new AlgorithmViewModel(config, logModel);
                 var logVM = new LogViewModel(logModel);
                 desktop.MainWindow = new MainWindow
                 {
