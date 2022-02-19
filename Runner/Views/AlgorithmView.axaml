@@ -7,6 +7,7 @@
              x:Class="Runner.Views.AlgorithmView">
     
     <StackPanel Margin="8">
+        <Button Command="{Binding AlgorithmViewModel.Compile}" CommandParameter="{Binding AlgorithmViewModel.LogModel}">Compile</Button>
         <Label Margin="4">Cost Method</Label>
             <ComboBox Margin="10" Items="{Binding AlgorithmViewModel.CostMethods}" SelectedItem="{Binding AlgorithmViewModel.Configuration.CostFunction}"></ComboBox>
         <Label Margin="4">Operators</Label>

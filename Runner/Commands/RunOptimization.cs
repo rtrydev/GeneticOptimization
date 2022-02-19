@@ -1,20 +1,14 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using AbstractionProvider.Configuration;
 using GeneticOptimization;
 using GeneticOptimization.Algorithm;
 using GeneticOptimization.Configuration;
-using GeneticOptimization.CostFunctions;
-using GeneticOptimization.Data;
-using GeneticOptimization.NearestNeighbor;
 using GeneticOptimization.PopulationModels;
 using Newtonsoft.Json;
-using ReactiveUI.Fody.Helpers;
 using Runner.Models;
 using Runner.ViewModels;
 

@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
-using Avalonia;
-using Avalonia.Interactivity;
-using GeneticOptimization.Configuration;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Runner.Commands;
+﻿using AbstractionProvider.Configuration;
 
 namespace Runner.ViewModels
 {

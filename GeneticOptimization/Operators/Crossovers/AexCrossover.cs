@@ -1,7 +1,7 @@
-using GeneticOptimization.Configuration;
-using GeneticOptimization.Data;
-using GeneticOptimization.Log;
-using GeneticOptimization.Operators.ConflictResolvers;
+using AbstractionProvider.Configuration;
+using AbstractionProvider.Data;
+using AbstractionProvider.Operators;
+using AbstractionProvider.PopulationModels;
 using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Operators.Crossovers;

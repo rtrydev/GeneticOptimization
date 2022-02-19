@@ -1,10 +1,6 @@
-using GeneticOptimization.Configuration;
-using GeneticOptimization.Data;
-using GeneticOptimization.Operators.ConflictResolvers;
-using GeneticOptimization.Operators.Crossovers;
-using GeneticOptimization.Operators.Eliminations;
-using GeneticOptimization.Operators.Mutations;
-using GeneticOptimization.Operators.Selections;
+using AbstractionProvider.Configuration;
+using AbstractionProvider.Data;
+using AbstractionProvider.Operators;
 
 namespace GeneticOptimization.Operators;
 

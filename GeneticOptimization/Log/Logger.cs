@@ -1,5 +1,6 @@
-using GeneticOptimization.Configuration;
-using GeneticOptimization.PopulationModels;
+using AbstractionProvider.Configuration;
+using AbstractionProvider.Log;
+using AbstractionProvider.PopulationModels;
 
 namespace GeneticOptimization.Log;
 

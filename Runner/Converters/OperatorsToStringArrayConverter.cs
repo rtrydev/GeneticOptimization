@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
+using AbstractionProvider.Operators;
 using Avalonia.Data.Converters;
-using GeneticOptimization.Operators;
 
 namespace Runner.Converters;
 
