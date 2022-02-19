@@ -29,14 +29,6 @@ public class GeneticAlgorithm : ILoggable
     
     public void AddOperator(IOperator geneticOperator)
     {
-        var lastOperator = GetLastOperator();
-
-        if (lastOperator is null)
-        {
-            _operators.Add(geneticOperator);
-            return;
-        }
-
         _operators.Add(geneticOperator);
     }
 
