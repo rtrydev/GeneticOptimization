@@ -59,7 +59,7 @@ public class Compile : ICommand
         }
         else
         {
-            log.AppendLog("Compilation Successful");
+            log.AppendLog($"Compilation of the {moduleName}.dll module has been finished successfully. Restart the application to make new modules visible.");
         }
         
     }
