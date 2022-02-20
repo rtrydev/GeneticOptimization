@@ -25,9 +25,13 @@ namespace GeneticOptimization.CostFunctions
 
         public static void LoadOrders(string path)
         {
-            if(_loadingOrders) return;
+            while (_loadingOrders)
+            {
+                Thread.Sleep(10);
+            }
             if(_orderPoints != null) return;
             _loadingOrders = true;
+
             var data = File.ReadAllLines(path);
                 
             var nonEmptyLines = 0;
