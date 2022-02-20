@@ -1,3 +1,4 @@
+using AbstractionProvider.Configuration;
 using AbstractionProvider.Data;
 using AbstractionProvider.Operators;
 
@@ -5,7 +6,7 @@ namespace GeneticOptimization.Operators.ConflictResolvers;
 
 public class RandomResolver : IConflictResolver
 {
-    public RandomResolver(ICostMatrix costMatrix)
+    public RandomResolver(ICostMatrix costMatrix, IConfiguration configuration)
     {
         
     }

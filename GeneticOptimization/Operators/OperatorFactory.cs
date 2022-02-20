@@ -1,4 +1,6 @@
+using System.Reflection;
 using AbstractionProvider.Configuration;
+using AbstractionProvider.CostFunctions;
 using AbstractionProvider.Data;
 using AbstractionProvider.Operators;
 
@@ -71,23 +73,42 @@ public class OperatorFactory
 
     public static IConflictResolver CreateConflictResolver(IConfiguration configuration, ICostMatrix costMatrix)
     {
-        return GetResolver(configuration.ConflictResolveMethod, costMatrix);
+        return GetResolver(configuration.ConflictResolveMethod, costMatrix, configuration);
     }
     
     public static IConflictResolver CreateRandomisedResolver(IConfiguration configuration, ICostMatrix costMatrix)
     {
-        return GetResolver(configuration.RandomisedResolveMethod, costMatrix);
+        return GetResolver(configuration.RandomisedResolveMethod, costMatrix, configuration);
     }
 
-    private static IConflictResolver GetResolver(string resolverName, ICostMatrix costMatrix)
+    private static IConflictResolver GetResolver(string resolverName, ICostMatrix costMatrix, IConfiguration configuration)
     {
         var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == "GeneticOptimization");
         var resolver = assembly.GetTypes().
-            Where(p => typeof(IConflictResolver).IsAssignableFrom(p) && p.IsClass).First(x => x.Name.Contains(resolverName));
-        var types = new Type[1];
+            Where(p => typeof(IConflictResolver).IsAssignableFrom(p) && p.IsClass).FirstOrDefault(x => x.Name.Contains(resolverName));
+        
+        var files = new DirectoryInfo("Modules").GetFiles().Select(x => x.FullName).ToArray();
+
+        foreach (var file in files)
+        {
+            if (resolver is null)
+            {
+                var dynamicAssembly = Assembly.LoadFile(file);
+                var dynamicallyLoadedMethods = dynamicAssembly.GetTypes()
+                    .Where(p => typeof(IConflictResolver).IsAssignableFrom(p) && p.IsClass)
+                    .ToArray();
+
+                resolver = dynamicallyLoadedMethods.FirstOrDefault();
+            }
+            else break;
+        }
+        
+        
+        var types = new Type[2];
         types[0] = typeof(ICostMatrix);
+        types[1] = typeof(IConfiguration);
         var constructor = resolver.GetConstructor(types);
-        object[] parameters = {costMatrix};
+        object[] parameters = {costMatrix, configuration};
             
         return (IConflictResolver) constructor.Invoke(parameters);
     }

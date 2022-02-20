@@ -9,7 +9,7 @@ public class TspConfiguration : IConfiguration
     [Ignored]
     public string DataPath { get; set; }
     public string LogPath => GetLogPath();
-    [Ignored] public string CostFunction { get; set; } = "GeneticOptimization.CostFunctions.TspCostFunction";
+    [Ignored] public string CostFunction { get; set; } = "TspCostFunction";
     public int PopulationSize { get; set; } = 120;
     public int ParentsCount { get; set; } = 90;
     public int OffspringCount { get; set; } = 60;

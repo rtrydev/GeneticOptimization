@@ -48,7 +48,7 @@ public class GeneticAlgorithm : ILoggable
         var method = assembly.GetTypes()
             .SelectMany(t => t.GetMethods())
             .FirstOrDefault(m => m.GetCustomAttributes(typeof(CostFunction), false).Length > 0 &&
-                        m.DeclaringType.ToString() == _configuration.CostFunction);
+                        m.DeclaringType.ToString().EndsWith(_configuration.CostFunction));
 
         var files = new DirectoryInfo("Modules").GetFiles().Select(x => x.FullName).ToArray();
 

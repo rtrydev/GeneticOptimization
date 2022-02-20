@@ -3,12 +3,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Runner.ViewModels"
+             xmlns:converters="clr-namespace:Runner.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Runner.Views.ParametersView">
     
     <Design.DataContext>
         <viewModels:ParametersViewModel/>
     </Design.DataContext>
+    
+    <UserControl.Resources>
+        <converters:NameShortenerConverter x:Key="NameShortenerConverter" />
+    </UserControl.Resources>
+    
     <ScrollViewer>
         <StackPanel Margin="4" >
             <WrapPanel HorizontalAlignment="Stretch">
@@ -21,9 +27,9 @@
             <TextBlock Text="{Binding SelectedFilesString}" ></TextBlock>
             
             <Label Content="ConflictResolveMethod"></Label>
-            <ComboBox Items="{Binding Resolvers}" SelectedItem="{Binding Configuration.ConflictResolveMethod}"></ComboBox>
+            <ComboBox Items="{Binding Resolvers, Converter={StaticResource NameShortenerConverter}}" SelectedItem="{Binding Configuration.ConflictResolveMethod}"></ComboBox>
             <Label Content="RandomisedResolveMethod"></Label>
-            <ComboBox Items="{Binding Resolvers}" SelectedItem="{Binding Configuration.RandomisedResolveMethod}"></ComboBox>
+            <ComboBox Items="{Binding Resolvers, Converter={StaticResource NameShortenerConverter}}" SelectedItem="{Binding Configuration.RandomisedResolveMethod}"></ComboBox>
             <Label Content="RandomisedResolveProbability"></Label>
             <TextBox Width="50" HorizontalAlignment="Left" Text="{Binding Configuration.RandomisedResolveProbability}"></TextBox>
             

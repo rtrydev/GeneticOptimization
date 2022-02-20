@@ -3,13 +3,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:views="clr-namespace:Runner.Views"
+             xmlns:converters="clr-namespace:Runner.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Runner.Views.AlgorithmView">
+    
+    <UserControl.Resources>
+        <converters:NameShortenerConverter x:Key="NameShortenerConverter" />
+    </UserControl.Resources>
     
     <StackPanel Margin="8">
         <Button Command="{Binding AlgorithmViewModel.Compile}" CommandParameter="{Binding AlgorithmViewModel.LogModel}">Compile</Button>
         <Label Margin="4">Cost Method</Label>
-            <ComboBox Margin="10" Items="{Binding AlgorithmViewModel.CostMethods}" SelectedItem="{Binding AlgorithmViewModel.Configuration.CostFunction}"></ComboBox>
+            <ComboBox Margin="10" Items="{Binding AlgorithmViewModel.CostMethods, Converter={StaticResource NameShortenerConverter}}" SelectedItem="{Binding AlgorithmViewModel.Configuration.CostFunction}"></ComboBox>
         <Label Margin="4">Operators</Label>
         <WrapPanel>
             <views:OperatorView/>

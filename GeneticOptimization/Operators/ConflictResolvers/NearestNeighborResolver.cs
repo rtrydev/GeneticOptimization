@@ -1,3 +1,4 @@
+using AbstractionProvider.Configuration;
 using AbstractionProvider.Data;
 using AbstractionProvider.Operators;
 
@@ -6,10 +7,12 @@ namespace GeneticOptimization.Operators.ConflictResolvers;
 public class NearestNeighborResolver : IConflictResolver
 {
     private ICostMatrix _costMatrix;
+    private IConfiguration _configuration;
 
-    public NearestNeighborResolver(ICostMatrix costMatrix)
+    public NearestNeighborResolver(ICostMatrix costMatrix, IConfiguration configuration)
     {
         _costMatrix = costMatrix;
+        _configuration = configuration;
     }
     public void ResolveConflict(int[] currentBody, int index, IList<int> remainingPoints)
     {
