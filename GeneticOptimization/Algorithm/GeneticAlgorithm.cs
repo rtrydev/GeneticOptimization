@@ -62,7 +62,8 @@ public class GeneticAlgorithm : ILoggable
                     .Where(m => m.GetCustomAttributes(typeof(CostFunction), false).Length > 0)
                     .ToArray();
 
-                method = dynamicallyLoadedMethods.FirstOrDefault();
+                method = dynamicallyLoadedMethods.FirstOrDefault(m => m.GetCustomAttributes(typeof(CostFunction), false).Length > 0 &&
+                                                                      m.DeclaringType.ToString().EndsWith(_configuration.CostFunction));
             }
             else break;
         }

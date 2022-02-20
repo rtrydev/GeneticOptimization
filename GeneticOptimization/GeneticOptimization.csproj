@@ -15,4 +15,8 @@
       <ProjectReference Include="..\NearestNeighbor\NearestNeighbor.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="PopulationModels" />
+    </ItemGroup>
+
 </Project>

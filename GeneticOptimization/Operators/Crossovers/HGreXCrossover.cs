@@ -2,7 +2,6 @@ using AbstractionProvider.Configuration;
 using AbstractionProvider.Data;
 using AbstractionProvider.Operators;
 using AbstractionProvider.PopulationModels;
-using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.Operators.Crossovers;
 

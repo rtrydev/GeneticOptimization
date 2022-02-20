@@ -1,12 +1,12 @@
 using AbstractionProvider.Configuration;
 using AbstractionProvider.Data;
 using AbstractionProvider.Operators;
+using AbstractionProvider.PopulationModels;
 using GeneticOptimization.Algorithm;
 using GeneticOptimization.Configuration;
 using GeneticOptimization.Data;
 using GeneticOptimization.Log;
 using GeneticOptimization.Operators;
-using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization;
 

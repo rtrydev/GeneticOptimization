@@ -1,6 +1,5 @@
 using AbstractionProvider.Data;
 using AbstractionProvider.PopulationModels;
-using GeneticOptimization.PopulationModels;
 
 namespace GeneticOptimization.PopulationInitializers;
 

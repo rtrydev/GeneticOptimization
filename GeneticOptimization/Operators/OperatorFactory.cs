@@ -14,7 +14,13 @@ public class OperatorFactory
         if (operatorInformation.OperatorType == OperatorTypes.Crossover)
         {
             var crossover = assembly.GetTypes()
-                .Where(c => c.IsSubclassOf(typeof(Crossover))).First(x => x.Name.Contains(operatorInformation.OperatorName));
+                .Where(c => c.IsSubclassOf(typeof(Crossover))).FirstOrDefault(x => x.Name.Contains(operatorInformation.OperatorName));
+            
+            if (crossover is null)
+            {
+                crossover = GetClass(operatorInformation.OperatorName, typeof(Crossover));
+            }
+            
             var types = new Type[4];
             types[0] = typeof(IConfiguration);
             types[1] = typeof(IConflictResolver);
@@ -31,7 +37,12 @@ public class OperatorFactory
         if (operatorInformation.OperatorType == OperatorTypes.Selection)
         {
             var selection = assembly.GetTypes()
-                .Where(c => c.IsSubclassOf(typeof(Selection))).First(x => x.Name.Contains(operatorInformation.OperatorName));
+                .Where(c => c.IsSubclassOf(typeof(Selection))).FirstOrDefault(x => x.Name.Contains(operatorInformation.OperatorName));
+            if (selection is null)
+            {
+                selection = GetClass(operatorInformation.OperatorName, typeof(Selection));
+            }
+            
             var types = new Type[2];
             types[0] = typeof(IConfiguration);
             types[1] = typeof(ICostMatrix);
@@ -45,7 +56,13 @@ public class OperatorFactory
         if (operatorInformation.OperatorType == OperatorTypes.Mutation)
         {
             var mutation = assembly.GetTypes()
-                .Where(c => c.IsSubclassOf(typeof(Mutation))).First(x => x.Name.Contains(operatorInformation.OperatorName));
+                .Where(c => c.IsSubclassOf(typeof(Mutation))).FirstOrDefault(x => x.Name.Contains(operatorInformation.OperatorName));
+            
+            if (mutation is null)
+            {
+                mutation = GetClass(operatorInformation.OperatorName, typeof(Mutation));
+            }
+            
             var types = new Type[2];
             types[0] = typeof(IConfiguration);
             types[1] = typeof(ICostMatrix);
@@ -58,7 +75,13 @@ public class OperatorFactory
         if (operatorInformation.OperatorType == OperatorTypes.Elimination)
         {
             var elimination = assembly.GetTypes()
-                .Where(c => c.IsSubclassOf(typeof(Elimination))).First(x => x.Name.Contains(operatorInformation.OperatorName));
+                .Where(c => c.IsSubclassOf(typeof(Elimination))).FirstOrDefault(x => x.Name.Contains(operatorInformation.OperatorName));
+            
+            if (elimination is null)
+            {
+                elimination = GetClass(operatorInformation.OperatorName, typeof(Elimination));
+            }
+            
             var types = new Type[2];
             types[0] = typeof(IConfiguration);
             types[1] = typeof(ICostMatrix);
@@ -87,20 +110,9 @@ public class OperatorFactory
         var resolver = assembly.GetTypes().
             Where(p => typeof(IConflictResolver).IsAssignableFrom(p) && p.IsClass).FirstOrDefault(x => x.Name.Contains(resolverName));
         
-        var files = new DirectoryInfo("Modules").GetFiles().Select(x => x.FullName).ToArray();
-
-        foreach (var file in files)
+        if (resolver is null)
         {
-            if (resolver is null)
-            {
-                var dynamicAssembly = Assembly.LoadFile(file);
-                var dynamicallyLoadedMethods = dynamicAssembly.GetTypes()
-                    .Where(p => typeof(IConflictResolver).IsAssignableFrom(p) && p.IsClass)
-                    .ToArray();
-
-                resolver = dynamicallyLoadedMethods.FirstOrDefault();
-            }
-            else break;
+            resolver = GetClass(resolverName, typeof(IConflictResolver));
         }
         
         
@@ -111,6 +123,28 @@ public class OperatorFactory
         object[] parameters = {costMatrix, configuration};
             
         return (IConflictResolver) constructor.Invoke(parameters);
+    }
+
+    private static Type GetClass(string name, Type baseType)
+    {
+        var files = new DirectoryInfo("Modules").GetFiles().Select(x => x.FullName).ToArray();
+
+        Type tp = null;
+        foreach (var file in files)
+        {
+            if (tp is null)
+            {
+                var dynamicAssembly = Assembly.LoadFile(file);
+                var dynamicallyLoadedMethods = dynamicAssembly.GetTypes()
+                    .Where(p => baseType.IsAssignableFrom(p) && p.IsClass)
+                    .ToArray();
+
+                tp = dynamicallyLoadedMethods.FirstOrDefault(x => x.Name.EndsWith(name));
+            }
+            else break;
+        }
+
+        return tp;
     }
     
 }
