@@ -6,9 +6,14 @@ public class MethodProvider
 {
     public static MethodInfo? GetMethod(string name, Type attributeType)
     {
+        var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == "GeneticOptimization");
+        var method = assembly.GetTypes()
+            .SelectMany(x => x.GetMethods())
+            .FirstOrDefault(m => m.GetCustomAttributes(attributeType, false).Length > 0 &&
+                                 m.DeclaringType.ToString().EndsWith(name));
+        
         var files = new DirectoryInfo("Modules").GetFiles().Where(x => x.FullName.EndsWith(".dll")).Select(x => x.FullName).ToArray();
 
-        MethodInfo method = null;
         foreach (var file in files)
         {
             if (method is null)
