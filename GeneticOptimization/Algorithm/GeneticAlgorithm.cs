@@ -51,6 +51,7 @@ public class GeneticAlgorithm : ILoggable
         {
             _logger.BestModel = new TspPopulationModel(new[] {0}, -1d);
             _logger.StopTimer();
+            return;
         }
 
         var delegateCostFunction = method.CreateDelegate<Func<IPopulationModel, ICostMatrix, IConfiguration, double>>();
