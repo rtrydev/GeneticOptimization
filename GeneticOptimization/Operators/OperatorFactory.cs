@@ -11,16 +11,9 @@ public class OperatorFactory
 {
     public static IOperator CreateOperator(OperatorInformation operatorInformation, IConfiguration configuration, ICostMatrix costMatrix)
     {
-        var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == "GeneticOptimization");
         if (operatorInformation.OperatorType == OperatorTypes.Crossover)
         {
-            var crossover = assembly.GetTypes()
-                .Where(c => c.IsSubclassOf(typeof(Crossover))).FirstOrDefault(x => x.Name.Contains(operatorInformation.OperatorName));
-            
-            if (crossover is null)
-            {
-                crossover = ClassProvider.GetClass(operatorInformation.OperatorName, typeof(Crossover));
-            }
+            var crossover = ClassProvider.GetClass(operatorInformation.OperatorName, typeof(Crossover));
             
             var types = new Type[4];
             types[0] = typeof(IConfiguration);
@@ -37,12 +30,7 @@ public class OperatorFactory
         
         if (operatorInformation.OperatorType == OperatorTypes.Selection)
         {
-            var selection = assembly.GetTypes()
-                .Where(c => c.IsSubclassOf(typeof(Selection))).FirstOrDefault(x => x.Name.Contains(operatorInformation.OperatorName));
-            if (selection is null)
-            {
-                selection = ClassProvider.GetClass(operatorInformation.OperatorName, typeof(Selection));
-            }
+            var selection = ClassProvider.GetClass(operatorInformation.OperatorName, typeof(Selection));
             
             var types = new Type[2];
             types[0] = typeof(IConfiguration);
@@ -56,13 +44,7 @@ public class OperatorFactory
 
         if (operatorInformation.OperatorType == OperatorTypes.Mutation)
         {
-            var mutation = assembly.GetTypes()
-                .Where(c => c.IsSubclassOf(typeof(Mutation))).FirstOrDefault(x => x.Name.Contains(operatorInformation.OperatorName));
-            
-            if (mutation is null)
-            {
-                mutation = ClassProvider.GetClass(operatorInformation.OperatorName, typeof(Mutation));
-            }
+            var mutation = ClassProvider.GetClass(operatorInformation.OperatorName, typeof(Mutation));
             
             var types = new Type[2];
             types[0] = typeof(IConfiguration);
@@ -75,13 +57,7 @@ public class OperatorFactory
 
         if (operatorInformation.OperatorType == OperatorTypes.Elimination)
         {
-            var elimination = assembly.GetTypes()
-                .Where(c => c.IsSubclassOf(typeof(Elimination))).FirstOrDefault(x => x.Name.Contains(operatorInformation.OperatorName));
-            
-            if (elimination is null)
-            {
-                elimination = ClassProvider.GetClass(operatorInformation.OperatorName, typeof(Elimination));
-            }
+            var elimination = ClassProvider.GetClass(operatorInformation.OperatorName, typeof(Elimination));
             
             var types = new Type[2];
             types[0] = typeof(IConfiguration);
@@ -107,15 +83,7 @@ public class OperatorFactory
 
     private static IConflictResolver GetResolver(string resolverName, ICostMatrix costMatrix, IConfiguration configuration)
     {
-        var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == "GeneticOptimization");
-        var resolver = assembly.GetTypes().
-            Where(p => typeof(IConflictResolver).IsAssignableFrom(p) && p.IsClass).FirstOrDefault(x => x.Name.Contains(resolverName));
-        
-        if (resolver is null)
-        {
-            resolver = ClassProvider.GetClass(resolverName, typeof(ConflictResolver));
-        }
-        
+        var resolver = ClassProvider.GetClass(resolverName, typeof(ConflictResolver));
         
         var types = new Type[2];
         types[0] = typeof(ICostMatrix);

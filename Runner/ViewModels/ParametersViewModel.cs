@@ -25,11 +25,7 @@ public class ParametersViewModel : ViewModelBase
     {
         Configuration = model;
         SelectData = new SelectData(Configuration);
-        var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == "GeneticOptimization");
-        var resolvers = assembly.GetTypes()
-            .Where(p => typeof(IConflictResolver).IsAssignableFrom(p) && p.IsClass).ToArray().Select(x => x.ToString().Split(".").Last()).ToArray();
-
-        resolvers = resolvers.Concat(ClassProvider.GetDynamicClassNames(typeof(ConflictResolver))).ToArray();
+        var resolvers = ClassProvider.GetAllClassNames(typeof(ConflictResolver));
 
         Resolvers = resolvers;
 

@@ -19,24 +19,11 @@ public class OperatorInformation
 
     public string[] GetAvailableOperators()
     {
-        var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == "GeneticOptimization");
-        var selections = assembly.GetTypes()
-            .Where(c => c.IsSubclassOf(typeof(Selection))).Select(x => x.ToString().Split(".").Last()).ToArray();
-        selections = selections.Concat(ClassProvider.GetDynamicClassNames(typeof(Selection))).ToArray();
-        
-        var crossovers = assembly.GetTypes()
-            .Where(c => c.IsSubclassOf(typeof(Crossover))).ToArray().Select(x => x.ToString().Split(".").Last()).ToArray();
-        crossovers = crossovers.Concat(ClassProvider.GetDynamicClassNames(typeof(Crossover))).ToArray();
-        
-        var eliminations = assembly.GetTypes()
-            .Where(c => c.IsSubclassOf(typeof(Elimination))).ToArray().Select(x => x.ToString().Split(".").Last()).ToArray();
-        eliminations = eliminations.Concat(ClassProvider.GetDynamicClassNames(typeof(Elimination))).ToArray();
-        
-        var mutations = assembly.GetTypes()
-            .Where(c => c.IsSubclassOf(typeof(Mutation))).ToArray().Select(x => x.ToString().Split(".").Last()).ToArray();
-        mutations = mutations.Concat(ClassProvider.GetDynamicClassNames(typeof(Mutation))).ToArray();
-        
-        
+        var selections = ClassProvider.GetAllClassNames(typeof(Selection));
+        var crossovers = ClassProvider.GetAllClassNames(typeof(Crossover));
+        var eliminations = ClassProvider.GetAllClassNames(typeof(Elimination));
+        var mutations = ClassProvider.GetAllClassNames(typeof(Mutation));
+
         switch (OperatorType)
         {
             case OperatorTypes.Selection: return selections;

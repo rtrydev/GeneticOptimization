@@ -25,14 +25,6 @@ public class AlgorithmViewModel : ViewModelBase
         LogModel = logModel;
         Compile = new Compile(CostMethods);
         Configuration = configuration;
-        var assembly = AppDomain.CurrentDomain.GetAssemblies().Where(x => x.GetName().Name == "GeneticOptimization").ToArray()[0];
-        var methods = assembly.GetTypes()
-            .SelectMany(t => t.GetMethods())
-            .Where(m => m.GetCustomAttributes(typeof(CostFunction), false).Length > 0)
-            .ToArray();
-
-        var methodNames = methods.Select(x => x.DeclaringType.ToString()).ToArray();
-
-        CostMethods = methodNames.Concat(MethodProvider.GetMethodNames(typeof(CostFunction))).ToArray();
+        CostMethods = MethodProvider.GetAllMethodNames(typeof(CostFunction));
     }
 }

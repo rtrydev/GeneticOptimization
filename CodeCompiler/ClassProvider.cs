@@ -4,6 +4,19 @@ namespace CodeCompiler;
 
 public class ClassProvider
 {
+    public static string[] GetAllClassNames(Type baseType)
+    {
+        var included = GetIncludedClassNames(baseType);
+        var dynamicallyAdded = GetDynamicClassNames(baseType);
+        return included.Concat(dynamicallyAdded).ToArray();
+    }
+    public static string[] GetIncludedClassNames(Type baseType)
+    {
+        var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == "GeneticOptimization");
+        var classes = assembly.GetTypes()
+            .Where(p => p.IsSubclassOf(baseType)).ToArray().Select(x => x.ToString().Split(".").Last()).ToArray();
+        return classes;
+    }
     public static string[] GetDynamicClassNames(Type baseType)
     {
         var files = new DirectoryInfo("Modules").GetFiles().Where(x => x.FullName.EndsWith(".dll")).Select(x => x.FullName).ToArray();
@@ -25,9 +38,12 @@ public class ClassProvider
 
     public static Type GetClass(string name, Type baseType)
     {
+        var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == "GeneticOptimization");
+        var tp = assembly.GetTypes().
+            Where(p => p.IsSubclassOf(baseType)).FirstOrDefault(x => x.Name.EndsWith(name));
+        
         var files = new DirectoryInfo("Modules").GetFiles().Where(x => x.FullName.EndsWith(".dll")).Select(x => x.FullName).ToArray();
 
-        Type tp = null;
         foreach (var file in files)
         {
             if (tp is null)
