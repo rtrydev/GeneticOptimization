@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows.Input;
 using AbstractionProvider.Configuration;
 using AbstractionProvider.CostFunctions;
+using CodeCompiler;
 using ReactiveUI.Fody.Helpers;
 using Runner.Commands;
 using Runner.Models;
@@ -30,20 +31,8 @@ public class AlgorithmViewModel : ViewModelBase
             .Where(m => m.GetCustomAttributes(typeof(CostFunction), false).Length > 0)
             .ToArray();
 
-        var files = new DirectoryInfo("Modules").GetFiles().Select(x => x.FullName).ToArray();
+        var methodNames = methods.Select(x => x.DeclaringType.ToString()).ToArray();
 
-        foreach (var file in files)
-        {
-            var dynamicAssembly = Assembly.LoadFile(file);
-            var dynamicallyLoadedMethods = dynamicAssembly.GetTypes()
-                .SelectMany(t => t.GetMethods())
-                .Where(m => m.GetCustomAttributes(typeof(CostFunction), false).Length > 0)
-                .ToArray();
-
-            methods = methods.Concat(dynamicallyLoadedMethods).ToArray();
-        }
-        
-
-        CostMethods = methods.Select(x => x.DeclaringType.ToString()).ToArray();
+        CostMethods = methodNames.Concat(MethodProvider.GetMethodNames(typeof(CostFunction))).ToArray();
     }
 }

@@ -3,6 +3,7 @@ using AbstractionProvider.Configuration;
 using AbstractionProvider.CostFunctions;
 using AbstractionProvider.Data;
 using AbstractionProvider.Operators;
+using CodeCompiler;
 
 namespace GeneticOptimization.Operators;
 
@@ -18,7 +19,7 @@ public class OperatorFactory
             
             if (crossover is null)
             {
-                crossover = GetClass(operatorInformation.OperatorName, typeof(Crossover));
+                crossover = ClassProvider.GetClass(operatorInformation.OperatorName, typeof(Crossover));
             }
             
             var types = new Type[4];
@@ -40,7 +41,7 @@ public class OperatorFactory
                 .Where(c => c.IsSubclassOf(typeof(Selection))).FirstOrDefault(x => x.Name.Contains(operatorInformation.OperatorName));
             if (selection is null)
             {
-                selection = GetClass(operatorInformation.OperatorName, typeof(Selection));
+                selection = ClassProvider.GetClass(operatorInformation.OperatorName, typeof(Selection));
             }
             
             var types = new Type[2];
@@ -60,7 +61,7 @@ public class OperatorFactory
             
             if (mutation is null)
             {
-                mutation = GetClass(operatorInformation.OperatorName, typeof(Mutation));
+                mutation = ClassProvider.GetClass(operatorInformation.OperatorName, typeof(Mutation));
             }
             
             var types = new Type[2];
@@ -79,7 +80,7 @@ public class OperatorFactory
             
             if (elimination is null)
             {
-                elimination = GetClass(operatorInformation.OperatorName, typeof(Elimination));
+                elimination = ClassProvider.GetClass(operatorInformation.OperatorName, typeof(Elimination));
             }
             
             var types = new Type[2];
@@ -112,7 +113,7 @@ public class OperatorFactory
         
         if (resolver is null)
         {
-            resolver = GetClass(resolverName, typeof(IConflictResolver));
+            resolver = ClassProvider.GetClass(resolverName, typeof(ConflictResolver));
         }
         
         
@@ -125,26 +126,4 @@ public class OperatorFactory
         return (IConflictResolver) constructor.Invoke(parameters);
     }
 
-    private static Type GetClass(string name, Type baseType)
-    {
-        var files = new DirectoryInfo("Modules").GetFiles().Select(x => x.FullName).ToArray();
-
-        Type tp = null;
-        foreach (var file in files)
-        {
-            if (tp is null)
-            {
-                var dynamicAssembly = Assembly.LoadFile(file);
-                var dynamicallyLoadedMethods = dynamicAssembly.GetTypes()
-                    .Where(p => baseType.IsAssignableFrom(p) && p.IsClass)
-                    .ToArray();
-
-                tp = dynamicallyLoadedMethods.FirstOrDefault(x => x.Name.EndsWith(name));
-            }
-            else break;
-        }
-
-        return tp;
-    }
-    
 }

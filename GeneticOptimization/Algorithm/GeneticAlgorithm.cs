@@ -5,6 +5,7 @@ using AbstractionProvider.Data;
 using AbstractionProvider.Log;
 using AbstractionProvider.Operators;
 using AbstractionProvider.PopulationModels;
+using CodeCompiler;
 using GeneticOptimization.PopulationInitializers;
 
 
@@ -50,23 +51,7 @@ public class GeneticAlgorithm : ILoggable
             .FirstOrDefault(m => m.GetCustomAttributes(typeof(CostFunction), false).Length > 0 &&
                         m.DeclaringType.ToString().EndsWith(_configuration.CostFunction));
 
-        var files = new DirectoryInfo("Modules").GetFiles().Select(x => x.FullName).ToArray();
-
-        foreach (var file in files)
-        {
-            if (method is null)
-            {
-                var dynamicAssembly = Assembly.LoadFile(file);
-                var dynamicallyLoadedMethods = dynamicAssembly.GetTypes()
-                    .SelectMany(t => t.GetMethods())
-                    .Where(m => m.GetCustomAttributes(typeof(CostFunction), false).Length > 0)
-                    .ToArray();
-
-                method = dynamicallyLoadedMethods.FirstOrDefault(m => m.GetCustomAttributes(typeof(CostFunction), false).Length > 0 &&
-                                                                      m.DeclaringType.ToString().EndsWith(_configuration.CostFunction));
-            }
-            else break;
-        }
+        method = MethodProvider.GetMethod(_configuration.CostFunction, typeof(CostFunction));
         
         if(method is null) return;
 

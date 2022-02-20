@@ -4,13 +4,13 @@ using AbstractionProvider.Operators;
 
 namespace GeneticOptimization.Operators.ConflictResolvers;
 
-public class RandomResolver : IConflictResolver
+public class RandomResolver : ConflictResolver
 {
-    public RandomResolver(ICostMatrix costMatrix, IConfiguration configuration)
+    public RandomResolver(ICostMatrix costMatrix, IConfiguration configuration) : base(costMatrix, configuration)
     {
         
     }
-    public void ResolveConflict(int[] currentBody, int index, IList<int> remainingPoints)
+    public override void ResolveConflict(int[] currentBody, int index, IList<int> remainingPoints)
     {
         var random = Random.Shared;
         var randomIndex = random.Next(0, remainingPoints.Count);

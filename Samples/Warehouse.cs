@@ -121,23 +121,20 @@ namespace GeneticOptimization.CostFunctions
         }
     }
 
-    public class SingleProductFrequencyResolver : IConflictResolver
+    public class SingleProductFrequencyResolver : ConflictResolver
     {
-        private ICostMatrix _costMatrix;
         private int[] _warehousePointsByLocation;
         private int[] _productsByFrequency;
-        private IConfiguration _configuration;
 
-        public SingleProductFrequencyResolver(ICostMatrix costMatrix, IConfiguration configuration) {
-            _costMatrix = costMatrix;
-            _configuration = configuration;
-            var ordersPath = _configuration.DataPath.Replace("mag", "orders").Replace(".mtrx", ".txt");
+        public SingleProductFrequencyResolver(ICostMatrix costMatrix, IConfiguration configuration) : base(costMatrix, configuration)
+        {
+            var ordersPath = configuration.DataPath.Replace("mag", "orders").Replace(".mtrx", ".txt");
             Orders.LoadOrders(ordersPath);
             var orders = Orders.OrderPoints;
             var orderFrequencies = Orders.OrderFrequencies;
-            _warehousePointsByLocation = Enumerable.Range(0, _costMatrix.Matrix.Length)
-                .OrderBy(x => _costMatrix.Matrix[0][x]).ToArray();
-            var productFrequencies = new int[_costMatrix.Matrix.Length];
+            _warehousePointsByLocation = Enumerable.Range(0, CostMatrix.Matrix.Length)
+                .OrderBy(x => CostMatrix.Matrix[0][x]).ToArray();
+            var productFrequencies = new int[CostMatrix.Matrix.Length];
             for (int i = 0; i < orders.Length; i++)
             {
                 for (int j = 0; j < orders[i].Length; j++)
@@ -146,12 +143,12 @@ namespace GeneticOptimization.CostFunctions
                     productFrequencies[product] += orderFrequencies[i];
                 }
             }
-            _productsByFrequency = Enumerable.Range(0, _costMatrix.Matrix.Length)
+            _productsByFrequency = Enumerable.Range(0, CostMatrix.Matrix.Length)
                 .OrderByDescending(x => productFrequencies[x]).ToArray();
 
         }
 
-        public void ResolveConflict(int[] currentBody, int index, IList<int> remainingPoints){
+        public override void ResolveConflict(int[] currentBody, int index, IList<int> remainingPoints){
             var bestCandidate = remainingPoints[0];
             var locationIndex = Array.IndexOf(_warehousePointsByLocation, index);
             var bestFit = Math.Abs(Array.IndexOf(_productsByFrequency, remainingPoints[0]) - locationIndex);

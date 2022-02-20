@@ -4,17 +4,17 @@ using AbstractionProvider.Operators;
 
 namespace GeneticOptimization.Operators.ConflictResolvers;
 
-public class NearestNeighborResolver : IConflictResolver
+public class NearestNeighborResolver : ConflictResolver
 {
     private ICostMatrix _costMatrix;
     private IConfiguration _configuration;
 
-    public NearestNeighborResolver(ICostMatrix costMatrix, IConfiguration configuration)
+    public NearestNeighborResolver(ICostMatrix costMatrix, IConfiguration configuration) : base(costMatrix, configuration)
     {
         _costMatrix = costMatrix;
         _configuration = configuration;
     }
-    public void ResolveConflict(int[] currentBody, int index, IList<int> remainingPoints)
+    public override void ResolveConflict(int[] currentBody, int index, IList<int> remainingPoints)
     {
         var lastPoint = currentBody[index - 1];
         var lowestCostPoint = GetLowestCostPoint(lastPoint, remainingPoints);

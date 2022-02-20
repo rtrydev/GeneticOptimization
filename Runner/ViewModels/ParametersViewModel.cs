@@ -6,6 +6,7 @@ using System.Windows.Input;
 using AbstractionProvider.Configuration;
 using AbstractionProvider.CostFunctions;
 using AbstractionProvider.Operators;
+using CodeCompiler;
 using ReactiveUI.Fody.Helpers;
 using Runner.Commands;
 
@@ -27,16 +28,8 @@ public class ParametersViewModel : ViewModelBase
         var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == "GeneticOptimization");
         var resolvers = assembly.GetTypes()
             .Where(p => typeof(IConflictResolver).IsAssignableFrom(p) && p.IsClass).ToArray().Select(x => x.ToString().Split(".").Last()).ToArray();
-        var files = new DirectoryInfo("Modules").GetFiles().Select(x => x.FullName).ToArray();
 
-        foreach (var file in files)
-        {
-            var dynamicAssembly = Assembly.LoadFile(file);
-            var dynamicallyLoadedResolvers = dynamicAssembly.GetTypes()
-                .Where(p => typeof(IConflictResolver).IsAssignableFrom(p) && p.IsClass).Select(x => x.FullName);
-
-            resolvers = resolvers.Concat(dynamicallyLoadedResolvers).ToArray();
-        }
+        resolvers = resolvers.Concat(ClassProvider.GetDynamicClassNames(typeof(ConflictResolver))).ToArray();
 
         Resolvers = resolvers;
 
