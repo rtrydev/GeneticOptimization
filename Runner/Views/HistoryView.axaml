@@ -3,11 +3,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Runner.ViewModels"
+             xmlns:converters="clr-namespace:Runner.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Runner.Views.HistoryView">
     <Design.DataContext>
         <viewModels:MainWindowViewModel/>
     </Design.DataContext>
+    <UserControl.Resources>
+        <converters:ResultConverter x:Key="ResultConverter"></converters:ResultConverter>
+    </UserControl.Resources>
+    
     <Grid RowDefinitions="*, 20*">
         <Label HorizontalAlignment="Center">Run history</Label>
         <ListBox Grid.Row="1" Items="{Binding HistoryViewModel.Files}" Margin="4" SelectedItem ="{Binding HistoryViewModel.Selection}" >
@@ -15,7 +20,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding }"></TextBlock>
+                        <TextBlock Text="{Binding Converter={StaticResource ResultConverter}}"></TextBlock>
 
                     </StackPanel>
                 </DataTemplate>
