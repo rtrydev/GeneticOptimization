@@ -4,7 +4,7 @@ namespace CodeCompiler;
 
 public class MethodProvider
 {
-    public static MethodInfo GetMethod(string name, Type attributeType)
+    public static MethodInfo? GetMethod(string name, Type attributeType)
     {
         var files = new DirectoryInfo("Modules").GetFiles().Where(x => x.FullName.EndsWith(".dll")).Select(x => x.FullName).ToArray();
 

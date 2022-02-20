@@ -45,15 +45,13 @@ public class GeneticAlgorithm : ILoggable
         _logger.StartTimer();
         var operatorsCount = _operators.Count;
         var populationSize = _configuration.PopulationSize;
-        var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == "GeneticOptimization");
-        var method = assembly.GetTypes()
-            .SelectMany(t => t.GetMethods())
-            .FirstOrDefault(m => m.GetCustomAttributes(typeof(CostFunction), false).Length > 0 &&
-                        m.DeclaringType.ToString().EndsWith(_configuration.CostFunction));
+        var method = MethodProvider.GetMethod(_configuration.CostFunction, typeof(CostFunction));
 
-        method = MethodProvider.GetMethod(_configuration.CostFunction, typeof(CostFunction));
-        
-        if(method is null) return;
+        if (method is null)
+        {
+            _logger.BestModel = new TspPopulationModel(new[] {0}, -1d);
+            _logger.StopTimer();
+        }
 
         var delegateCostFunction = method.CreateDelegate<Func<IPopulationModel, ICostMatrix, IConfiguration, double>>();
         
