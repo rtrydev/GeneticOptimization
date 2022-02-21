@@ -31,7 +31,7 @@ public class Compile : ICommand
         fileDialog.AllowMultiple = false;
         var app = Application.Current.ApplicationLifetime as ClassicDesktopStyleApplicationLifetime;
         var selectedFiles = await fileDialog.ShowAsync(app?.MainWindow);
-        if (selectedFiles is null) return;
+        if (selectedFiles is null || selectedFiles.Length == 0) return;
         var file = selectedFiles.First();
 
         var moduleName = "";
