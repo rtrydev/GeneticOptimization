@@ -68,6 +68,20 @@ public class OperatorFactory
             return (IOperator) constructor.Invoke(parameters);
         }
 
+        if (operatorInformation.OperatorType == OperatorTypes.Other)
+        {
+            var geneticOperator = ClassProvider.GetClass(operatorInformation.OperatorName, typeof(OtherOperator));
+
+            var types = new Type[2];
+            types[0] = typeof(IConfiguration);
+            types[1] = typeof(ICostMatrix);
+            var constructor = geneticOperator.GetConstructor(types);
+            object[] parameters = {configuration, costMatrix};
+            
+            return (IOperator) constructor.Invoke(parameters);
+
+        }
+        
         throw new ArgumentException();
     }
 

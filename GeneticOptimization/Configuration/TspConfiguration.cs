@@ -9,6 +9,7 @@ public class TspConfiguration : IConfiguration
     [Ignored]
     public string DataPath { get; set; }
     public string LogPath => GetLogPath();
+    public double LocalSearchProbability { get; set; } = 0.02;
     [Ignored] public string CostFunction { get; set; } = "TspCostFunction";
     public int PopulationSize { get; set; } = 120;
     public int ParentsCount { get; set; } = 90;
@@ -22,7 +23,8 @@ public class TspConfiguration : IConfiguration
         new OperatorInformation(OperatorTypes.Selection, "RandomSelection"),
         new OperatorInformation(OperatorTypes.Crossover, "HProXCrossover"),
         new OperatorInformation(OperatorTypes.Elimination, "ElitismElimination"),
-        new OperatorInformation(OperatorTypes.Mutation, "RsmMutation")
+        new OperatorInformation(OperatorTypes.Mutation, "RsmMutation"),
+        new OperatorInformation(OperatorTypes.Other, "LocalSearch2Opt")
     };
     [Ignored]
     public string ConflictResolveMethod { get; set; } = "RandomResolver";
