@@ -25,7 +25,7 @@ public class LocalSearch2Opt : OtherOperator
                 population[k].Cost = Population.CostFunction(population[k], _costMatrix, _configuration);
             }
         }
-        
+        population = population.OrderBy(x => x.Cost).ToArray();
         Population.PopulationArray = population;
         return Population;
     }

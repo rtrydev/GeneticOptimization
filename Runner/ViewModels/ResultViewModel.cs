@@ -41,22 +41,22 @@ public class ResultViewModel : ViewModelBase
             AvgCosts.Add(new EpochValue()
             {
                 Value = Result.AvgCostHistory[i],
-                Epoch = i + 1
+                Epoch = i
             });
             MedianCosts.Add(new EpochValue()
             {
                 Value = Result.MedianCostHistory[i],
-                Epoch = i + 1
+                Epoch = i
             });
             BestCosts.Add(new EpochValue()
             {
                 Value = Result.BestCostHistory[i],
-                Epoch = i + 1
+                Epoch = i
             });
             WorstCosts.Add(new EpochValue()
             {
                 Value = Result.WorstCostHistory[i],
-                Epoch = i + 1
+                Epoch = i
             });
         }
         Operators = Result.Configuration.OperatorInformation;

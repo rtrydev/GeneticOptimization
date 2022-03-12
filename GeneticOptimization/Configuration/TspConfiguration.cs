@@ -23,7 +23,7 @@ public class TspConfiguration : IConfiguration
         new OperatorInformation(OperatorTypes.Selection, "RandomSelection"),
         new OperatorInformation(OperatorTypes.Crossover, "HProXCrossover"),
         new OperatorInformation(OperatorTypes.Elimination, "ElitismElimination"),
-        new OperatorInformation(OperatorTypes.Mutation, "RsmMutation"),
+        new OperatorInformation(OperatorTypes.Mutation, "RsmMutation"), 
         new OperatorInformation(OperatorTypes.Other, "LocalSearch2Opt")
     };
     [Ignored]
