@@ -94,43 +94,6 @@ public class LocalSearch3Opt : OtherOperator
         // 1 2 3
         return false;
 
-        
-
-
-        /*
-        var a = basePath[firstId - 1];
-        var b = basePath[firstId];
-        var c = basePath[secondId - 1];
-        var d = basePath[secondId];
-        var e = basePath[thirdId - 1];
-        var f = basePath[thirdId];
-
-        var d0 = distances[a][b] + distances[c][d] + distances[e][f];
-        var d1 = distances[a][c] + distances[b][d] + distances[e][f];
-        var d2 = distances[a][b] + distances[c][e] + distances[d][f];
-        var d3 = distances[a][d] + distances[e][b] + distances[c][f];
-        var d4 = distances[f][b] + distances[c][d] + distances[e][a];
-
-        if (d0 > d1)
-        {
-            
-            return -d0 + d1;
-        } 
-        else if (d0 > d2)
-        {
-            return -d0 + d2;
-        }
-        else if (d0 > d4)
-        {
-            return -d0 + d4;
-        }
-        /*else if (d0 > d3)
-        {
-            Array.Reverse(model.Body, secondId, thirdId - secondId + 1);
-            return -d0 + d3;
-        }#1#
-
-        return 0d;*/
     }
 
 }
