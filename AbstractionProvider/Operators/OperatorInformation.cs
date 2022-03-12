@@ -23,6 +23,7 @@ public class OperatorInformation
         var crossovers = ClassProvider.GetAllClassNames(typeof(Crossover));
         var eliminations = ClassProvider.GetAllClassNames(typeof(Elimination));
         var mutations = ClassProvider.GetAllClassNames(typeof(Mutation));
+        var other = ClassProvider.GetAllClassNames(typeof(OtherOperator));
 
         switch (OperatorType)
         {
@@ -30,6 +31,7 @@ public class OperatorInformation
             case OperatorTypes.Crossover: return crossovers;
             case OperatorTypes.Elimination: return eliminations;
             case OperatorTypes.Mutation: return mutations;
+            case OperatorTypes.Other: return other;
             default: return null;
         }
     }

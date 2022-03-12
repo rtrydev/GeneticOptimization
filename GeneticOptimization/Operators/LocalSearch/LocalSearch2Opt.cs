@@ -36,9 +36,9 @@ public class LocalSearch2Opt : OtherOperator
         do
         {
             improvements = 0;
-            for (int i = 1; i < objectOrder.Length - 1; i++)
+            for (int i = 1; i < objectOrder.Length - 2; i++)
             {
-                for (int j = i + 1; j < objectOrder.Length - 2; j++)
+                for (int j = i + 1; j < objectOrder.Length - 1; j++)
                 {
                     if (TryOrderImprovement(i, j, populationModel))
                     {
