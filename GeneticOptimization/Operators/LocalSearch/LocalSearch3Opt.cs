@@ -7,19 +7,18 @@ namespace GeneticOptimization.Operators.LocalSearch;
 
 public class LocalSearch3Opt : OtherOperator
 {
-    public LocalSearch3Opt(IConfiguration configuration, ICostMatrix costMatrix) : base(configuration, costMatrix)
+    public LocalSearch3Opt(IConfiguration configuration, ICostMatrix costMatrix, double activationProbability) : base(configuration, costMatrix, activationProbability)
     {
     }
 
     public override Population<IPopulationModel> Run()
     {
         var random = Random.Shared;
-        var probability = _configuration.LocalSearchProbability;
         var population = Population.PopulationArray;
 
         for (int k = 1; k < population.Length; k++)
         {
-            if (random.NextDouble() <= probability)
+            if (random.NextDouble() <= _activationProbability)
             {
                 Optimize3Opt(population[k]);
                 population[k].Cost = Population.CostFunction(population[k], _costMatrix, _configuration);

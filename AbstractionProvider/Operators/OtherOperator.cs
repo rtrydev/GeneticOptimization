@@ -9,12 +9,14 @@ public abstract class OtherOperator : IPopulationOperator, IOperatorWithResult<P
     public Population<IPopulationModel> Population { get; set; }
     protected IConfiguration _configuration;
     protected ICostMatrix _costMatrix;
+    protected double _activationProbability;
     private IData _data;
 
-    protected OtherOperator(IConfiguration configuration, ICostMatrix costMatrix)
+    protected OtherOperator(IConfiguration configuration, ICostMatrix costMatrix, double activationProbability)
     {
         _configuration = configuration;
         _costMatrix = costMatrix;
+        _activationProbability = activationProbability;
     }
     
     public void AttachPopulation(Population<IPopulationModel> population)

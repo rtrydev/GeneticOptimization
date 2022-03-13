@@ -10,11 +10,13 @@ public class OperatorInformation
     public string[] Available => GetAvailableOperators();
     public OperatorTypes OperatorType { get; set; }
     public string OperatorName { get; set; }
+    public double ActivationProbability { get; set; } 
 
     public bool IsRemovable => OperatorType == OperatorTypes.Other;
 
-    public OperatorInformation(OperatorTypes type, string name)
+    public OperatorInformation(OperatorTypes type, string name, double activationProbability = 0.02d)
     {
+        ActivationProbability = activationProbability;
         OperatorName = name;
         OperatorType = type;
     }

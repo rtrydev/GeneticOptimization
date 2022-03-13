@@ -72,11 +72,12 @@ public class OperatorFactory
         {
             var geneticOperator = ClassProvider.GetClass(operatorInformation.OperatorName, typeof(OtherOperator));
 
-            var types = new Type[2];
+            var types = new Type[3];
             types[0] = typeof(IConfiguration);
             types[1] = typeof(ICostMatrix);
+            types[2] = typeof(double);
             var constructor = geneticOperator.GetConstructor(types);
-            object[] parameters = {configuration, costMatrix};
+            object[] parameters = {configuration, costMatrix, operatorInformation.ActivationProbability};
             
             return (IOperator) constructor.Invoke(parameters);
 

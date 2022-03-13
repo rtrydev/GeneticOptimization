@@ -9,7 +9,6 @@ public class TspConfiguration : IConfiguration
     [Ignored]
     public string DataPath { get; set; }
     public string LogPath => GetLogPath();
-    public double LocalSearchProbability { get; set; } = 0.02;
     [Ignored] public string CostFunction { get; set; } = "TspCostFunction";
     public int PopulationSize { get; set; } = 120;
     public int ParentsCount { get; set; } = 90;
