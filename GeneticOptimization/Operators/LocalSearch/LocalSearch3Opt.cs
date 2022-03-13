@@ -16,7 +16,7 @@ public class LocalSearch3Opt : OtherOperator
         var random = Random.Shared;
         var population = Population.PopulationArray;
 
-        for (int k = 1; k < population.Length; k++)
+        for (int k = 0; k < population.Length; k++)
         {
             if (random.NextDouble() <= _activationProbability)
             {
