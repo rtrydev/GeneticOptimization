@@ -65,13 +65,14 @@
             
         </StackPanel>
         <StackPanel Grid.Column="1">
-            <avalonia:Plot Height="450" 
+            <avalonia:Plot Height="500" 
                            PlotMargins="50 0 0 30"
                            PlotAreaBorderColor="#999999"
                            Background="#333333"
                            TextColor="#eeeeee">
                 <avalonia:Plot.Series>
                     <avalonia:LineSeries 
+                        Title="Worst Cost"
                         StrokeThickness="2"
                         DataFieldX="Epoch"
                         DataFieldY="Value"
@@ -80,6 +81,7 @@
                         LineStyle="Solid"
                         Color="#fd6d00" />
                     <avalonia:LineSeries 
+                        Title="Best Cost"
                         StrokeThickness="2"
                         DataFieldX="Epoch"
                         DataFieldY="Value"
@@ -88,6 +90,7 @@
                         LineStyle="Solid"
                         Color="#00dd00" />
                     <avalonia:LineSeries 
+                        Title="Median Cost"
                         StrokeThickness="2"
                         DataFieldX="Epoch"
                         DataFieldY="Value"
@@ -96,6 +99,7 @@
                         LineStyle="Solid"
                         Color="#6d6dfd" />
                     <avalonia:LineSeries 
+                        Title="Avg Cost"
                         StrokeThickness="2"
                         DataFieldX="Epoch"
                         DataFieldY="Value"
@@ -104,6 +108,10 @@
                         LineStyle="Solid"
                         Color="#fdfd00" />
                 </avalonia:Plot.Series>
+                <avalonia:Plot.Legends>
+                    <avalonia:Legend>
+                    </avalonia:Legend>
+                </avalonia:Plot.Legends>
             </avalonia:Plot>
             <WrapPanel>
                 <Label VerticalAlignment="Center" Margin="4 0 2 0">Best</Label>
