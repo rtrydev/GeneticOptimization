@@ -12,7 +12,7 @@ public class OperatorInformation
     public string OperatorName { get; set; }
     public double ActivationProbability { get; set; } 
 
-    public bool IsRemovable => OperatorType == OperatorTypes.Other;
+    public bool IsOther => OperatorType == OperatorTypes.Other;
 
     public OperatorInformation(OperatorTypes type, string name, double activationProbability = 0.02d)
     {
