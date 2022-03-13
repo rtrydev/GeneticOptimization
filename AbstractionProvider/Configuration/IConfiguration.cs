@@ -16,6 +16,7 @@ public interface IConfiguration
     public OperatorInformation[] OperatorInformation { get; set; }
     public string DataPath { get; set; }
     public string LogPath { get; }
+    public double LocalSearchProbability { get; set; }
     public string ConflictResolveMethod { get; set; }
     public string RandomisedResolveMethod { get; set; }
     public double RandomisedResolveProbability { get; set; }

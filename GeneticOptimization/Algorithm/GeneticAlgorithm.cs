@@ -72,6 +72,13 @@ public class GeneticAlgorithm : ILoggable
 
         population.PopulationArray = population.PopulationArray.OrderBy(x => x.Cost).ToArray();
         IData lastData = population;
+        var startCostArray = population.PopulationArray.Select(x => population.CostFunction(x, _costMatrix, _configuration)).OrderBy(x => x).ToArray();
+        _logger.LogFormat.Epoch = 0;
+        _logger.LogFormat.BestCost = startCostArray.Min();
+        _logger.LogFormat.AvgCost = startCostArray.Average();
+        _logger.LogFormat.MedianCost = startCostArray[startCostArray.Length / 2];
+        _logger.LogFormat.WorstCost = startCostArray.Max();
+        _logger.NextEpoch();
 
 
         var maxIterations = _configuration.MaxIterations;

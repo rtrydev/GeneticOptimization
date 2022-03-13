@@ -19,10 +19,10 @@ public class Logger : ILogger
     public Logger(IConfiguration configuration)
     {
         _configuration = configuration;
-        BestCostHistory = new double[_configuration.MaxIterations];
-        AvgCostHistory = new double[_configuration.MaxIterations];
-        MedianCostHistory = new double[_configuration.MaxIterations];
-        WorstCostHistory = new double[_configuration.MaxIterations];
+        BestCostHistory = new double[_configuration.MaxIterations + 1];
+        AvgCostHistory = new double[_configuration.MaxIterations + 1];
+        MedianCostHistory = new double[_configuration.MaxIterations + 1];
+        WorstCostHistory = new double[_configuration.MaxIterations + 1];
         logs = new List<LogFormat>();
         LogFormat = new LogFormat();
     }
@@ -36,10 +36,10 @@ public class Logger : ILogger
 
     public void NextEpoch()
     {
-        BestCostHistory[LogFormat.Epoch - 1] = LogFormat.BestCost;
-        AvgCostHistory[LogFormat.Epoch - 1] = LogFormat.AvgCost;
-        MedianCostHistory[LogFormat.Epoch - 1] = LogFormat.MedianCost;
-        WorstCostHistory[LogFormat.Epoch - 1] = LogFormat.WorstCost;
+        BestCostHistory[LogFormat.Epoch] = LogFormat.BestCost;
+        AvgCostHistory[LogFormat.Epoch] = LogFormat.AvgCost;
+        MedianCostHistory[LogFormat.Epoch] = LogFormat.MedianCost;
+        WorstCostHistory[LogFormat.Epoch] = LogFormat.WorstCost;
         AddToLog(LogFormat);
         LogFormat = new LogFormat();
     }
