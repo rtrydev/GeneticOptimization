@@ -40,7 +40,7 @@ public class GeneticAlgorithm : ILoggable
         _costMatrix = costMatrix;
     }
 
-    public void Run()
+    public void Run(CancellationToken cancellationToken)
     {
         _logger.StartTimer();
         var operatorsCount = _operators.Count;
@@ -87,6 +87,7 @@ public class GeneticAlgorithm : ILoggable
         {
             for (int i = 0; i < operatorsCount; i++)
             {
+                if(cancellationToken.IsCancellationRequested) break;
                 var geneticOperator = _operators[i];
                 geneticOperator.AttachData(lastData);
 
@@ -99,6 +100,7 @@ public class GeneticAlgorithm : ILoggable
 
                 lastData = geneticOperator.Run();
             }
+            if(cancellationToken.IsCancellationRequested) break;
             var costArray = population.PopulationArray.Select(x => population.CostFunction(x, _costMatrix, _configuration)).OrderBy(x => x).ToArray();
             _logger.LogFormat.Epoch = j + 1;
             _logger.LogFormat.BestCost = costArray.Min();

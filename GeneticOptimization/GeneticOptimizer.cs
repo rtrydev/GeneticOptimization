@@ -21,7 +21,7 @@ public class GeneticOptimizer
         _costMatrix = new TspCostMatrix(configuration);
     }
 
-    public GeneticAlgorithmResult<TspPopulationModel, TspConfiguration> Run()
+    public GeneticAlgorithmResult<TspPopulationModel, TspConfiguration> Run(CancellationToken cancellationToken)
     {
         
         var operators = new List<IOperator>();
@@ -41,7 +41,7 @@ public class GeneticOptimizer
             geneticAlgorithm.AddOperator(geneticOperator);
         }
         
-        geneticAlgorithm.Run();
+        geneticAlgorithm.Run(cancellationToken);
         logger.WriteLogToFile();
         var result = new GeneticAlgorithmResult<TspPopulationModel, TspConfiguration>()
         {

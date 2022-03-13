@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using AbstractionProvider.Configuration;
@@ -21,6 +22,8 @@ public class RunOptimization : ICommand
     private HistoryViewModel _historyViewModel;
     private InstancesInfo _instancesInfo;
     private bool IsWorking;
+    private CancellationTokenSource _tokenSource;
+    private CancellationToken _cancellationToken;
 
     public RunOptimization(IConfiguration parametersModel, ConsoleLogModel logModel, HistoryViewModel historyViewModel, InstancesInfo instancesInfo)
     {
@@ -28,15 +31,27 @@ public class RunOptimization : ICommand
         _parametersModel = parametersModel;
         _logModel = logModel;
         _historyViewModel = historyViewModel;
+        _tokenSource = new CancellationTokenSource();
+        _cancellationToken = _tokenSource.Token;
     }
     
     public bool CanExecute(object? parameter)
     {
-        return !IsWorking;
+        return true;
     }
 
     public async void Execute(object? parameter)
     {
+        if (IsWorking)
+        {
+            _tokenSource.Cancel();
+            _logModel.AppendLog("Cancelled");
+            IsWorking = false;
+            _tokenSource.Dispose();
+            _tokenSource = new CancellationTokenSource();
+            _cancellationToken = _tokenSource.Token;
+            return;
+        }
         var data = parameter as string[];
         if (data is null)
         {
@@ -60,9 +75,12 @@ public class RunOptimization : ICommand
                 var results = new GeneticAlgorithmResult<TspPopulationModel, TspConfiguration>[_instancesInfo.Count];
                 Parallel.For(0, _instancesInfo.Count, j =>
                 {
-                    results[j] = optimizer.Run();
+                    results[j] = optimizer.Run(_cancellationToken);
                 });
-            
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    break;
+                }
 
                 var finalResult = new GeneticAlgorithmResult<TspPopulationModel, TspConfiguration>()
                 {
@@ -90,7 +108,6 @@ public class RunOptimization : ICommand
                 _historyViewModel.RefreshFiles();
             }
             IsWorking = false;
-
         });
         
         
