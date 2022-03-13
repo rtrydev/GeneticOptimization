@@ -1,5 +1,11 @@
+using System;
 using System.Windows.Input;
 using AbstractionProvider.Configuration;
+using Avalonia;
+using Avalonia.Input;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
+using ReactiveUI.Fody.Helpers;
 using Runner.Commands;
 using Runner.Models;
 
@@ -18,8 +24,13 @@ public class ControlViewModel : ViewModelBase
     public ConsoleLogModel LogModel { get; set; }
     public ICommand RunDistances { get; set; }
 
+    [Reactive] public string ButtonText { get; set; } = "START";
     private InstancesInfo _instancesInfo;
 
+    private void SetButtonText(string text)
+    {
+        this.ButtonText = text;
+    }
     public int InstancesCount
     {
         get => _instancesInfo.Count;
@@ -38,6 +49,6 @@ public class ControlViewModel : ViewModelBase
         HistoryViewModel = historyViewModel;
         _instancesInfo = new InstancesInfo();
 
-        RunDistances = new RunOptimization(parametersModel, logModel, historyViewModel, _instancesInfo);
+        RunDistances = new RunOptimization(parametersModel, logModel, historyViewModel, _instancesInfo, SetButtonText);
     }
 }

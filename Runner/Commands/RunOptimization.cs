@@ -21,12 +21,14 @@ public class RunOptimization : ICommand
     private ConsoleLogModel _logModel;
     private HistoryViewModel _historyViewModel;
     private InstancesInfo _instancesInfo;
-    private bool IsWorking;
     private CancellationTokenSource _tokenSource;
     private CancellationToken _cancellationToken;
+    private bool IsWorking;
+    private Action<string> setButtonString;
 
-    public RunOptimization(IConfiguration parametersModel, ConsoleLogModel logModel, HistoryViewModel historyViewModel, InstancesInfo instancesInfo)
+    public RunOptimization(IConfiguration parametersModel, ConsoleLogModel logModel, HistoryViewModel historyViewModel, InstancesInfo instancesInfo, Action<string> buttonFunc)
     {
+        setButtonString = buttonFunc;
         _instancesInfo = instancesInfo;
         _parametersModel = parametersModel;
         _logModel = logModel;
@@ -47,6 +49,7 @@ public class RunOptimization : ICommand
             _tokenSource.Cancel();
             _logModel.AppendLog("Cancelled");
             IsWorking = false;
+            setButtonString("START");
             _tokenSource.Dispose();
             _tokenSource = new CancellationTokenSource();
             _cancellationToken = _tokenSource.Token;
@@ -60,6 +63,7 @@ public class RunOptimization : ICommand
         }
 
         IsWorking = true;
+        setButtonString("STOP");
         _ = Task.Run(() =>
         {
             for (int i = 0; i < data.Length; i++)
@@ -108,6 +112,7 @@ public class RunOptimization : ICommand
                 _historyViewModel.RefreshFiles();
             }
             IsWorking = false;
+            setButtonString("START");
         });
         
         
