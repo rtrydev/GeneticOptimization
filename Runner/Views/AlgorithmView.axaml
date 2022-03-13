@@ -11,15 +11,18 @@
         <converters:NameShortenerConverter x:Key="NameShortenerConverter" />
     </UserControl.Resources>
     
-    <StackPanel Margin="8">
-        <Button Command="{Binding AlgorithmViewModel.Compile}" CommandParameter="{Binding AlgorithmViewModel.LogModel}">Compile</Button>
-        <Label Margin="4">Cost Method</Label>
+    <ScrollViewer>
+        <StackPanel Margin="8">
+            <Button Command="{Binding AlgorithmViewModel.Compile}" CommandParameter="{Binding AlgorithmViewModel.LogModel}">Compile</Button>
+            <Label Margin="4">Cost Method</Label>
             <ComboBox Margin="10" Items="{Binding AlgorithmViewModel.CostMethods, Converter={StaticResource NameShortenerConverter}}" SelectedItem="{Binding AlgorithmViewModel.Configuration.CostFunction}"></ComboBox>
-        <Label Margin="4">Operators</Label>
-        <WrapPanel>
-            <views:OperatorView/>
+            <Label Margin="4">Operators</Label>
+            <WrapPanel>
+                <views:OperatorView/>
 
-        </WrapPanel>
-    </StackPanel>
+            </WrapPanel>
+        </StackPanel>
+    </ScrollViewer>
+    
     
 </UserControl>
