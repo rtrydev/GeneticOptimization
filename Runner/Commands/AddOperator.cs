@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using AbstractionProvider.Configuration;
 using AbstractionProvider.Operators;
+using ReactiveUI;
 
 namespace Runner.Commands;
 
@@ -26,6 +27,7 @@ public class AddOperator : ICommand
     public void Execute(object? parameter)
     {
         var operatorToAdd = parameter as string;
+        if (operatorToAdd is null) return;
         var opr = new OperatorInformation(OperatorTypes.Other, operatorToAdd);
         _operatorInformation.Add(opr);
         _configuration.OperatorInformation = _operatorInformation.ToArray();
