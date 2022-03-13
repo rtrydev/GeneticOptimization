@@ -10,9 +10,13 @@ public class OperatorInformation
     public string[] Available => GetAvailableOperators();
     public OperatorTypes OperatorType { get; set; }
     public string OperatorName { get; set; }
+    public double ActivationProbability { get; set; } 
 
-    public OperatorInformation(OperatorTypes type, string name)
+    public bool IsOther => OperatorType == OperatorTypes.Other;
+
+    public OperatorInformation(OperatorTypes type, string name, double activationProbability = 0.02d)
     {
+        ActivationProbability = activationProbability;
         OperatorName = name;
         OperatorType = type;
     }

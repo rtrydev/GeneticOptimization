@@ -5,26 +5,33 @@
              xmlns:viewModels="clr-namespace:Runner.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Runner.Views.OperatorView">
-    <Design.DataContext>
-        <viewModels:OperatorViewModel/>
-    </Design.DataContext>
-    <ItemsControl Items="{Binding Configuration.OperatorInformation}" >
-        <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-                <StackPanel Orientation="Horizontal"/>
-            </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
-        <ItemsControl.ItemTemplate >
-            <DataTemplate>
-                <Border Background="#333333" CornerRadius="4" Padding="3" Margin="10">
-                    <StackPanel Background="#333333" Width="200" Height="150"  HorizontalAlignment="Center" >
-                        <TextBlock HorizontalAlignment="Center" Margin=" 0 6 0 0" Text="{Binding OperatorType}"></TextBlock>
-                        <ComboBox HorizontalAlignment="Center" Margin="4" Items="{Binding Available }" SelectedItem="{Binding OperatorName}"></ComboBox>
-                    </StackPanel>
-                </Border>
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
     
+    <StackPanel>
+        <Label Margin="4">Add operator:</Label>
+        <WrapPanel>
+            <ComboBox Name="OperatorToAdd" Margin="10" Items="{Binding OperatorViewModel.OtherOperators.Available}"></ComboBox>
+            <Button Margin="6" Command="{Binding OperatorViewModel.AddOperator}" CommandParameter="{Binding #OperatorToAdd.SelectedItem}">Add</Button>
+        </WrapPanel>
+        <ItemsControl Name="OperatorsControl" Items="{Binding OperatorViewModel.OperatorInformation}" >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate >
+                <DataTemplate>
+                    <Border Background="#333333" CornerRadius="4" Padding="3" Margin="10">
+                        <StackPanel Background="#333333" Width="200" Height="200"  HorizontalAlignment="Center">
+                            <TextBlock HorizontalAlignment="Center" Margin=" 0 6 0 6" Text="{Binding OperatorType}"></TextBlock>
+                            <ComboBox HorizontalAlignment="Center" Margin="4" Items="{Binding Available }" SelectedItem="{Binding OperatorName}"></ComboBox>
+                            <Label HorizontalAlignment="Center" IsVisible="{Binding IsOther}">Activation Prob:</Label>
+                            <TextBox IsVisible="{Binding IsOther}" Text="{Binding ActivationProbability}" Width="150"></TextBox>
+                            <Button VerticalAlignment="Bottom" Margin=" 0 6 0 6" HorizontalAlignment="Center" IsVisible="{Binding IsOther}" Command="{Binding DataContext.OperatorViewModel.RemoveOperator, ElementName=OperatorsControl}" CommandParameter="{Binding}" >Remove</Button>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
     
 </UserControl>
