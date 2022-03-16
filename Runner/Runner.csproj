@@ -19,6 +19,8 @@
 	<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	<PackageReference Include="OxyPlot.Avalonia" Version="2.1.0-Preview1" />
 	<PackageReference Include="ReactiveUI.Fody" Version="17.1.50" />
+	<PackageReference Include="SixLabors.ImageSharp" Version="2.1.0" />
+	<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta14" />
         <PackageReference Include="SkiaSharp" Version="2.88.0-preview.209" />
     </ItemGroup>
     <ItemGroup>
