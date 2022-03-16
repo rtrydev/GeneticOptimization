@@ -29,12 +29,12 @@ public class TspImageGenerator
         {
             img.Mutate(x => x.Fill(Color.White));
 
-            var points = new EllipsePolygon[52];
+            var points = new EllipsePolygon[path.Length];
             var pen = new Pen(Color.Black, 3f);
-            for (int i = 0; i < 52; i++)
+            for (int i = 0; i < path.Length; i++)
             {
                 var point1 = new PointF(xAxis[path[i]], yAxis[path[i]]);
-                var point2 = i == 51 ? new PointF(xAxis[path[0]], yAxis[path[0]]) : new PointF(xAxis[path[i + 1]], yAxis[path[i + 1]]);
+                var point2 = i == (path.Length - 1) ? new PointF(xAxis[path[0]], yAxis[path[0]]) : new PointF(xAxis[path[i + 1]], yAxis[path[i + 1]]);
                 
                 img.Mutate(x => x.DrawLines(pen, new []{point1, point2}));
                 points[i] = new EllipsePolygon(xAxis[i], yAxis[i], 5f);

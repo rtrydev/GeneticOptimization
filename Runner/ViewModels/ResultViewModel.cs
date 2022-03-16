@@ -1,11 +1,15 @@
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
 using AbstractionProvider.Operators;
 using AbstractionProvider.PopulationModels;
 using GeneticOptimization.Algorithm;
 using GeneticOptimization.Configuration;
 using Newtonsoft.Json;
 using ReactiveUI.Fody.Helpers;
+using Runner.Visualization;
 
 namespace Runner.ViewModels;
 
@@ -31,6 +35,14 @@ public class ResultViewModel : ViewModelBase
     {
         var jsonString = File.ReadAllText(data);
         Result = JsonConvert.DeserializeObject<GeneticAlgorithmResult<TspPopulationModel, TspConfiguration>>(jsonString);
+        var dataset = Result.Configuration.DataPath
+            .Replace(".mtrx", ".tsp");
+
+        if (Result.Configuration.CostFunction == "TspCostFunction")
+        {
+            TspImageGenerator.GenerateImageFromTspPath(Result.BestIndividual.Body, dataset);
+        }
+        
 
         BestCosts = new Collection<EpochValue>();
         AvgCosts = new Collection<EpochValue>();
