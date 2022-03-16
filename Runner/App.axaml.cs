@@ -8,6 +8,7 @@ using GeneticOptimization.Configuration;
 using Runner.Models;
 using Runner.ViewModels;
 using Runner.Views;
+using Runner.Visualization;
 
 namespace Runner
 {
