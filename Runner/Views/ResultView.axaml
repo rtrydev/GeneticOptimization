@@ -20,8 +20,8 @@
         <converters:IntArrayToStringConverter x:Key="IntArrayToStringConverter"/>
         <converters:DoubleToStringConverter x:Key="DoubleToStringConverter"/>
     </Window.Resources>
-    
-    <Grid ColumnDefinitions="*, *" Margin="10">
+    <ScrollViewer>
+        <Grid ColumnDefinitions="*, *" RowDefinitions="*, *" Margin="10">
         <StackPanel Grid.Column="0">
             <Label Margin="0 0 0  10" FontWeight="Bold">Operators</Label>
             <ItemsControl Margin="4 0 0 0" Items="{Binding Operators, Converter={StaticResource OperatorsToStringArrayConverter}}">
@@ -124,6 +124,10 @@
                 <ToggleSwitch IsChecked="{Binding WorstVisible}" OnContent="" OffContent=""></ToggleSwitch>
             </WrapPanel>
         </StackPanel>
+        
+        <Image Grid.Row="1" Grid.Column="1" Source="{Binding Preview}"></Image>
     </Grid>
+    </ScrollViewer>
+    
     
 </Window>

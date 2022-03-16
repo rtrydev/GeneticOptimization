@@ -18,13 +18,13 @@ public class TspImageGenerator
         
         var xAxis = lines.Select(x => float.Parse(x.Split(" ").Skip(1).First())).ToArray();
         var yAxis = lines.Select(x => float.Parse(x.Split(" ").Skip(2).First())).ToArray();
-
-        var xAxisLength = GetAxisLength(xAxis);
-        var yAxisLength = GetAxisLength(yAxis);
         
         NormalizeValues(xAxis);
         NormalizeValues(yAxis);
 
+        var xAxisLength = GetAxisLength(xAxis);
+        var yAxisLength = GetAxisLength(yAxis);
+        
         using(var img = new Image<Rgba32>(xAxisLength, yAxisLength))
         {
             img.Mutate(x => x.Fill(Color.White));
@@ -43,7 +43,7 @@ public class TspImageGenerator
             {
                 img.Mutate(x => x.Fill(Color.Black, p));
             }
-            img.SaveAsPng("/Users/rtry/test.png");
+            img.SaveAsPng(".preview.png");
         }
         
     }
@@ -55,12 +55,15 @@ public class TspImageGenerator
 
     private static void NormalizeValues(float[] values)
     {
+        var max = values.Max();
         var min = values.Min();
-        var margin = 0.05f * (values.Max() - values.Min());
+
+        var multiplier = 1000 / max;
+        var margin = 0.05f * multiplier * (values.Max() - values.Min());
 
         for (int i = 0; i < values.Length; i++)
         {
-            values[i] = values[i] - min + margin;
+            values[i] = (values[i] - min) * multiplier + margin;
         }
     }
 }

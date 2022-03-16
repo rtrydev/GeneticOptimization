@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using AbstractionProvider.Operators;
 using AbstractionProvider.PopulationModels;
+using Avalonia.Media.Imaging;
 using GeneticOptimization.Algorithm;
 using GeneticOptimization.Configuration;
 using Newtonsoft.Json;
@@ -31,6 +32,7 @@ public class ResultViewModel : ViewModelBase
     [Reactive] public bool MedianVisible { get; set; } = true;
     public Collection<EpochValue> WorstCosts { get; set; }
     [Reactive] public bool WorstVisible { get; set; } = true;
+    public Bitmap Preview { get; set; }
     public ResultViewModel(string data)
     {
         var jsonString = File.ReadAllText(data);
@@ -42,7 +44,11 @@ public class ResultViewModel : ViewModelBase
         {
             TspImageGenerator.GenerateImageFromTspPath(Result.BestIndividual.Body, dataset);
         }
-        
+
+        using (var fileStream = File.Open(".preview.png", FileMode.Open))
+        {
+            Preview = Bitmap.DecodeToHeight(fileStream, 1000);
+        }
 
         BestCosts = new Collection<EpochValue>();
         AvgCosts = new Collection<EpochValue>();
