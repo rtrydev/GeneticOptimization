@@ -66,8 +66,8 @@ public class HGreXCrossover : Crossover
                 var nextIndex = -1;
                 var nextPoint = -1;
 
-                var bestCost = costs[0];
-                for (int l = 1; l < costs.Length; l++)
+                var bestCost = Double.MaxValue;
+                for (int l = 0; l < costs.Length; l++)
                 {
                     var currentCost = costs[l];
                     if (currentCost < bestCost)

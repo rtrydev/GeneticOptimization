@@ -13,7 +13,7 @@ public class ElitismElimination : Elimination
 
         var population = Population.PopulationArray;
 
-        var toEliminate = Data.Length;
+        var toEliminate = Data.Length < populationSize ? Data.Length : populationSize;
         var offspringIterator = 0;
         for (int i = populationSize - 1; i > populationSize - toEliminate; i--)
         {
