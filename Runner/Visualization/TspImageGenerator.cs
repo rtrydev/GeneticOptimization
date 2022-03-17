@@ -58,7 +58,7 @@ public class TspImageGenerator
         var max = values.Max();
         var min = values.Min();
 
-        var multiplier = 1000 / max;
+        var multiplier = 1000 / (max - min);
         var margin = 0.05f * multiplier * (values.Max() - values.Min());
 
         for (int i = 0; i < values.Length; i++)
