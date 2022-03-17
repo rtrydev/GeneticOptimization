@@ -2,7 +2,7 @@ namespace AbstractionProvider.Data;
 
 public class Offsprings<T> : IData
 {
-    public T[] OffspringsArray { get; }
+    public T[] OffspringsArray { get; set; }
 
     public int Length => OffspringsArray.Length;
     
