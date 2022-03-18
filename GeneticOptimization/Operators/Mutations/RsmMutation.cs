@@ -27,7 +27,7 @@ public class RsmMutation : Mutation
                 
             }
         }
-        
+        population = population.OrderBy(x => x.Cost).ToArray();
         Population.PopulationArray = population;
         return Population;
     }
