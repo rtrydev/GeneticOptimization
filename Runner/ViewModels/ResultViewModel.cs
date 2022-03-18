@@ -40,11 +40,20 @@ public class ResultViewModel : ViewModelBase
         var dataset = Result.Configuration.DataPath
             .Replace(".mtrx", ".tsp");
 
-        if (File.Exists(dataset))
+        if (File.Exists(dataset) && dataset.EndsWith(".tsp"))
         {
             if (Result.Configuration.CostFunction == "TspCostFunction")
             {
                 TspImageGenerator.GenerateImageFromTspPath(Result.BestIndividual.Body, dataset);
+                using (var fileStream = File.Open(".preview.png", FileMode.Open))
+                {
+                    Preview = Bitmap.DecodeToHeight(fileStream, 1000);
+                }
+            }
+
+            if (Result.Configuration.CostFunction == "WarehouseCostFunction")
+            {
+                WarehouseImageGenerator.Generate(Result.BestIndividual.Body, dataset);
                 using (var fileStream = File.Open(".preview.png", FileMode.Open))
                 {
                     Preview = Bitmap.DecodeToHeight(fileStream, 1000);
