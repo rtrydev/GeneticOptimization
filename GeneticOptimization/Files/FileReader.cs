@@ -49,7 +49,18 @@ public class FileReader
     private double[][] ReadTsp(string fileName)
     {
         var lines = File.ReadAllLines(fileName);
-        var type = lines.Where(x => x.Contains("TYPE : ")).First().Replace("TYPE : ", "");
+        var type = "";
+        var lineWithType = lines.Where(x => x.Contains("TYPE : ")).FirstOrDefault();
+        if (lineWithType is null)
+        {
+            lineWithType = lines.Where(x => x.Contains("TYPE: ")).FirstOrDefault();
+            type = lineWithType.Replace("TYPE: ", "");
+        }
+        else
+        {
+            type = lineWithType.Replace("TYPE : ", "");
+
+        }
 
         lines = lines.SkipWhile(x => x != "NODE_COORD_SECTION").Skip(1).SkipLast(1).ToArray();
 
