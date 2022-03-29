@@ -11,9 +11,9 @@ public class ElitismSelection : Selection
 
     public override Parents<IPopulationModel> Run()
     {
-        var parentCount = _configuration.ParentsCount;
+        var parentCount = _configuration.ParentsCount < _configuration.PopulationSize ? _configuration.ParentsCount : _configuration.PopulationSize;
         var parents = new Parents<IPopulationModel>(parentCount);
-        
+
         for (int i = 0; i < parentCount; i++)
         {
             parents.ParentsArray[i] = Data.PopulationArray[i];
