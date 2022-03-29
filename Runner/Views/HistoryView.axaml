@@ -19,7 +19,7 @@
             
             <ListBox.ItemTemplate >
                 <DataTemplate>
-					<Border Padding="12" Background="{Binding TileColor}">
+					<Border Padding="6" Background="{Binding TileColor}">
 						<StackPanel >
 							<TextBlock Text="{Binding Converter={StaticResource ResultConverter}}"></TextBlock>
 
