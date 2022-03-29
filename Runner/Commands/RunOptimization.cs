@@ -9,6 +9,7 @@ using AbstractionProvider.PopulationModels;
 using GeneticOptimization;
 using GeneticOptimization.Algorithm;
 using GeneticOptimization.Configuration;
+using GeneticOptimization.Log;
 using Newtonsoft.Json;
 using Runner.Models;
 using Runner.ViewModels;
@@ -25,10 +26,12 @@ public class RunOptimization : ICommand
     private CancellationToken _cancellationToken;
     private bool IsWorking;
     private Action<string> setButtonString;
+    private Action<float> setProgress;
 
-    public RunOptimization(IConfiguration parametersModel, ConsoleLogModel logModel, HistoryViewModel historyViewModel, InstancesInfo instancesInfo, Action<string> buttonFunc)
+    public RunOptimization(IConfiguration parametersModel, ConsoleLogModel logModel, HistoryViewModel historyViewModel, InstancesInfo instancesInfo, Action<string> buttonFunc, Action<float> progressFunc)
     {
         setButtonString = buttonFunc;
+        setProgress = progressFunc;
         _instancesInfo = instancesInfo;
         _parametersModel = parametersModel;
         _logModel = logModel;
@@ -75,11 +78,27 @@ public class RunOptimization : ICommand
                 var optimizer = new GeneticOptimizer(config);
 
                 if (_instancesInfo.Count == 0) return;
+
+                var maxProgress = _instancesInfo.Count * config.MaxIterations;
+                var progressMeters = new ProgressMeter[_instancesInfo.Count];
+                for (int a = 0; a < progressMeters.Length; a++)
+                {
+                    progressMeters[a] = new ProgressMeter();
+                }
+                _ = Task.Run(() =>
+                {
+                    while (IsWorking)
+                    {
+                        Thread.Sleep(25);
+                        var currentProgress = progressMeters.Sum(x => x.GetCurrent()) / (float)maxProgress;
+                        setProgress(currentProgress);
+                    }
+                });
             
                 var results = new GeneticAlgorithmResult<TspPopulationModel, TspConfiguration>[_instancesInfo.Count];
                 Parallel.For(0, _instancesInfo.Count, j =>
                 {
-                    results[j] = optimizer.Run(_cancellationToken);
+                    results[j] = optimizer.Run(_cancellationToken, progressMeters[j]);
                 });
                 if (_cancellationToken.IsCancellationRequested)
                 {

@@ -25,12 +25,19 @@ public class ControlViewModel : ViewModelBase
     public ICommand RunDistances { get; set; }
 
     [Reactive] public string ButtonText { get; set; } = "START";
+    [Reactive] public int Progress { get; set; } = 0;
     private InstancesInfo _instancesInfo;
 
     private void SetButtonText(string text)
     {
         this.ButtonText = text;
     }
+
+    private void SetProgress(float value)
+    {
+        this.Progress = (int)(100 * value);
+    }
+
     public int InstancesCount
     {
         get => _instancesInfo.Count;
@@ -49,6 +56,6 @@ public class ControlViewModel : ViewModelBase
         HistoryViewModel = historyViewModel;
         _instancesInfo = new InstancesInfo();
 
-        RunDistances = new RunOptimization(parametersModel, logModel, historyViewModel, _instancesInfo, SetButtonText);
+        RunDistances = new RunOptimization(parametersModel, logModel, historyViewModel, _instancesInfo, SetButtonText, SetProgress);
     }
 }

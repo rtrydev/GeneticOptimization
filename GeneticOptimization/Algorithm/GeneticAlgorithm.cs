@@ -6,6 +6,7 @@ using AbstractionProvider.Log;
 using AbstractionProvider.Operators;
 using AbstractionProvider.PopulationModels;
 using CodeCompiler;
+using GeneticOptimization.Log;
 using GeneticOptimization.PopulationInitializers;
 
 
@@ -40,7 +41,7 @@ public class GeneticAlgorithm : ILoggable
         _costMatrix = costMatrix;
     }
 
-    public void Run(CancellationToken cancellationToken)
+    public void Run(CancellationToken cancellationToken, IProgressMeter progressMeter)
     {
         _logger.StartTimer();
         var operatorsCount = _operators.Count;
@@ -107,7 +108,8 @@ public class GeneticAlgorithm : ILoggable
             _logger.LogFormat.AvgCost = costArray.Average();
             _logger.LogFormat.MedianCost = costArray[costArray.Length / 2];
             _logger.LogFormat.WorstCost = costArray.Max();
-            _logger.NextEpoch();  
+            _logger.NextEpoch();
+            progressMeter.Add(1);
         }
 
         _logger.BestModel = population.PopulationArray[0];
