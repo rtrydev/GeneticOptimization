@@ -10,8 +10,9 @@
         <Label Margin="4">Add operator:</Label>
         <WrapPanel>
             <ComboBox Name="OperatorToAdd" Margin="10" Items="{Binding OperatorViewModel.OtherOperators.Available}"></ComboBox>
-            <Button Margin="6" Command="{Binding OperatorViewModel.AddOperator}" CommandParameter="{Binding #OperatorToAdd.SelectedItem}">Add</Button>
+            <Button Margin="6" Command="{Binding OperatorViewModel.AddOperator}" CommandParameter="{Binding #OperatorToAdd.SelectedItem}" ToolTip.Tip="Adds selected operator to the end of operator queue presented below">Add</Button>
         </WrapPanel>
+		<Label Margin="4">Operators:</Label>
         <ItemsControl Name="OperatorsControl" Items="{Binding OperatorViewModel.OperatorInformation}" >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -24,8 +25,8 @@
                         <StackPanel Background="#333333" Width="200" Height="200"  HorizontalAlignment="Center">
                             <TextBlock HorizontalAlignment="Center" Margin=" 0 6 0 6" Text="{Binding OperatorType}"></TextBlock>
                             <ComboBox HorizontalAlignment="Center" Margin="4" Items="{Binding Available }" SelectedItem="{Binding OperatorName}"></ComboBox>
-                            <Label HorizontalAlignment="Center" IsVisible="{Binding IsOther}">Activation Prob:</Label>
-                            <TextBox IsVisible="{Binding IsOther}" Text="{Binding ActivationProbability}" Width="150"></TextBox>
+                            <Label ToolTip.Tip="Activation probability from 0 to 1" HorizontalAlignment="Center" IsVisible="{Binding IsOther}">Activation Prob:</Label>
+                            <TextBox ToolTip.Tip="Activation probability from 0 to 1" IsVisible="{Binding IsOther}" Text="{Binding ActivationProbability}" Width="150"></TextBox>
                             <Button VerticalAlignment="Bottom" Margin=" 0 6 0 6" HorizontalAlignment="Center" IsVisible="{Binding IsOther}" Command="{Binding DataContext.OperatorViewModel.RemoveOperator, ElementName=OperatorsControl}" CommandParameter="{Binding}" >Remove</Button>
                         </StackPanel>
                     </Border>

@@ -17,7 +17,7 @@
     
     <ScrollViewer>
         <StackPanel Margin="4" >
-            <WrapPanel HorizontalAlignment="Stretch">
+            <WrapPanel HorizontalAlignment="Stretch" ToolTip.Tip="Select datasets for optimization">
                 <Label Padding="4 4 24 4" HorizontalAlignment="Center" VerticalAlignment="Center" >Data: </Label>
                 <Button Height="28" Background="Transparent" Command="{Binding SelectData}" CommandParameter="{Binding}">
                     <Image Source="/Assets/file.png"></Image>

@@ -96,7 +96,7 @@ public class RunOptimization : ICommand
                 });
             
                 var results = new GeneticAlgorithmResult<TspPopulationModel, TspConfiguration>[_instancesInfo.Count];
-                Parallel.For(0, _instancesInfo.Count, j =>
+                Parallel.For(0, _instancesInfo.Count, new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount - 1 }, j =>
                 {
                     results[j] = optimizer.Run(_cancellationToken, progressMeters[j]);
                 });

@@ -13,10 +13,9 @@
     
     <ScrollViewer>
         <StackPanel Margin="8">
-            <Button Command="{Binding AlgorithmViewModel.Compile}" CommandParameter="{Binding AlgorithmViewModel.LogModel}">Compile</Button>
-            <Label Margin="4">Cost Method</Label>
+            <Button ToolTip.Tip="Select .cs file with C# code to compile" Command="{Binding AlgorithmViewModel.Compile}" CommandParameter="{Binding AlgorithmViewModel.LogModel}">Compile</Button>
+            <Label Margin="4">Cost Method:</Label>
             <ComboBox Margin="10" Items="{Binding AlgorithmViewModel.CostMethods, Converter={StaticResource NameShortenerConverter}}" SelectedItem="{Binding AlgorithmViewModel.Configuration.CostFunction}"></ComboBox>
-            <Label Margin="4">Operators</Label>
             <WrapPanel>
                 <views:OperatorView/>
 

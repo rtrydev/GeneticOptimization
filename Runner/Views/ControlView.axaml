@@ -12,14 +12,14 @@
     
     <Grid ColumnDefinitions="5*, 3*, 5*" >
         <WrapPanel>
-            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6 0 0 4">Number of instances</Label>
+            <Label ToolTip.Tip="Select how many times should the algorithm be executed on each selected dataset" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6 0 0 4">Number of instances</Label>
             <NumericUpDown Margin="4" Value="{Binding InstancesCount}" Background="#222222"></NumericUpDown>
         </WrapPanel>
         <WrapPanel Grid.Column="1" HorizontalAlignment="Center" Margin="2" >
-            <Button Margin=" 6" Command="{Binding RunDistances}" 
+            <Button ToolTip.Tip="Starts optimization" Margin=" 6" Command="{Binding RunDistances}" 
                     CommandParameter="{Binding ParametersViewModel.SelectedData}" Content="{Binding ButtonText}">
             </Button>
-			<ProgressBar Value="{Binding Progress}" IsIndeterminate="False" Minimum="0" Maximum="100" Height="30"/>
+			<ProgressBar ToolTip.Tip="Shows progress for current dataset optimization" Value="{Binding Progress}" IsIndeterminate="False" Minimum="0" Maximum="100" Height="30"/>
         </WrapPanel>
     </Grid>
     
