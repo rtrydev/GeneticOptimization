@@ -10,7 +10,7 @@
         <viewModels:ControlViewModel/>
     </Design.DataContext>
     
-    <Grid ColumnDefinitions="5*, 3*, 5*" >
+    <Grid ColumnDefinitions="8*, 2*, 5*, 8*" >
         <WrapPanel>
             <Label ToolTip.Tip="Select how many times should the algorithm be executed on each selected dataset" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6 0 0 4">Number of instances</Label>
             <NumericUpDown Margin="4" Value="{Binding InstancesCount}" Background="#222222"></NumericUpDown>
@@ -19,7 +19,13 @@
             <Button ToolTip.Tip="Starts optimization" Margin=" 6" Command="{Binding RunDistances}" 
                     CommandParameter="{Binding ParametersViewModel.SelectedData}" Content="{Binding ButtonText}">
             </Button>
-			<ProgressBar ToolTip.Tip="Shows progress for current dataset optimization" Value="{Binding Progress}" IsIndeterminate="False" Minimum="0" Maximum="100" Height="30"/>
+			
+        </WrapPanel>
+        <WrapPanel Grid.Column="2" Margin="0 8 0 0">
+            <ProgressBar ToolTip.Tip="Shows progress for current dataset optimization" Value="{Binding Progress}" IsIndeterminate="False" Minimum="0" Maximum="100" Height="30"/>
+        </WrapPanel>
+        <WrapPanel HorizontalAlignment="Right" Grid.Column="3" Margin="0 8 8 0">
+            <Button Command="{Binding ShowHelp}">HELP</Button>
         </WrapPanel>
     </Grid>
     

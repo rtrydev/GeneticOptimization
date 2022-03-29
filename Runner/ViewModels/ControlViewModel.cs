@@ -23,6 +23,7 @@ public class ControlViewModel : ViewModelBase
     public HistoryViewModel HistoryViewModel { get; }
     public ConsoleLogModel LogModel { get; set; }
     public ICommand RunDistances { get; set; }
+    public ICommand ShowHelp { get; set; }
 
     [Reactive] public string ButtonText { get; set; } = "START";
     [Reactive] public int Progress { get; set; } = 0;
@@ -55,6 +56,7 @@ public class ControlViewModel : ViewModelBase
         ParametersViewModel = parametersViewModel;
         HistoryViewModel = historyViewModel;
         _instancesInfo = new InstancesInfo();
+        ShowHelp = new ShowHelp();
 
         RunDistances = new RunOptimization(parametersModel, logModel, historyViewModel, _instancesInfo, SetButtonText, SetProgress);
     }
