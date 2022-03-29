@@ -17,12 +17,14 @@
         <Label HorizontalAlignment="Center">Run history</Label>
         <ListBox Grid.Row="1" Items="{Binding HistoryViewModel.Files}" Margin="4" SelectedItem ="{Binding HistoryViewModel.Selection}" >
             
-            <ListBox.ItemTemplate>
+            <ListBox.ItemTemplate >
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Converter={StaticResource ResultConverter}}"></TextBlock>
+					<Border Padding="12" Background="{Binding TileColor}">
+						<StackPanel >
+							<TextBlock Text="{Binding Converter={StaticResource ResultConverter}}"></TextBlock>
 
-                    </StackPanel>
+						</StackPanel>
+					</Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

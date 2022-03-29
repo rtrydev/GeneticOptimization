@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Input;
 using Avalonia.Controls;
+using Runner.Models;
 using Runner.Views;
 
 namespace Runner.Commands;
@@ -14,8 +15,8 @@ public class OpenRunInfo : ICommand
 
     public void Execute(object? parameter)
     {
-        var window = new ResultView("Results/" + (string) parameter);
-        window.Title = "Results/" + (string) parameter;
+        var window = new ResultView((ResultFileModel)parameter);
+        window.Title = "Results/" + ((ResultFileModel) parameter).FileName;
         window.Show();
         
     }

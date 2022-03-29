@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 using Avalonia.Data.Converters;
+using Runner.Models;
 
 namespace Runner.Converters;
 
@@ -9,7 +10,7 @@ public class ResultConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        var val = (string) value;
+        var val = ((ResultFileModel) value).FileName;
         var place = -1;
 
         for (int i = 0; i < 2; i++)

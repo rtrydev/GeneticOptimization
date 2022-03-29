@@ -10,6 +10,7 @@ using GeneticOptimization.Algorithm;
 using GeneticOptimization.Configuration;
 using Newtonsoft.Json;
 using ReactiveUI.Fody.Helpers;
+using Runner.Models;
 using Runner.Visualization;
 
 namespace Runner.ViewModels;
@@ -33,9 +34,9 @@ public class ResultViewModel : ViewModelBase
     public Collection<EpochValue> WorstCosts { get; set; }
     [Reactive] public bool WorstVisible { get; set; } = true;
     public Bitmap Preview { get; set; }
-    public ResultViewModel(string data)
+    public ResultViewModel(ResultFileModel data)
     {
-        var jsonString = File.ReadAllText(data);
+        var jsonString = File.ReadAllText("Results/" + data.FileName);
         Result = JsonConvert.DeserializeObject<GeneticAlgorithmResult<TspPopulationModel, TspConfiguration>>(jsonString);
         var dataset = Result.Configuration.DataPath
             .Replace(".mtrx", ".tsp");

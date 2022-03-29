@@ -1,13 +1,14 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Runner.Models;
 using Runner.ViewModels;
 
 namespace Runner.Views;
 
 public class ResultView : Window
 {
-    public ResultView(string data)
+    public ResultView(ResultFileModel data)
     {
         InitializeComponent();
 #if DEBUG
