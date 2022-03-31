@@ -25,7 +25,7 @@
             <ProgressBar ToolTip.Tip="Shows progress for current dataset optimization" Value="{Binding Progress}" IsIndeterminate="False" Minimum="0" Maximum="100" Height="30"/>
         </WrapPanel>
         <WrapPanel HorizontalAlignment="Right" Grid.Column="3" Margin="0 8 8 0">
-            <Button Command="{Binding ShowHelp}">HELP</Button>
+            <Button Command="{Binding ShowHelp}" Background="green">HELP</Button>
         </WrapPanel>
     </Grid>
     
