@@ -11,8 +11,14 @@
             
             <Label FontWeight="Bold" Margin="8">Selecting Data:</Label>
             <TextBlock TextWrapping="Wrap" Margin="8">
-                You can select datasets for optimization by clicking the button with folder icon that is situated in the top of parameters section (the one on the left). For TSP optimization, datasets of .tsp or .mtrx format should be used, whereas for the warehouse optimization you should use .tsp datasets which's names start with "mag" (they contain generated warehouse points, order lists for the optimization are located in ordersX.txt files that should NOT be chosen for the optimzation, as they are attached automatically). The prepared datasets for both problems can be found in Datasets folder in the main directory of the program. Every dataset will be optimized with the provided parameters. Order of datasets is displayed below the selection button.
+                You can select datasets for optimization by clicking the button with folder icon that is situatedabove the parameters section (the one on the left). Every dataset will be optimized with the provided parameters. Order of datasets is displayed below the selection button.
             </TextBlock>
+
+			<Label FontWeight="Bold" Margin="8">Datasets:</Label>
+			<TextBlock TextWrapping="Wrap" Margin="8">
+				For TSP optimization, datasets of .tsp or .mtrx format should be used, whereas for the warehouse optimization you should use .tsp datasets with names starting with "mag" (they contain generated warehouse points). Order lists for the warehouse optimization are located in ordersX.txt files that should NOT be chosen for the optimzation, as they are attached automatically (for example mag70.tsp -> orders70.txt, both files have to be located in the same directory). The prepared datasets for both problems can be found in Datasets folder in the main directory of the program.
+			</TextBlock>
+			
             <Label FontWeight="Bold" Margin="8">Parameters:</Label>
             <TextBlock TextWrapping="Wrap" Margin="8">
                 Parameters for the optimization can be set in the parameters section on the left. Usually, probabilities can be set in range from 0 to 1 where 0 is 0%, 1 is 100%.
