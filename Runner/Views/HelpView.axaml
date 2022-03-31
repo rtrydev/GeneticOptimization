@@ -6,41 +6,43 @@
         x:Class="Runner.Views.HelpView"
         Title="HelpView"
         Background="#2b2b2b">
-    <StackPanel MaxWidth="600">
-        <StackPanel>
-            
-            <Label FontWeight="Bold" Margin="8">Selecting Data:</Label>
-            <TextBlock TextWrapping="Wrap" Margin="8">
-                You can select datasets for optimization by clicking the button with folder icon that is situatedabove the parameters section (the one on the left). Every dataset will be optimized with the provided parameters. Order of datasets is displayed below the selection button.
-            </TextBlock>
+	<ScrollViewer>
+		<StackPanel MaxWidth="600">
+			<StackPanel>
 
-			<Label FontWeight="Bold" Margin="8">Datasets:</Label>
-			<TextBlock TextWrapping="Wrap" Margin="8">
-				For TSP optimization, datasets of .tsp or .mtrx format should be used, whereas for the warehouse optimization you should use .tsp datasets with names starting with "mag" (they contain generated warehouse points). Order lists for the warehouse optimization are located in ordersX.txt files that should NOT be chosen for the optimzation, as they are attached automatically (for example mag70.tsp -> orders70.txt, both files have to be located in the same directory). The prepared datasets for both problems can be found in Datasets folder in the main directory of the program.
-			</TextBlock>
-			
-            <Label FontWeight="Bold" Margin="8">Parameters:</Label>
-            <TextBlock TextWrapping="Wrap" Margin="8">
-                Parameters for the optimization can be set in the parameters section on the left. Usually, probabilities can be set in range from 0 to 1 where 0 is 0%, 1 is 100%.
-            </TextBlock>
-            <Label FontWeight="Bold" Margin="8">Cost method:</Label>
-            <TextBlock TextWrapping="Wrap" Margin="8">
-                Cost method can be selected from the predetermined TSP and Warehouse, used for the corresponding optimizations. Cost methods can also be written by the user by compiling them (compilation has been covered in the operators section of this guide).
-            </TextBlock>
-            <Label FontWeight="Bold" Margin="8">Operators:</Label>
-            <TextBlock TextWrapping="Wrap" Margin="8">
-                The operators displayed in Operators section (in the middle of the screen) are the operators, that the genetic algorithm used for optimization will consist of. The operators will be executed in order that they are presented. You can add new operators by compiling .cs files with operator implementations in them. You can add an operator to the queue by selecting it in ComboBox below "Add Operator" label. The operator will be added at the end of the queue. 
-            </TextBlock>
-            <Label FontWeight="Bold" Margin="8">Results:</Label>
-            <TextBlock TextWrapping="Wrap" Margin="8">
-                You can see detailed results by selecting one of the completed optimizations listed in the history section situated on the right. New completed runs are highlighted green.
-            </TextBlock>
-        </StackPanel>
-        <WrapPanel Margin="0 50 0 0" HorizontalAlignment="Center">
-            <TextBlock TextWrapping="Wrap" Margin="8">
-                Genetic Optimizer by Rafał Kulka 2022
-            </TextBlock>
-        </WrapPanel>
-        
-    </StackPanel>
+				<Label FontWeight="Bold" Margin="8">Selecting Data:</Label>
+				<TextBlock TextWrapping="Wrap" Margin="8">
+					You can select datasets for optimization by clicking the button with folder icon that is situatedabove the parameters section (the one on the left). Every dataset will be optimized with the provided parameters. Order of datasets is displayed below the selection button.
+				</TextBlock>
+
+				<Label FontWeight="Bold" Margin="8">Datasets:</Label>
+				<TextBlock TextWrapping="Wrap" Margin="8">
+					For TSP optimization, datasets of .tsp or .mtrx format should be used, whereas for the warehouse optimization you should use .tsp datasets with names starting with "mag" (they contain generated warehouse points). Order lists for the warehouse optimization are located in ordersX.txt files that should NOT be chosen for the optimzation, as they are attached automatically (for example mag70.tsp -> orders70.txt, both files have to be located in the same directory). The prepared datasets for both problems can be found in Datasets folder in the main directory of the program.
+				</TextBlock>
+
+				<Label FontWeight="Bold" Margin="8">Parameters:</Label>
+				<TextBlock TextWrapping="Wrap" Margin="8">
+					Parameters for the optimization can be set in the parameters section on the left. Usually, probabilities can be set in range from 0 to 1 where 0 is 0%, 1 is 100%.
+				</TextBlock>
+				<Label FontWeight="Bold" Margin="8">Cost method:</Label>
+				<TextBlock TextWrapping="Wrap" Margin="8">
+					Cost method can be selected from the predetermined TSP and Warehouse, used for the corresponding optimizations. Cost methods can also be written by the user by compiling them (compilation has been covered in the operators section of this guide).
+				</TextBlock>
+				<Label FontWeight="Bold" Margin="8">Operators:</Label>
+				<TextBlock TextWrapping="Wrap" Margin="8">
+					The operators displayed in Operators section (in the middle of the screen) are the operators, that the genetic algorithm used for optimization will consist of. The operators will be executed in order that they are presented. You can add new operators by compiling .cs files with operator implementations in them. You can add an operator to the queue by selecting it in ComboBox below "Add Operator" label. The operator will be added at the end of the queue.
+				</TextBlock>
+				<Label FontWeight="Bold" Margin="8">Results:</Label>
+				<TextBlock TextWrapping="Wrap" Margin="8">
+					You can see detailed results by selecting one of the completed optimizations listed in the history section situated on the right. New completed runs are highlighted green.
+				</TextBlock>
+			</StackPanel>
+			<WrapPanel Margin="0 50 0 0" HorizontalAlignment="Center">
+				<TextBlock TextWrapping="Wrap" Margin="8">
+					Genetic Optimizer by Rafał Kulka 2022
+				</TextBlock>
+			</WrapPanel>
+
+		</StackPanel>
+	</ScrollViewer>
 </Window>
