@@ -25,6 +25,8 @@
             </WrapPanel>
         
             <TextBlock Text="{Binding SelectedFilesString}" ></TextBlock>
+
+			<Label>Parameters:</Label>
             
             <Label Content="ConflictResolveMethod"></Label>
             <ComboBox Items="{Binding Resolvers, Converter={StaticResource NameShortenerConverter}}" SelectedItem="{Binding Configuration.ConflictResolveMethod}"></ComboBox>
