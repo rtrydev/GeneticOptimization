@@ -14,7 +14,7 @@
     </UserControl.Resources>
     
     <Grid RowDefinitions="*, 20*">
-        <Label ToolTip.Tip="See detailed results for any optimization completed in the past" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4">Run history</Label>
+        <Label ToolTip.Tip="See detailed results for any optimization completed in the past" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4">Results</Label>
         <ListBox Grid.Row="1" Items="{Binding HistoryViewModel.Files}" Margin="4" SelectedItem ="{Binding HistoryViewModel.Selection}" >
             
             <ListBox.ItemTemplate >

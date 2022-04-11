@@ -1,10 +1,12 @@
 using System;
 using System.Globalization;
 using System.IO;
+using AbstractionProvider.Configuration;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using GeneticOptimization.Configuration;
+using Newtonsoft.Json;
 using Runner.Models;
 using Runner.ViewModels;
 using Runner.Views;
@@ -29,7 +31,18 @@ namespace Runner
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 var logModel = new ConsoleLogModel();
-                var config = new TspConfiguration();
+
+                IConfiguration config;
+                if (File.Exists("default-config.json"))
+                {
+                    var jsonString = File.ReadAllText("default-config.json");
+                    config = JsonConvert.DeserializeObject<TspConfiguration>(jsonString);
+                }
+                else
+                {
+                    config = new TspConfiguration();
+                }
+                
                 var parametersVM = new ParametersViewModel(config);
                 var historyVM = new HistoryViewModel();
 
