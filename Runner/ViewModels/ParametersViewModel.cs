@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using AbstractionProvider.Configuration;
 using AbstractionProvider.CostFunctions;
@@ -21,7 +23,7 @@ public class ParametersViewModel : ViewModelBase
     [Reactive] public string[] SelectedData { get; set; }
     public string[] Resolvers { get; set; }
     public ICommand SetDefault { get; set; }
-    
+    [Reactive] public bool SuccessMessageVisible { get; set; }
     public ParametersViewModel(IConfiguration model)
     {
         Configuration = model;
@@ -29,7 +31,12 @@ public class ParametersViewModel : ViewModelBase
         var resolvers = ClassProvider.GetAllClassNames(typeof(ConflictResolver));
 
         Resolvers = resolvers;
-        SetDefault = new SetDefaultConfig();
+        SetDefault = new SetDefaultConfig(async () =>
+        {
+            SuccessMessageVisible = true;
+            Thread.Sleep(4000);
+            SuccessMessageVisible = false;
+        });
 
     }
     

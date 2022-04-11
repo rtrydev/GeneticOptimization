@@ -28,6 +28,7 @@
 
 			<Label>Parameters:</Label>
             <Button Command="{Binding SetDefault}" CommandParameter="{Binding Configuration}">Save parameters</Button>
+            <Label Foreground="#66ff66" IsVisible="{Binding SuccessMessageVisible}">Configuration Saved</Label>
             
             <Label Content="ConflictResolveMethod"></Label>
             <ComboBox Items="{Binding Resolvers, Converter={StaticResource NameShortenerConverter}}" SelectedItem="{Binding Configuration.ConflictResolveMethod}"></ComboBox>
