@@ -20,6 +20,7 @@ public class ParametersViewModel : ViewModelBase
     [Reactive] public string SelectedFilesString { get; set; }
     [Reactive] public string[] SelectedData { get; set; }
     public string[] Resolvers { get; set; }
+    public ICommand SetDefault { get; set; }
     
     public ParametersViewModel(IConfiguration model)
     {
@@ -28,6 +29,7 @@ public class ParametersViewModel : ViewModelBase
         var resolvers = ClassProvider.GetAllClassNames(typeof(ConflictResolver));
 
         Resolvers = resolvers;
+        SetDefault = new SetDefaultConfig();
 
     }
     

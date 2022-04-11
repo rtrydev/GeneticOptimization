@@ -36,7 +36,8 @@ public class TspConfiguration : IConfiguration
     {
         var property = GetType().GetProperty(name);
         if (property is null) throw new ArgumentException();
-        var value = property.GetValue(this);
+        object? value = "";
+        value = property.GetValue(this) ?? value;
         if (value is T result)
         {
             return result;

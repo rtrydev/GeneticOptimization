@@ -27,6 +27,7 @@
             <TextBlock Text="{Binding SelectedFilesString}" ></TextBlock>
 
 			<Label>Parameters:</Label>
+            <Button Command="{Binding SetDefault}" CommandParameter="{Binding Configuration}">Save parameters</Button>
             
             <Label Content="ConflictResolveMethod"></Label>
             <ComboBox Items="{Binding Resolvers, Converter={StaticResource NameShortenerConverter}}" SelectedItem="{Binding Configuration.ConflictResolveMethod}"></ComboBox>
