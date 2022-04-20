@@ -138,6 +138,13 @@ public class RunOptimization : ICommand
                 File.WriteAllText($"Results/{resultName}/{filename}", jsonString);
                 var tspFile = config.DataPath.Replace(".mtrx", ".tsp");
                 File.Copy(tspFile, $"Results/{resultName}/data.tsp");
+                
+                var parameters = (TspConfiguration) config;
+                parameters.DataPath = "";
+                if(parameters is null) return;
+                var json = JsonConvert.SerializeObject(parameters);
+                File.WriteAllText($"Results/{resultName}/config.json", json);
+                
                 _historyViewModel.RefreshFiles();
             }
             IsWorking = false;
