@@ -67,13 +67,7 @@ public class HistoryViewModel : ViewModelBase
         DirectoryInfo info = new DirectoryInfo("Results");
         var files = info.GetDirectories().OrderByDescending(p => p.CreationTime).ToArray();
         var fileModels = files.Select(x => new ResultFileModel { FileName = x.Name, TileColor= Brushes.Transparent }).ToArray();
-        for (int i = 0; i < fileModels.Length; i++)
-        {
-            if(!Files.Any(x => x.FileName == fileModels[i].FileName))
-            {
-                fileModels[i].TileColor = Brushes.Green;
-                Files.Insert(0, fileModels[i]);
-            }
-        }
+        fileModels[0].TileColor = Brushes.Green;
+        Files.Insert(0, fileModels[0]);
     }
 }
