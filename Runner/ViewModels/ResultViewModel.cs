@@ -46,7 +46,7 @@ public class ResultViewModel : ViewModelBase
         {
             if (Result.Configuration.CostFunction == "TspCostFunction")
             {
-                TspImageGenerator.GenerateImageFromTspPath(Result.BestIndividual.Body, dataset, directory);
+                TspImageGenerator.GenerateImageFromTspPath(Result.BestIndividual.Body, $"{directory}/data.tsp", directory);
                 using (var fileStream = File.Open( $"{directory}/preview.png", FileMode.Open))
                 {
                     Preview = Bitmap.DecodeToHeight(fileStream, 1000);
@@ -55,7 +55,7 @@ public class ResultViewModel : ViewModelBase
 
             if (Result.Configuration.CostFunction == "WarehouseCostFunction")
             {
-                WarehouseImageGenerator.Generate(Result.BestIndividual.Body, dataset, directory);
+                WarehouseImageGenerator.Generate(Result.BestIndividual.Body, $"{directory}/data.tsp", directory);
                 using (var fileStream = File.Open($"{directory}/preview.png", FileMode.Open))
                 {
                     Preview = Bitmap.DecodeToHeight(fileStream, 1000);
