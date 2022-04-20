@@ -96,9 +96,17 @@ public class RunOptimization : ICommand
                 });
             
                 var results = new GeneticAlgorithmResult<TspPopulationModel, TspConfiguration>[_instancesInfo.Count];
+                var dataset = "";
+                if (OperatingSystem.IsWindows())
+                    dataset = config.DataPath.Split("\\")[^1];
+                else dataset = config.DataPath.Split("/")[^1];
+                dataset = string.Join("",dataset.Split(".").SkipLast(1).ToArray());
+                var resultName = $"{dataset}-{DateTime.Now:dd_MM-HH_mm_ss}";
+                
+                
                 Parallel.For(0, _instancesInfo.Count, new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount - 1 }, j =>
                 {
-                    results[j] = optimizer.Run(_cancellationToken, progressMeters[j]);
+                    results[j] = optimizer.Run(_cancellationToken, resultName, progressMeters[j]);
                 });
                 if (_cancellationToken.IsCancellationRequested)
                 {
@@ -121,13 +129,13 @@ public class RunOptimization : ICommand
 
                 _logModel.AppendLog("Result: " + finalResult.BestIndividual.Cost.ToString("0.##"));
                 string jsonString = JsonConvert.SerializeObject(finalResult);
-                var dataset = "";
-                if (OperatingSystem.IsWindows())
-                    dataset = finalResult.Configuration.DataPath.Split("\\")[^1];
-                else dataset = finalResult.Configuration.DataPath.Split("/")[^1];
-                dataset = string.Join("",dataset.Split(".").SkipLast(1).ToArray());
-                var filename = $"{dataset}-{DateTime.Now:dd_MM-HH_mm_ss}.json";
-                File.WriteAllText($"Results/{filename}", jsonString);
+                
+                var filename = "result.json";
+                if (!Directory.Exists($"Results/{resultName}"))
+                {
+                    Directory.CreateDirectory($"Results/{resultName}");
+                }
+                File.WriteAllText($"Results/{resultName}/{filename}", jsonString);
                 _historyViewModel.RefreshFiles();
             }
             IsWorking = false;

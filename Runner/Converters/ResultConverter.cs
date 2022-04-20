@@ -29,7 +29,7 @@ public class ResultConverter : IValueConverter
 
         var result = string.Join(" ", split);
 
-        result = result.Replace(".json", "");
+        result = result.Replace(".json", "").Replace("/result", "");
         return result;
 
     }

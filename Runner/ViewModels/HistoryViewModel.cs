@@ -35,7 +35,7 @@ public class HistoryViewModel : ViewModelBase
             {
                 var index = Files.IndexOf(value);
 
-                var newValue = new ResultFileModel { FileName = value.FileName, TileColor = Brushes.Transparent };
+                var newValue = new ResultFileModel { FileName = value.FileName + "/result.json", TileColor = Brushes.Transparent };
                 Files[index] = newValue;
             }
 
@@ -57,7 +57,7 @@ public class HistoryViewModel : ViewModelBase
     public void LoadFiles()
     {
         DirectoryInfo info = new DirectoryInfo("Results");
-        FileInfo[] files = info.GetFiles().OrderByDescending(p => p.CreationTime).ToArray();
+        var files = info.GetDirectories().OrderByDescending(p => p.CreationTime).ToArray();
         var list= files.Select(x => new ResultFileModel { FileName = x.Name, TileColor = Brushes.Transparent }).ToList();
         Files = new ObservableCollection<ResultFileModel>(list);
     }
@@ -65,7 +65,7 @@ public class HistoryViewModel : ViewModelBase
     public void RefreshFiles()
     {
         DirectoryInfo info = new DirectoryInfo("Results");
-        FileInfo[] files = info.GetFiles().OrderByDescending(p => p.CreationTime).ToArray();
+        var files = info.GetDirectories().OrderByDescending(p => p.CreationTime).ToArray();
         var fileModels = files.Select(x => new ResultFileModel { FileName = x.Name, TileColor= Brushes.Transparent }).ToArray();
         for (int i = 0; i < fileModels.Length; i++)
         {

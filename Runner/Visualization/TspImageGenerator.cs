@@ -11,8 +11,9 @@ namespace Runner.Visualization;
 
 public class TspImageGenerator
 {
-    public static void GenerateImageFromTspPath(int[] path, string tspFile)
+    public static void GenerateImageFromTspPath(int[] path, string tspFile, string location)
     {
+        if(File.Exists($"{path}/preview.png")) return;
         var lines = File.ReadAllLines(tspFile);
         lines = lines.SkipWhile(x => x != "NODE_COORD_SECTION").Skip(1).SkipLast(1).ToArray();
         
@@ -43,7 +44,7 @@ public class TspImageGenerator
             {
                 img.Mutate(x => x.Fill(Color.Black, p));
             }
-            img.SaveAsPng(".preview.png");
+            img.SaveAsPng($"{location}/preview.png");
         }
         
     }

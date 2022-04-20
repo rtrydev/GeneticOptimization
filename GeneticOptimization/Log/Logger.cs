@@ -10,13 +10,14 @@ public class Logger : ILogger
     private DateTime _startTime;
     private DateTime _endTime;
     private IConfiguration _configuration;
+    private string logDirectory;
     public double[] BestCostHistory { get; set; }
     public double[] AvgCostHistory { get; set; }
     public double[] MedianCostHistory { get; set; }
     public double[] WorstCostHistory { get; set; }
     public IPopulationModel BestModel { get; set; }
 
-    public Logger(IConfiguration configuration)
+    public Logger(IConfiguration configuration, string resultName)
     {
         _configuration = configuration;
         BestCostHistory = new double[_configuration.MaxIterations + 1];
@@ -25,6 +26,9 @@ public class Logger : ILogger
         WorstCostHistory = new double[_configuration.MaxIterations + 1];
         logs = new List<LogFormat>();
         LogFormat = new LogFormat();
+        
+        
+        logDirectory = $"Results/{resultName}/Logs";
     }
 
     private void AddToLog(LogFormat line)
@@ -91,11 +95,32 @@ public class Logger : ILogger
             logString.Add(l);
         }
 
-        var res = Directory.CreateDirectory("Logs");
-        if (File.Exists(_configuration.LogPath))
+        var res = Directory.CreateDirectory(logDirectory);
+        var logPath = $"{logDirectory}/log{DateTime.Now:dd_MM-HH_mm_ss_fff}.csv";
+        if (!Directory.Exists($"{_configuration.LogPath}/{logDirectory}"))
+        {
+            Directory.CreateDirectory($"{_configuration.LogPath}/{logDirectory}");
+        }
+        if (File.Exists(logPath))
         {
             return;
         }
-        File.WriteAllLines(_configuration.LogPath, logString);
+        WriteFile(logPath, logString, 0);
+        
+    }
+
+    private void WriteFile(string logPath, List<string> logString, int depth)
+    {
+        if (depth == 10) return;
+        try
+        {
+            File.WriteAllLines(logPath, logString);
+        }
+        catch
+        {
+            Thread.Sleep(10);
+            logPath = $"{logDirectory}/log{DateTime.Now:dd_MM-HH_mm_ss_fff}.csv";
+            WriteFile(logPath, logString, depth + 1);
+        }
     }
 }

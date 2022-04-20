@@ -16,8 +16,9 @@ namespace Runner.Visualization;
 
 public class WarehouseImageGenerator
 {
-    public static void Generate(int[] order, string tspFile)
+    public static void Generate(int[] order, string tspFile, string path)
     {
+        if(File.Exists($"{path}/preview.png")) return;
         var lines = File.ReadAllLines(tspFile);
         lines = lines.SkipWhile(x => x != "NODE_COORD_SECTION").Skip(1).SkipLast(1).ToArray();
         
@@ -64,7 +65,7 @@ public class WarehouseImageGenerator
             {
                 img.Mutate(x=> x.DrawText(order[i].ToString(), font, Color.White, new PointF(xAxis[i], yAxis[i])));
             }
-            img.SaveAsPng(".preview.png");
+            img.SaveAsPng($"{path}/preview.png");
         }
         
     }

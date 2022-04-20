@@ -69,7 +69,7 @@ public class TspConfiguration : IConfiguration
 
     public string GetLogPath()
     {
-        return $"Logs/log{DateTime.Now:dd_MM-HH_mm_ss}.csv";
+        return $"Logs";
     }
     [JsonIgnore]
     public PropertyWrapper[] Properties => GetProperties();
