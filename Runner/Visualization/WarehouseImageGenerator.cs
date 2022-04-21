@@ -44,7 +44,22 @@ public class WarehouseImageGenerator
         
         FontCollection collection = new();
         FontFamily family = collection.Add("Fonts/Roboto-Regular.ttf");
-        Font font = family.CreateFont(26, FontStyle.Regular);
+
+        var blockSize = 50;
+        var fontSize = 26;
+
+        if (order.Length < 73)
+        {
+            fontSize = 40;
+            blockSize = 75;
+        }
+        if (order.Length < 33)
+        {
+            fontSize = 48;
+            blockSize = 90;
+        }
+
+        Font font = family.CreateFont(fontSize, FontStyle.Regular);
         
         using(var img = new Image<Rgba32>(xAxisLength, yAxisLength))
         {
@@ -54,7 +69,7 @@ public class WarehouseImageGenerator
             var pen = new Pen(Color.Black, 3f);
             for (int i = 0; i < order.Length; i++)
             {
-                points[i] = new Rectangle(new Point((int)xAxis[i] - 5, (int)yAxis[i]), new Size(50, 30));
+                points[i] = new Rectangle(new Point((int)xAxis[i] - 5, (int)yAxis[i]), new Size(blockSize, (int) (blockSize * 0.6)));
             }
             foreach (var p in points)
             {
@@ -80,7 +95,7 @@ public class WarehouseImageGenerator
         var max = values.Max();
         var min = values.Min();
 
-        var multiplier = (1000 / (max - min)) * proportion;
+        var multiplier = (1200 / (max - min)) * proportion;
         var margin = 0.05f * multiplier * (values.Max() - values.Min());
 
         for (int i = 0; i < values.Length; i++)
