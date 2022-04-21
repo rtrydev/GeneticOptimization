@@ -28,15 +28,35 @@ public class ControlViewModel : ViewModelBase
     [Reactive] public string ButtonText { get; set; } = "START";
     [Reactive] public int Progress { get; set; } = 0;
     private InstancesInfo _instancesInfo;
+    private DateTime _startTime;
+    private DateTime _lastEtaUpdate;
+    [Reactive] public TimeSpan CurrentEta { get; set; }
 
     private void SetButtonText(string text)
     {
         this.ButtonText = text;
+        if (text == "START")
+        {
+            CurrentEta = new TimeSpan();
+        }
     }
 
     private void SetProgress(float value)
     {
         this.Progress = (int)(100 * value);
+        var passedTime = DateTime.Now - _startTime;
+        if (value != 0 && DateTime.Now - _lastEtaUpdate > new TimeSpan(0, 0, 1))
+        {
+            var eta = passedTime / value - passedTime;
+            CurrentEta = new TimeSpan(eta.Hours, eta.Minutes, eta.Seconds);
+            _lastEtaUpdate = DateTime.Now;
+        }
+    }
+
+    private void SetStartTime(DateTime time)
+    {
+        _startTime = time;
+        CurrentEta = TimeSpan.MaxValue;
     }
 
     public int InstancesCount
@@ -52,7 +72,7 @@ public class ControlViewModel : ViewModelBase
     
     public void ReloadCommand()
     {
-        RunOptimization = new RunOptimization(ParametersModel, LogModel, HistoryViewModel, _instancesInfo, SetButtonText, SetProgress);
+        RunOptimization = new RunOptimization(ParametersModel, LogModel, HistoryViewModel, _instancesInfo, SetButtonText, SetProgress, SetStartTime);
     }
 
     public ControlViewModel(IConfiguration parametersModel, ConsoleLogModel logModel, ParametersViewModel parametersViewModel, HistoryViewModel historyViewModel)
@@ -64,6 +84,6 @@ public class ControlViewModel : ViewModelBase
         _instancesInfo = new InstancesInfo();
         ShowHelp = new ShowHelp();
 
-        RunOptimization = new RunOptimization(parametersModel, logModel, historyViewModel, _instancesInfo, SetButtonText, SetProgress);
+        RunOptimization = new RunOptimization(parametersModel, logModel, historyViewModel, _instancesInfo, SetButtonText, SetProgress, SetStartTime);
     }
 }

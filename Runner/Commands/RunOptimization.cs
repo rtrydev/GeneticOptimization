@@ -27,8 +27,9 @@ public class RunOptimization : ICommand
     private bool IsWorking;
     private Action<string> setButtonString;
     private Action<float> setProgress;
+    private Action<DateTime> setStartTime;
 
-    public RunOptimization(IConfiguration parametersModel, ConsoleLogModel logModel, HistoryViewModel historyViewModel, InstancesInfo instancesInfo, Action<string> buttonFunc, Action<float> progressFunc)
+    public RunOptimization(IConfiguration parametersModel, ConsoleLogModel logModel, HistoryViewModel historyViewModel, InstancesInfo instancesInfo, Action<string> buttonFunc, Action<float> progressFunc, Action<DateTime> timeFunc)
     {
         setButtonString = buttonFunc;
         setProgress = progressFunc;
@@ -38,6 +39,7 @@ public class RunOptimization : ICommand
         _historyViewModel = historyViewModel;
         _tokenSource = new CancellationTokenSource();
         _cancellationToken = _tokenSource.Token;
+        setStartTime = timeFunc;
     }
     
     public bool CanExecute(object? parameter)
@@ -67,6 +69,7 @@ public class RunOptimization : ICommand
 
         IsWorking = true;
         setButtonString("STOP");
+        setStartTime(DateTime.Now);
         _ = Task.Run(() =>
         {
             for (int i = 0; i < data.Length; i++)

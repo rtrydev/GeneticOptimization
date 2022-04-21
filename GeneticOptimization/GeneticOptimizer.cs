@@ -23,8 +23,6 @@ public class GeneticOptimizer
 
     public GeneticAlgorithmResult<TspPopulationModel, TspConfiguration> Run(CancellationToken cancellationToken, string resultName, IProgressMeter progressMeter)
     {
-        
-        
         var operators = new List<IOperator>();
         var logger = new Logger(_configuration, resultName);
         
