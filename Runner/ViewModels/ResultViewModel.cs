@@ -160,7 +160,8 @@ public class ResultViewModel : ViewModelBase
             var plotModel = new PlotModel()
             {
                 Series = { avgSeries, medianSeries, bestSeries, worstSeries },
-                Legends = { new Legend() {LegendFontSize = 16}}
+                Legends = { new Legend() {LegendFontSize = 16}},
+                DefaultFontSize = 16
             };
             var pngExporter = new PngExporter { Width = 1000, Height = 600,Background = OxyColors.White };
             var bmp = pngExporter.ExportToBitmap(plotModel);
