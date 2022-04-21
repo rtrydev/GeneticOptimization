@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using AbstractionProvider.Configuration;
@@ -28,6 +29,8 @@ public class SelectData : ICommand
         var config = vm.Configuration;
         var fileDialog = new OpenFileDialog();
         fileDialog.AllowMultiple = true;
+        fileDialog.Filters = new List<FileDialogFilter>()
+            { new FileDialogFilter() { Extensions = new List<string>() { "tsp", "mtrx" } } };
         var app = Application.Current.ApplicationLifetime as ClassicDesktopStyleApplicationLifetime;
         var result = await fileDialog.ShowAsync(app?.MainWindow);
         if (result is not null && result.Length > 0)

@@ -78,7 +78,16 @@ public class RunOptimization : ICommand
 
                 var config = _parametersModel;
                 config.DataPath = data[i];
-                var optimizer = new GeneticOptimizer(config);
+                GeneticOptimizer optimizer;
+                try
+                {
+                    optimizer = new GeneticOptimizer(config);
+                }
+                catch (Exception e)
+                {
+                    _logModel.AppendLog($"Failed to initialize the algorithm for {data[i]}");
+                    break;
+                }
 
                 if (_instancesInfo.Count == 0) return;
 
