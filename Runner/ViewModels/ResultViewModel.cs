@@ -13,10 +13,15 @@ using Avalonia.Media.Imaging;
 using GeneticOptimization.Algorithm;
 using GeneticOptimization.Configuration;
 using Newtonsoft.Json;
+using OxyPlot;
+using OxyPlot.Avalonia;
+using OxyPlot.Axes;
 using ReactiveUI.Fody.Helpers;
 using Runner.Commands;
 using Runner.Models;
 using Runner.Visualization;
+using Legend = OxyPlot.Legends.Legend;
+using LineSeries = OxyPlot.Series.LineSeries;
 
 namespace Runner.ViewModels;
 
@@ -110,6 +115,58 @@ public class ResultViewModel : ViewModelBase
             });
         }
         Operators = Result.Configuration.OperatorInformation;
+        if (!File.Exists($"{directory}/plot.bmp"))
+        {
+            var avgSeries = new LineSeries()
+            {
+                Title = "Avg Cost",
+                StrokeThickness = 3,
+                DataFieldX = "Epoch",
+                DataFieldY = "Value",
+                ItemsSource = AvgCosts,
+                LineStyle = LineStyle.Solid,
+                Color = OxyColor.Parse("#ff00ff")
+            };
+            var medianSeries = new LineSeries()
+            {
+                Title = "Median Cost",
+                StrokeThickness = 3,
+                DataFieldX = "Epoch",
+                DataFieldY = "Value",
+                ItemsSource = MedianCosts,
+                LineStyle = LineStyle.Solid,
+                Color = OxyColor.Parse("#6d6dfd")
+            };
+            var bestSeries = new LineSeries()
+            {
+                Title = "Best Cost",
+                StrokeThickness = 3,
+                DataFieldX = "Epoch",
+                DataFieldY = "Value",
+                ItemsSource = BestCosts,
+                LineStyle = LineStyle.Solid,
+                Color = OxyColor.Parse("#00dd00")
+            };
+            var worstSeries = new LineSeries()
+            {
+                Title = "Worst Cost",
+                StrokeThickness = 3,
+                DataFieldX = "Epoch",
+                DataFieldY = "Value",
+                ItemsSource = WorstCosts,
+                LineStyle = LineStyle.Solid,
+                Color = OxyColor.Parse("#fd6d00")
+            };
+            var plotModel = new PlotModel()
+            {
+                Series = { avgSeries, medianSeries, bestSeries, worstSeries },
+                Legends = { new Legend()}
+            };
+            var pngExporter = new PngExporter { Width = 1000, Height = 1000, Background = OxyColors.White };
+            var bmp = pngExporter.ExportToBitmap(plotModel);
+            bmp.Save($"{directory}/plot.bmp");
+        }
+        
     }
 
     public ResultViewModel()
