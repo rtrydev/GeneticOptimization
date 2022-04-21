@@ -25,4 +25,10 @@ public class OperatorViewModel : ViewModelBase
         
         Configuration = configuration;
     }
+
+    public void ReloadCommands()
+    {
+        RemoveOperator = new RemoveOperator(OperatorInformation, Configuration);
+        AddOperator = new AddOperator(OperatorInformation, Configuration);
+    }
 }

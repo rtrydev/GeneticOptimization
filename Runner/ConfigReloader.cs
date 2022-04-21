@@ -20,6 +20,7 @@ public class ConfigReloader
         OperatorViewModel.Configuration = config;
         OperatorViewModel.OperatorInformation =
             new ObservableCollection<OperatorInformation>(config.OperatorInformation);
+        OperatorViewModel.ReloadCommands();
         ControlViewModel.ParametersModel = config;
         ControlViewModel.ReloadCommand();
         AlgorithmViewModel.Configuration = config;
