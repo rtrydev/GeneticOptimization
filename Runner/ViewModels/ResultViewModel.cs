@@ -162,7 +162,7 @@ public class ResultViewModel : ViewModelBase
                 Series = { avgSeries, medianSeries, bestSeries, worstSeries },
                 Legends = { new Legend()}
             };
-            var pngExporter = new PngExporter { Width = 1000, Height = 1000, Background = OxyColors.White };
+            var pngExporter = new PngExporter { Width = 1000, Height = 600, Background = OxyColors.White };
             var bmp = pngExporter.ExportToBitmap(plotModel);
             bmp.Save($"{directory}/plot.bmp");
         }
