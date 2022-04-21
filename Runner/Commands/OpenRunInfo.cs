@@ -1,6 +1,8 @@
 using System;
 using System.Windows.Input;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Runner.Models;
 using Runner.Views;
 
@@ -17,6 +19,8 @@ public class OpenRunInfo : ICommand
     {
         var window = new ResultView((ResultFileModel)parameter);
         window.Title = "Results/" + ((ResultFileModel) parameter).FileName;
+        
+        window.Owner.Closed += (sender, args) => window.Close();
         window.Show();
         
     }

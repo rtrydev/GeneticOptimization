@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Runner.Models;
 using Runner.ViewModels;
@@ -15,6 +16,8 @@ public class ResultView : Window
         this.AttachDevTools();
 #endif
         this.DataContext = new ResultViewModel(data);
+        var app = Application.Current.ApplicationLifetime as ClassicDesktopStyleApplicationLifetime;
+        this.Owner = app.MainWindow;
     }
 
     public ResultView()
