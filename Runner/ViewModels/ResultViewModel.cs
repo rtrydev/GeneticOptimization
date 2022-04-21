@@ -120,7 +120,7 @@ public class ResultViewModel : ViewModelBase
             var avgSeries = new LineSeries()
             {
                 Title = "Avg Cost",
-                StrokeThickness = 3,
+                StrokeThickness = 4,
                 DataFieldX = "Epoch",
                 DataFieldY = "Value",
                 ItemsSource = AvgCosts,
@@ -130,7 +130,7 @@ public class ResultViewModel : ViewModelBase
             var medianSeries = new LineSeries()
             {
                 Title = "Median Cost",
-                StrokeThickness = 3,
+                StrokeThickness = 4,
                 DataFieldX = "Epoch",
                 DataFieldY = "Value",
                 ItemsSource = MedianCosts,
@@ -140,7 +140,7 @@ public class ResultViewModel : ViewModelBase
             var bestSeries = new LineSeries()
             {
                 Title = "Best Cost",
-                StrokeThickness = 3,
+                StrokeThickness = 4,
                 DataFieldX = "Epoch",
                 DataFieldY = "Value",
                 ItemsSource = BestCosts,
@@ -150,19 +150,19 @@ public class ResultViewModel : ViewModelBase
             var worstSeries = new LineSeries()
             {
                 Title = "Worst Cost",
-                StrokeThickness = 3,
+                StrokeThickness = 4,
                 DataFieldX = "Epoch",
                 DataFieldY = "Value",
                 ItemsSource = WorstCosts,
                 LineStyle = LineStyle.Solid,
-                Color = OxyColor.Parse("#fd6d00")
+                Color = OxyColor.Parse("#fd6d00"),
             };
             var plotModel = new PlotModel()
             {
                 Series = { avgSeries, medianSeries, bestSeries, worstSeries },
-                Legends = { new Legend()}
+                Legends = { new Legend() {LegendFontSize = 16}}
             };
-            var pngExporter = new PngExporter { Width = 1000, Height = 600, Background = OxyColors.White };
+            var pngExporter = new PngExporter { Width = 1000, Height = 600,Background = OxyColors.White };
             var bmp = pngExporter.ExportToBitmap(plotModel);
             bmp.Save($"{directory}/plot.bmp");
         }
