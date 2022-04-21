@@ -24,22 +24,29 @@ public class ParametersViewModel : ViewModelBase
     [Reactive] public string[] SelectedData { get; set; }
     public string[] Resolvers { get; set; }
     public ICommand SetDefault { get; set; }
-    [Reactive] public bool SuccessMessageVisible { get; set; }
+    [Reactive] public bool SaveSuccessMessageVisible { get; set; }
+    [Reactive] public bool LoadSuccessMessageVisible { get; set; }
     private OperatorViewModel _operatorViewModel;
     public ParametersViewModel(IConfiguration model, OperatorViewModel operatorViewModel)
     {
         _operatorViewModel = operatorViewModel;
         Configuration = model;
-        SelectConfig = new LoadConfig(operatorViewModel);
+        SelectConfig = new LoadConfig(
+            async () =>
+            {
+                LoadSuccessMessageVisible = true;
+                Thread.Sleep(4000);
+                LoadSuccessMessageVisible = false;
+            });
         SelectData = new SelectData(Configuration);
         var resolvers = ClassProvider.GetAllClassNames(typeof(ConflictResolver));
 
         Resolvers = resolvers;
         SetDefault = new SetDefaultConfig(async () =>
         {
-            SuccessMessageVisible = true;
+            SaveSuccessMessageVisible = true;
             Thread.Sleep(4000);
-            SuccessMessageVisible = false;
+            SaveSuccessMessageVisible = false;
         });
 
     }

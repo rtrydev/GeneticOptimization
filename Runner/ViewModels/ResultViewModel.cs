@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using AbstractionProvider.Configuration;
 using AbstractionProvider.Operators;
@@ -41,6 +43,8 @@ public class ResultViewModel : ViewModelBase
 
     public ICommand LoadResultConfig { get; set; }
     public ICommand OpenLogFolder { get; set; }
+    
+    [Reactive] public bool LoadSuccessMessageVisible { get; set; }
 
     public ResultViewModel(ResultFileModel data)
     {
@@ -71,7 +75,12 @@ public class ResultViewModel : ViewModelBase
             }
         }
 
-        LoadResultConfig = new LoadResultConfig(Result.Configuration);
+        LoadResultConfig = new LoadResultConfig(Result.Configuration, async () =>
+        {
+            LoadSuccessMessageVisible = true;
+            Thread.Sleep(4000);
+            LoadSuccessMessageVisible = false;
+        });
         OpenLogFolder = new OpenLogFolder(directory);
         
         BestCosts = new Collection<EpochValue>();

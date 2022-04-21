@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using AbstractionProvider.Configuration;
 using AbstractionProvider.Operators;
@@ -20,9 +21,11 @@ public class LoadConfig : ICommand
         return true;
     }
 
+    private Func<Task> onLoaded;
 
-    public LoadConfig(OperatorViewModel operatorViewModel)
+    public LoadConfig(Func<Task> task)
     {
+        onLoaded = task;
     }
 
     public async void Execute(object? parameter)
@@ -36,6 +39,7 @@ public class LoadConfig : ICommand
             var jsonString = await File.ReadAllTextAsync(result[0]);
             var config = JsonConvert.DeserializeObject<TspConfiguration>(jsonString);
             ConfigReloader.Reload(config);
+            _ = Task.Run(onLoaded);
         }
     }
 
