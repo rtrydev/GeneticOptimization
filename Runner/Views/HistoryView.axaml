@@ -15,19 +15,22 @@
     
     <Grid RowDefinitions="*, 20*">
         <Label ToolTip.Tip="See detailed results for any optimization completed in the past" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4">Results</Label>
-        <ListBox Grid.Row="1" Items="{Binding HistoryViewModel.Files}" Margin="4" SelectedItem ="{Binding HistoryViewModel.Selection}" >
-            
-            <ListBox.ItemTemplate >
+        <ItemsControl Grid.Row="1" Items="{Binding HistoryViewModel.Files}" Margin="4"  >
+            <ItemsControl.ItemTemplate >
                 <DataTemplate>
-					<Border Padding="6" Background="{Binding TileColor}">
-						<StackPanel >
-							<TextBlock Text="{Binding Converter={StaticResource ResultConverter}}"></TextBlock>
+                    <Button HorizontalAlignment="Stretch" Background="Transparent" Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl},
+                             Path=DataContext.HistoryViewModel.OpenRunInfo}" CommandParameter="{Binding}">
+                        <Border Padding="6" Background="{Binding TileColor}">
+                            <StackPanel >
+                                <TextBlock Text="{Binding Converter={StaticResource ResultConverter}}"></TextBlock>
 
-						</StackPanel>
-					</Border>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+                    
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
     
     

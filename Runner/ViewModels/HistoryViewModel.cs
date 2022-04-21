@@ -14,37 +14,13 @@ public class HistoryViewModel : ViewModelBase
 {
 
     [Reactive] public ObservableCollection<ResultFileModel> Files { get; set; }
-    private DateTime _lastOpen = DateTime.Now;
-
-    private ResultFileModel _selection;
-    public ResultFileModel Selection
-    {
-        get => _selection;
-        set
-        {
-            if (_lastOpen.AddMilliseconds(100) > DateTime.Now) return;
-            _lastOpen = DateTime.Now;
-            if (!value.TileColor.Equals(Brushes.Transparent))
-            {
-                var index = Files.IndexOf(value);
-
-                var newValue = new ResultFileModel { FileName = value.FileName + "/result.json", TileColor = Brushes.Transparent };
-                Files[index] = newValue;
-            }
-
-
-            OpenRunInfo.Execute(value);
-
-        }
-    }
-
     public ICommand OpenRunInfo { get; set; }
     
     public HistoryViewModel()
     {
         Directory.CreateDirectory("Results");
         LoadFiles();
-        OpenRunInfo = new OpenRunInfo();
+        OpenRunInfo = new OpenRunInfo(Files);
     }
 
     public void LoadFiles()
