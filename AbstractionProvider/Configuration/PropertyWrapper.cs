@@ -22,10 +22,17 @@ public class PropertyWrapper
             if (value == "") return;
             switch (Type.ToString())
             {
-                case "System.Double": 
-                    _configuration.SetPropertyValue(Name, double.Parse((string)value));
+                case "System.Double":
+                    try
+                    {
+                        _configuration.SetPropertyValue(Name, double.Parse((string)value));
+                    } catch(Exception e){}
                     return;
-                case "System.Int32": _configuration.SetPropertyValue(Name, int.Parse((string)value));
+                case "System.Int32":
+                    try
+                    {
+                        _configuration.SetPropertyValue(Name, int.Parse((string)value));
+                    } catch (Exception e) {}
                     return;
             }
             if(IsEnum) _configuration.SetPropertyValue(Name, value);
