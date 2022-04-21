@@ -22,7 +22,7 @@ public class ControlViewModel : ViewModelBase
     public ParametersViewModel ParametersViewModel { get; } 
     public HistoryViewModel HistoryViewModel { get; }
     public ConsoleLogModel LogModel { get; set; }
-    public ICommand RunDistances { get; set; }
+    [Reactive] public ICommand RunOptimization { get; set; }
     public ICommand ShowHelp { get; set; }
 
     [Reactive] public string ButtonText { get; set; } = "START";
@@ -48,6 +48,12 @@ public class ControlViewModel : ViewModelBase
             _instancesInfo.Count = value;
         }
     }
+    
+    
+    public void ReloadCommand()
+    {
+        RunOptimization = new RunOptimization(ParametersModel, LogModel, HistoryViewModel, _instancesInfo, SetButtonText, SetProgress);
+    }
 
     public ControlViewModel(IConfiguration parametersModel, ConsoleLogModel logModel, ParametersViewModel parametersViewModel, HistoryViewModel historyViewModel)
     {
@@ -58,6 +64,6 @@ public class ControlViewModel : ViewModelBase
         _instancesInfo = new InstancesInfo();
         ShowHelp = new ShowHelp();
 
-        RunDistances = new RunOptimization(parametersModel, logModel, historyViewModel, _instancesInfo, SetButtonText, SetProgress);
+        RunOptimization = new RunOptimization(parametersModel, logModel, historyViewModel, _instancesInfo, SetButtonText, SetProgress);
     }
 }

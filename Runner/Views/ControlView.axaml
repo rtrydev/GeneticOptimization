@@ -16,7 +16,7 @@
             <NumericUpDown Margin="4" Value="{Binding InstancesCount}" Background="#222222"></NumericUpDown>
         </WrapPanel>
         <WrapPanel Grid.Column="1" HorizontalAlignment="Center" Margin="2" >
-            <Button ToolTip.Tip="Starts optimization" Margin=" 6" Command="{Binding RunDistances}" 
+            <Button ToolTip.Tip="Starts optimization" Margin=" 6" Command="{Binding RunOptimization}" 
                     CommandParameter="{Binding ParametersViewModel.SelectedData}" Content="{Binding ButtonText}">
             </Button>
 			

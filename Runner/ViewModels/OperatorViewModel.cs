@@ -10,7 +10,7 @@ using Runner.Commands;
 namespace Runner.ViewModels;
 
 public class OperatorViewModel : ViewModelBase
-{
+{ 
     public IConfiguration Configuration { get; set; }
     [Reactive] public ObservableCollection<OperatorInformation> OperatorInformation { get; set; }
     public ICommand RemoveOperator { get; set; }

@@ -15,7 +15,7 @@ namespace Runner.ViewModels;
 public class AlgorithmViewModel : ViewModelBase
 {
     [Reactive] public string[] CostMethods { get; set; }
-    public IConfiguration Configuration { get; }
+    [Reactive] public IConfiguration Configuration { get; set; }
     
     public ConsoleLogModel LogModel { get; set; }
     public ICommand Compile { get; set; }

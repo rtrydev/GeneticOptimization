@@ -42,12 +42,14 @@ namespace Runner
                 {
                     config = new TspConfiguration();
                 }
+                var operatorVM = new OperatorViewModel(config);
                 
-                var parametersVM = new ParametersViewModel(config);
+                var parametersVM = new ParametersViewModel(config, operatorVM);
                 var historyVM = new HistoryViewModel();
 
                 var controlVM = new ControlViewModel(config, logModel, parametersVM, historyVM);
-                var operatorVM = new OperatorViewModel(config);
+                parametersVM.ControlViewModel = controlVM;
+                
                 var algorithmVM = new AlgorithmViewModel(config, logModel);
                 var logVM = new LogViewModel(logModel);
                 desktop.MainWindow = new MainWindow
