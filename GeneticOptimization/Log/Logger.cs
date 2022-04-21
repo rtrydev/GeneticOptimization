@@ -97,10 +97,6 @@ public class Logger : ILogger
 
         var res = Directory.CreateDirectory(logDirectory);
         var logPath = $"{logDirectory}/log{DateTime.Now:dd_MM-HH_mm_ss_fff}.csv";
-        if (!Directory.Exists($"{_configuration.LogPath}/{logDirectory}"))
-        {
-            Directory.CreateDirectory($"{_configuration.LogPath}/{logDirectory}");
-        }
         if (File.Exists(logPath))
         {
             return;
