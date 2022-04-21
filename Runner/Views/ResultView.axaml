@@ -21,7 +21,7 @@
         <converters:DoubleToStringConverter x:Key="DoubleToStringConverter"/>
     </Window.Resources>
     <ScrollViewer>
-        <Grid ColumnDefinitions="*, *" RowDefinitions="*, *" Margin="10">
+        <Grid ColumnDefinitions="*, *"  Margin="10">
         <StackPanel Grid.Column="0">
             <Label Margin="0 0 0  10" FontWeight="Bold">Operators</Label>
             <ItemsControl Margin="4 0 0 0" Items="{Binding Operators, Converter={StaticResource OperatorsToStringArrayConverter}}">
@@ -63,7 +63,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
             <Label Margin="0 10 0  10" FontWeight="Bold">Best individual:</Label>
-            <TextBox Text="{Binding Result.BestIndividual.Body, Converter={StaticResource IntArrayToStringConverter}}" IsReadOnly="True" MaxWidth="400" HorizontalAlignment="Left"></TextBox>
+            <TextBox TextWrapping="Wrap" Text="{Binding Result.BestIndividual.Body, Converter={StaticResource IntArrayToStringConverter}}" IsReadOnly="True" MaxWidth="400" MaxHeight="400" HorizontalAlignment="Left"></TextBox>
             <Label Margin="0 10 0  10" FontWeight="Bold">Best Cost:</Label>
             <TextBox Text="{Binding Result.BestIndividual.Cost, Converter={StaticResource DoubleToStringConverter}}" IsReadOnly="True" MaxWidth="400" HorizontalAlignment="Left"></TextBox>
             <Button Margin="0 10 0  0" Command="{Binding OpenLogFolder}">Open Result Folder</Button>
@@ -128,9 +128,10 @@
                 <Label VerticalAlignment="Center" Margin="4 0 2 0">Worst</Label>
                 <ToggleSwitch IsChecked="{Binding WorstVisible}" OnContent="" OffContent=""></ToggleSwitch>
             </WrapPanel>
+            <Image Margin="0 10 0 0" Source="{Binding Preview}"></Image>
+
         </StackPanel>
         
-        <Image Grid.Row="1" Grid.Column="1" Source="{Binding Preview}"></Image>
     </Grid>
     </ScrollViewer>
     
