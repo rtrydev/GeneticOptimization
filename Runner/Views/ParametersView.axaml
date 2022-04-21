@@ -27,7 +27,7 @@
             <TextBlock Text="{Binding SelectedFilesString}" ></TextBlock>
 
 			<Label>Parameters:</Label>
-            <Button Margin="0 10 0  0" Command="{Binding SetDefault}" CommandParameter="{Binding Configuration}">Save parameters</Button>
+            <Button Margin="0 10 0  0" Command="{Binding SetDefault}" CommandParameter="{Binding Configuration}">Set params as default</Button>
             <Label Margin="0 0 0  10" Foreground="#66ff66" IsVisible="{Binding SaveSuccessMessageVisible}">Configuration Saved</Label>
             <Button  Command="{Binding SelectConfig}" CommandParameter="{Binding}">Load parameters</Button>
             <Label Margin="0 0 0  10" Foreground="#66ff66" IsVisible="{Binding LoadSuccessMessageVisible}">Configuration Loaded</Label>
