@@ -12,6 +12,7 @@ public class ConfigReloader
     public static OperatorViewModel OperatorViewModel { get; set; }
     public static ParametersViewModel ParametersViewModel { get; set; }
     public static ControlViewModel ControlViewModel { get; set; }
+    public static AlgorithmViewModel AlgorithmViewModel { get; set; }
 
     public static void Reload(IConfiguration config)
     {
@@ -21,5 +22,6 @@ public class ConfigReloader
             new ObservableCollection<OperatorInformation>(config.OperatorInformation);
         ControlViewModel.ParametersModel = config;
         ControlViewModel.ReloadCommand();
+        AlgorithmViewModel.Configuration = config;
     }
 }

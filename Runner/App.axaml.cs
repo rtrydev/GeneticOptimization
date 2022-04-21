@@ -55,6 +55,7 @@ namespace Runner
                 ConfigReloader.ControlViewModel = controlVM;
                 ConfigReloader.OperatorViewModel = operatorVM;
                 ConfigReloader.ParametersViewModel = parametersVM;
+                ConfigReloader.AlgorithmViewModel = algorithmVM;
                 
                 desktop.MainWindow = new MainWindow
                 {
