@@ -1,19 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Windows.Input;
-using Avalonia.Controls.Selection;
 using Avalonia.Media;
-using DynamicData;
-using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Runner.Commands;
 using Runner.Models;
-using Runner.Views;
 
 namespace Runner.ViewModels;
 
@@ -31,7 +24,7 @@ public class HistoryViewModel : ViewModelBase
         {
             if (_lastOpen.AddMilliseconds(100) > DateTime.Now) return;
             _lastOpen = DateTime.Now;
-            if (value.TileColor != Brushes.Transparent)
+            if (!value.TileColor.Equals(Brushes.Transparent))
             {
                 var index = Files.IndexOf(value);
 
