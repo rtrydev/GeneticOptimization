@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows.Input;
 using AbstractionProvider.Operators;
 using AbstractionProvider.PopulationModels;
 using Avalonia.Media.Imaging;
@@ -10,6 +11,7 @@ using GeneticOptimization.Algorithm;
 using GeneticOptimization.Configuration;
 using Newtonsoft.Json;
 using ReactiveUI.Fody.Helpers;
+using Runner.Commands;
 using Runner.Models;
 using Runner.Visualization;
 
@@ -20,11 +22,12 @@ public class EpochValue
     public int Epoch { get; set; }
     public double Value { get; set; }
 }
+
 public class ResultViewModel : ViewModelBase
 {
     public GeneticAlgorithmResult<TspPopulationModel, TspConfiguration> Result { get; set; }
     public OperatorInformation[] Operators { get; set; }
-    
+
     public Collection<EpochValue> BestCosts { get; set; }
     [Reactive] public bool BestVisible { get; set; } = true;
     public Collection<EpochValue> AvgCosts { get; set; }
@@ -34,6 +37,9 @@ public class ResultViewModel : ViewModelBase
     public Collection<EpochValue> WorstCosts { get; set; }
     [Reactive] public bool WorstVisible { get; set; } = true;
     public Bitmap Preview { get; set; }
+
+    public ICommand LoadResultConfig { get; set; }
+
     public ResultViewModel(ResultFileModel data)
     {
         var directory = "Results/" + data.FileName;
@@ -63,6 +69,8 @@ public class ResultViewModel : ViewModelBase
             }
         }
 
+        LoadResultConfig = new LoadResultConfig(Result.Configuration);
+        
         BestCosts = new Collection<EpochValue>();
         AvgCosts = new Collection<EpochValue>();
         WorstCosts = new Collection<EpochValue>();

@@ -45,7 +45,10 @@
                 <Label FontWeight="Bold" Content="{Binding Result.Configuration.RandomisedResolveProbability}"></Label>
             </WrapPanel>
             
-            <Label Margin="0 10 0  10" FontWeight="Bold">Configuration</Label>
+            <WrapPanel>
+                <Label Margin="0 10 0  10" FontWeight="Bold">Configuration</Label>
+                <Button Command="{Binding LoadResultConfig}">Use this config</Button>
+            </WrapPanel>
             <ItemsControl Margin="4 0 0 0" Items="{Binding Result.Configuration.Properties}" >
                 <ItemsControl.ItemTemplate >
                     <DataTemplate>
