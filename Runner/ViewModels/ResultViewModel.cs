@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
+using AbstractionProvider.Configuration;
 using AbstractionProvider.Operators;
 using AbstractionProvider.PopulationModels;
 using Avalonia.Media.Imaging;
@@ -39,6 +40,7 @@ public class ResultViewModel : ViewModelBase
     public Bitmap Preview { get; set; }
 
     public ICommand LoadResultConfig { get; set; }
+    public ICommand OpenLogFolder { get; set; }
 
     public ResultViewModel(ResultFileModel data)
     {
@@ -70,6 +72,7 @@ public class ResultViewModel : ViewModelBase
         }
 
         LoadResultConfig = new LoadResultConfig(Result.Configuration);
+        OpenLogFolder = new OpenLogFolder(directory);
         
         BestCosts = new Collection<EpochValue>();
         AvgCosts = new Collection<EpochValue>();
