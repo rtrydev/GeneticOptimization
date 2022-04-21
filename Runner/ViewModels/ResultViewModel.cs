@@ -51,14 +51,13 @@ public class ResultViewModel : ViewModelBase
         var directory = "Results/" + data.FileName;
         var jsonString = File.ReadAllText( directory + "/result.json");
         Result = JsonConvert.DeserializeObject<GeneticAlgorithmResult<TspPopulationModel, TspConfiguration>>(jsonString);
-        var dataset = Result.Configuration.DataPath
-            .Replace(".mtrx", ".tsp");
+        var dataset = directory + "/data.tsp";
 
         if (File.Exists(dataset) && dataset.EndsWith(".tsp"))
         {
             if (Result.Configuration.CostFunction == "TspCostFunction")
             {
-                TspImageGenerator.GenerateImageFromTspPath(Result.BestIndividual.Body, $"{directory}/data.tsp", directory);
+                TspImageGenerator.GenerateImageFromTspPath(Result.BestIndividual.Body, dataset, directory);
                 using (var fileStream = File.Open( $"{directory}/preview.png", FileMode.Open))
                 {
                     Preview = Bitmap.DecodeToHeight(fileStream, 1000);
@@ -67,7 +66,7 @@ public class ResultViewModel : ViewModelBase
 
             if (Result.Configuration.CostFunction == "WarehouseCostFunction")
             {
-                WarehouseImageGenerator.Generate(Result.BestIndividual.Body, $"{directory}/data.tsp", directory);
+                WarehouseImageGenerator.Generate(Result.BestIndividual.Body, dataset, directory);
                 using (var fileStream = File.Open($"{directory}/preview.png", FileMode.Open))
                 {
                     Preview = Bitmap.DecodeToHeight(fileStream, 1000);
