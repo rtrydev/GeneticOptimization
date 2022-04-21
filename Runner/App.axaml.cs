@@ -48,10 +48,14 @@ namespace Runner
                 var historyVM = new HistoryViewModel();
 
                 var controlVM = new ControlViewModel(config, logModel, parametersVM, historyVM);
-                parametersVM.ControlViewModel = controlVM;
                 
                 var algorithmVM = new AlgorithmViewModel(config, logModel);
                 var logVM = new LogViewModel(logModel);
+
+                ConfigReloader.ControlViewModel = controlVM;
+                ConfigReloader.OperatorViewModel = operatorVM;
+                ConfigReloader.ParametersViewModel = parametersVM;
+                
                 desktop.MainWindow = new MainWindow
                 {
                     DataContext = new MainWindowViewModel(config, parametersVM, controlVM, logVM, operatorVM, historyVM, algorithmVM),
