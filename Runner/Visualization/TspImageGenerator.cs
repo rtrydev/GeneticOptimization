@@ -13,7 +13,7 @@ public class TspImageGenerator
 {
     public static void GenerateImageFromTspPath(int[] path, string tspFile, string location)
     {
-        if(File.Exists($"{path}/preview.png")) return;
+        if(File.Exists($"{location}/preview.png")) return;
         var lines = File.ReadAllLines(tspFile);
         lines = lines.SkipWhile(x => x != "NODE_COORD_SECTION").Skip(1).SkipLast(1).ToArray();
         
