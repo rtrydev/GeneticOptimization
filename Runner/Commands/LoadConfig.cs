@@ -34,7 +34,7 @@ public class LoadConfig : ICommand
         var fileDialog = new OpenFileDialog();
         fileDialog.AllowMultiple = false;
         fileDialog.Filters = new List<FileDialogFilter>()
-            { new FileDialogFilter() { Extensions = new List<string>() { "json" }, Name = "JSON files (.json)"} };
+            { new FileDialogFilter() { Extensions = new List<string>() { "json" }, Name = "JSON files"} };
         var app = Application.Current.ApplicationLifetime as ClassicDesktopStyleApplicationLifetime;
         var result = await fileDialog.ShowAsync(app?.MainWindow);
         if (result is not null && result.Length > 0)
