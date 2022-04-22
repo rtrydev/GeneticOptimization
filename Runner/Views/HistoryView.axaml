@@ -12,26 +12,30 @@
     <UserControl.Resources>
         <converters:ResultConverter x:Key="ResultConverter"></converters:ResultConverter>
     </UserControl.Resources>
-    
-    <Grid RowDefinitions="*, 20*">
-        <Label ToolTip.Tip="See detailed results for any optimization completed in the past" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4">Results</Label>
-        <ItemsControl Grid.Row="1" Items="{Binding HistoryViewModel.Files}" Margin="4"  >
-            <ItemsControl.ItemTemplate >
-                <DataTemplate>
-                    <Button HorizontalAlignment="Stretch" Background="Transparent" Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl},
-                             Path=DataContext.HistoryViewModel.OpenRunInfo}" CommandParameter="{Binding}">
-                        <Border Padding="6" Background="{Binding TileColor}">
-                            <StackPanel >
-                                <TextBlock Text="{Binding Converter={StaticResource ResultConverter}}"></TextBlock>
+        <Grid RowDefinitions="*, 20*">
+            <Label ToolTip.Tip="See detailed results for any optimization completed in the past" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4">Results</Label>
 
-                            </StackPanel>
-                        </Border>
-                    </Button>
+            <ScrollViewer Grid.Row="1">
+                <ItemsControl Items="{Binding HistoryViewModel.Files}" Margin="4"  >
+                    <ItemsControl.ItemTemplate >
+                        <DataTemplate>
+                            <Button HorizontalAlignment="Stretch" Background="Transparent" Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl},
+                             Path=DataContext.HistoryViewModel.OpenRunInfo}" CommandParameter="{Binding}">
+                                <Border Padding="6" Background="{Binding TileColor}">
+                                    <StackPanel >
+                                        <TextBlock Text="{Binding Converter={StaticResource ResultConverter}}"></TextBlock>
+
+                                    </StackPanel>
+                                </Border>
+                            </Button>
                     
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        
+        </Grid>
+    
     
     
 </UserControl>
