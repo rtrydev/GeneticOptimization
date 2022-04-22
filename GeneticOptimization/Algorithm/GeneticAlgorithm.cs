@@ -101,7 +101,7 @@ public class GeneticAlgorithm : ILoggable
 
                 lastData = geneticOperator.Run();
             }
-            if(cancellationToken.IsCancellationRequested) break;
+            cancellationToken.ThrowIfCancellationRequested();
             var costArray = population.PopulationArray.Select(x => population.CostFunction(x, _costMatrix, _configuration)).OrderBy(x => x).ToArray();
             _logger.LogFormat.Epoch = j + 1;
             _logger.LogFormat.BestCost = costArray.Min();

@@ -114,12 +114,20 @@ public class RunOptimization : ICommand
                 else dataset = config.DataPath.Split("/")[^1];
                 dataset = string.Join("",dataset.Split(".").SkipLast(1).ToArray());
                 var resultName = $"{dataset}-{DateTime.Now:dd_MM-HH_mm_ss}";
-                
-                
-                Parallel.For(0, _instancesInfo.Count, new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount - 1 }, j =>
+
+                try
                 {
-                    results[j] = optimizer.Run(_cancellationToken, resultName, progressMeters[j]);
-                });
+                    Parallel.For(0, _instancesInfo.Count, new ParallelOptions() { MaxDegreeOfParallelism = Environment.ProcessorCount - 1 }, j =>
+                    {
+                        results[j] = optimizer.Run(_cancellationToken, resultName, progressMeters[j]);
+                    });
+                }
+                catch (Exception e)
+                {
+                    _logModel.AppendLog($"Failed while running optimization for {data[i]}");
+                    break;
+                }
+                
                 if (_cancellationToken.IsCancellationRequested)
                 {
                     break;
