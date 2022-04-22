@@ -38,8 +38,8 @@
 				</TextBlock>
 			</StackPanel>
 			<WrapPanel Margin="0 50 0 0" HorizontalAlignment="Center">
-				<TextBlock TextWrapping="Wrap" Margin="8">
-					Genetic Optimizer by Rafał Kulka 2022
+				<TextBlock TextWrapping="Wrap" Margin="8" Text="{Binding Version}">
+					
 				</TextBlock>
 			</WrapPanel>
 

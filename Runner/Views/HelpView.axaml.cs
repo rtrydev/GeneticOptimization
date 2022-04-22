@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Runner.ViewModels;
 
 namespace Runner.Views;
 
@@ -17,5 +18,6 @@ public class HelpView : Window
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
+        this.DataContext = new HelpViewModel();
     }
 }
