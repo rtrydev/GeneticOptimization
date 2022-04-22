@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Drawing.Printing;
 using System.IO;
 using AbstractionProvider.Configuration;
@@ -16,13 +17,30 @@ public class ConfigReloader
 
     public static void Reload(IConfiguration config)
     {
-        ParametersViewModel.Configuration = config;
-        OperatorViewModel.Configuration = config;
-        OperatorViewModel.OperatorInformation =
-            new ObservableCollection<OperatorInformation>(config.OperatorInformation);
-        OperatorViewModel.ReloadCommands();
-        ControlViewModel.ParametersModel = config;
-        ControlViewModel.ReloadCommand();
-        AlgorithmViewModel.Configuration = config;
+        var configBackup = ParametersViewModel.Configuration;
+        try
+        {
+            ParametersViewModel.Configuration = config;
+            OperatorViewModel.Configuration = config;
+            OperatorViewModel.OperatorInformation =
+                new ObservableCollection<OperatorInformation>(config.OperatorInformation);
+            OperatorViewModel.ReloadCommands();
+            ControlViewModel.ParametersModel = config;
+            ControlViewModel.ReloadCommand();
+            AlgorithmViewModel.Configuration = config;
+        }
+        catch (Exception e)
+        {
+            ParametersViewModel.Configuration = configBackup;
+            OperatorViewModel.Configuration = configBackup;
+            OperatorViewModel.OperatorInformation =
+                new ObservableCollection<OperatorInformation>(configBackup.OperatorInformation);
+            OperatorViewModel.ReloadCommands();
+            ControlViewModel.ParametersModel = configBackup;
+            ControlViewModel.ReloadCommand();
+            AlgorithmViewModel.Configuration = configBackup;
+            throw;
+        }
+        
     }
 }

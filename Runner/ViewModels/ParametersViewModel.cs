@@ -26,6 +26,7 @@ public class ParametersViewModel : ViewModelBase
     public ICommand SetDefault { get; set; }
     [Reactive] public bool SaveSuccessMessageVisible { get; set; }
     [Reactive] public bool LoadSuccessMessageVisible { get; set; }
+    [Reactive] public bool LoadFailMessageVisible { get; set; }
     private OperatorViewModel _operatorViewModel;
     public ParametersViewModel(IConfiguration model, OperatorViewModel operatorViewModel)
     {
@@ -34,9 +35,16 @@ public class ParametersViewModel : ViewModelBase
         SelectConfig = new LoadConfig(
             async () =>
             {
+                LoadFailMessageVisible = false;
                 LoadSuccessMessageVisible = true;
                 Thread.Sleep(4000);
                 LoadSuccessMessageVisible = false;
+            },
+            async () =>
+            {
+                LoadFailMessageVisible = true;
+                Thread.Sleep(4000);
+                LoadFailMessageVisible = false;
             });
         SelectData = new SelectData(Configuration);
         var resolvers = ClassProvider.GetAllClassNames(typeof(ConflictResolver));

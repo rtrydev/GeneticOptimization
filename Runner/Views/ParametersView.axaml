@@ -31,6 +31,7 @@
             <Label Margin="0 0 0  10" Foreground="#66ff66" IsVisible="{Binding SaveSuccessMessageVisible}">Configuration Saved</Label>
             <Button  Command="{Binding SelectConfig}" CommandParameter="{Binding}">Load parameters</Button>
             <Label Margin="0 0 0  10" Foreground="#66ff66" IsVisible="{Binding LoadSuccessMessageVisible}">Configuration Loaded</Label>
+            <Label Margin="0 0 0  10" Foreground="#ff6666" IsVisible="{Binding LoadFailMessageVisible}">Failed to load config</Label>
             
             <Label Content="ConflictResolveMethod"></Label>
             <ComboBox Items="{Binding Resolvers, Converter={StaticResource NameShortenerConverter}}" SelectedItem="{Binding Configuration.ConflictResolveMethod}"></ComboBox>

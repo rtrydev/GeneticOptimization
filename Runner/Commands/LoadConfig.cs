@@ -23,10 +23,12 @@ public class LoadConfig : ICommand
     }
 
     private Func<Task> onLoaded;
+    private Func<Task> onFailed;
 
-    public LoadConfig(Func<Task> task)
+    public LoadConfig(Func<Task> task, Func<Task> fail)
     {
         onLoaded = task;
+        onFailed = fail;
     }
 
     public async void Execute(object? parameter)
@@ -40,9 +42,17 @@ public class LoadConfig : ICommand
         if (result is not null && result.Length > 0)
         {
             var jsonString = await File.ReadAllTextAsync(result[0]);
-            var config = JsonConvert.DeserializeObject<TspConfiguration>(jsonString);
-            ConfigReloader.Reload(config);
-            _ = Task.Run(onLoaded);
+            try
+            {
+                var config = JsonConvert.DeserializeObject<TspConfiguration>(jsonString);
+                ConfigReloader.Reload(config);
+                _ = Task.Run(onLoaded);
+            }
+            catch
+            {
+                _ = Task.Run(onFailed);
+            }
+            
         }
     }
 
