@@ -13,8 +13,8 @@ public class OperatorViewModel : ViewModelBase
 { 
     public IConfiguration Configuration { get; set; }
     [Reactive] public ObservableCollection<OperatorInformation> OperatorInformation { get; set; }
-    public ICommand RemoveOperator { get; set; }
-    public ICommand AddOperator { get; set; }
+    [Reactive] public ICommand RemoveOperator { get; set; }
+    [Reactive] public ICommand AddOperator { get; set; }
     public OperatorInformation OtherOperators { get; set; }
     public OperatorViewModel(IConfiguration configuration)
     {
