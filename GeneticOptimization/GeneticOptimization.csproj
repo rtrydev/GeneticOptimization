@@ -4,6 +4,8 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+	    <DebugType>None</DebugType>
+	    <DebugSymbols>false</DebugSymbols>
     </PropertyGroup>
 
     <ItemGroup>
@@ -11,7 +13,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AbstractionProvider\AbstractionProvider.csproj" />
+      <ProjectReference Include="..\AbstractionProvider\AbstractionProvider.csproj">
+	      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </ProjectReference>
       <ProjectReference Include="..\NearestNeighbor\NearestNeighbor.csproj" />
     </ItemGroup>
 

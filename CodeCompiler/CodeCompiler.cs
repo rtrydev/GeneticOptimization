@@ -12,7 +12,11 @@ public class CodeCompiler
         trees.Add(tree);
 
         var trustedAssembliesPaths = ((string)AppContext.GetData("TRUSTED_PLATFORM_ASSEMBLIES")).Split(Path.PathSeparator);
-        MetadataReference[] references = trustedAssembliesPaths.Select(x => MetadataReference.CreateFromFile(x)).ToArray();
+
+        var exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        var assemblies = trustedAssembliesPaths.Append(Path.Combine(exePath, "AbstractionProvider.dll"));
+        
+        MetadataReference[] references = assemblies.Where(x => !String.IsNullOrEmpty(x)).Select(x => MetadataReference.CreateFromFile(x)).ToArray();
 
         var compilation = CSharpCompilation.Create($"{moduleName}.dll",
             trees,

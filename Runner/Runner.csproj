@@ -3,6 +3,9 @@
         <OutputType>WinExe</OutputType>
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
+	    <DebugType>None</DebugType>
+	    <DebugSymbols>false</DebugSymbols>
+	    <VersionPrefix>1.1.0</VersionPrefix>
     </PropertyGroup>
     <ItemGroup>
         <AvaloniaResource Include="Assets\**" />
