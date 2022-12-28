@@ -13,9 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AbstractionProvider\AbstractionProvider.csproj">
-	      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	  </ProjectReference>
+	  <ProjectReference Include="..\AbstractionProvider\AbstractionProvider.csproj" />
       <ProjectReference Include="..\NearestNeighbor\NearestNeighbor.csproj" />
     </ItemGroup>
 

@@ -28,5 +28,8 @@
     <ItemGroup>
       <ProjectReference Include="..\CodeCompiler\CodeCompiler.csproj" />
       <ProjectReference Include="..\GeneticOptimization\GeneticOptimization.csproj" />
+      <ProjectReference Include="..\AbstractionProvider\AbstractionProvider.csproj">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </ProjectReference>
     </ItemGroup>
 </Project>

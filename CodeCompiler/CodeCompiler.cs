@@ -1,4 +1,6 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Reflection;
+using System.Reflection.Metadata;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
 namespace CodeCompiler;
@@ -11,12 +13,12 @@ public class CodeCompiler
         var tree = CSharpSyntaxTree.ParseText(code);
         trees.Add(tree);
 
-        var trustedAssembliesPaths = ((string)AppContext.GetData("TRUSTED_PLATFORM_ASSEMBLIES")).Split(Path.PathSeparator);
+        var domainAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 
-        var exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-        var assemblies = trustedAssembliesPaths.Append(Path.Combine(exePath, "AbstractionProvider.dll"));
+        /*var exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        var assemblies = trustedAssembliesPaths.Append(Path.Combine(exePath, "AbstractionProvider.dll"));*/
         
-        MetadataReference[] references = assemblies.Where(x => !String.IsNullOrEmpty(x)).Select(x => MetadataReference.CreateFromFile(x)).ToArray();
+        MetadataReference[] references = domainAssemblies.Select(assembly => AssemblyMetadata.Create(GetMetadata(assembly)).GetReference()).ToArray();
 
         var compilation = CSharpCompilation.Create($"{moduleName}.dll",
             trees,
@@ -32,5 +34,15 @@ public class CodeCompiler
         };
         return compilationResult;
     }
-    
+
+    private ModuleMetadata GetMetadata(Assembly assembly)
+    {
+        unsafe
+        {
+            return assembly.TryGetRawMetadata(out var blob, out var len)
+                ? ModuleMetadata.CreateFromMetadata((IntPtr)blob, len)
+                : throw new InvalidOperationException($"Could not get metadata from {assembly.FullName}");
+        }
+    }
+
 }
