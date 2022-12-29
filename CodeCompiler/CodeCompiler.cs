@@ -15,14 +15,45 @@ public class CodeCompiler
 
         var domainAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 
-        /*var exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-        var assemblies = trustedAssembliesPaths.Append(Path.Combine(exePath, "AbstractionProvider.dll"));*/
-        
-        MetadataReference[] references = domainAssemblies.Select(assembly => AssemblyMetadata.Create(GetMetadata(assembly)).GetReference()).ToArray();
+        var exePath = Assembly.GetExecutingAssembly().Location;
 
+        var builtInGaAssemblies = Array.Empty<Assembly>();
+
+        try
+        {
+            var abstractionAssembly = Assembly.LoadFrom(Path.Combine(exePath, "AbstractionProvider.dll"));
+            var nearestNeighborAssembly = Assembly.LoadFrom(Path.Combine(exePath, "NearestNeighbor.dll"));
+
+            builtInGaAssemblies = new[]
+            {
+                abstractionAssembly,
+                nearestNeighborAssembly
+            };
+        }
+        catch
+        {
+            Console.WriteLine("Could not find dlls for built in GA assemblies");
+        }
+
+        domainAssemblies = domainAssemblies.Concat(builtInGaAssemblies).ToArray();
+
+        var modulesMetadata = new List<MetadataReference>();
+
+        foreach (var assembly in domainAssemblies)
+        {
+            try
+            {
+                modulesMetadata.Add(AssemblyMetadata.Create(GetMetadata(assembly)).GetReference());
+            }
+            catch
+            {
+                Console.WriteLine($"Failed to load metadata for {assembly.FullName}");
+            }
+        }
+        
         var compilation = CSharpCompilation.Create($"{moduleName}.dll",
             trees,
-            references,
+            modulesMetadata,
             new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 
         var result = compilation.Emit(Path.Combine("Modules", $"{moduleName}.dll"));

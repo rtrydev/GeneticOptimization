@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
 	    <DebugType>None</DebugType>
 	    <DebugSymbols>false</DebugSymbols>
-	    <VersionPrefix>1.1.0</VersionPrefix>
+	    <VersionPrefix>1.1.1</VersionPrefix>
     </PropertyGroup>
     <ItemGroup>
         <AvaloniaResource Include="Assets\**" />
@@ -30,6 +30,9 @@
       <ProjectReference Include="..\CodeCompiler\CodeCompiler.csproj" />
       <ProjectReference Include="..\GeneticOptimization\GeneticOptimization.csproj" />
       <ProjectReference Include="..\AbstractionProvider\AbstractionProvider.csproj">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </ProjectReference>
+      <ProjectReference Include="..\NearestNeighbor\NearestNeighbor.csproj">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       </ProjectReference>
     </ItemGroup>

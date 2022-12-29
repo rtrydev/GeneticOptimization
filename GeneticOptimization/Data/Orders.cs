@@ -18,7 +18,6 @@ public class Orders
         {
             Thread.Sleep(10);
         }       
-        if(_orderPoints != null) return;
         _loadingOrders = true;
 
         var data = File.ReadAllLines(path);
